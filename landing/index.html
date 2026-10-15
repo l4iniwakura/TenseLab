@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TenseLab — практика английских времён для A2–B1. Проговори фразу, проверь себя и повтори сложное. Без регистрации, с прогрессом на устройстве."
+    />
+    <meta name="theme-color" content="#f4f7fc" />
+    <title>TenseLab — от правила к речи</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Перейти к содержимому</a>
+    <header class="header wrap">
+      <a class="brand" href="./" aria-label="TenseLab, главная"
+        ><span class="brand-symbol" aria-hidden="true">T</span>TenseLab</a
+      >
+      <nav aria-label="Навигация">
+        <a href="#practice">Метод</a><a href="#inside">Тренажёр</a
+        ><a href="#questions">Вопросы</a>
+      </nav>
+      <a class="text-action" href="../app/#drill"
+        >Открыть TenseLab <span aria-hidden="true">↗</span></a
+      >
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-stage">
+          <h1 id="hero-title"><span>Знаешь.</span><span>Говори.</span></h1>
+          <div
+            class="demo"
+            data-ui
+            aria-label="Попробовать упражнение TenseLab"
+          >
+            <div class="demo-top">
+              <span>Твоя первая фраза</span><span lang="en">Simple</span>
+            </div>
+            <div class="demo-tabs" role="group" aria-label="Время предложения">
+              <button
+                type="button"
+                data-tense="present"
+                aria-pressed="true"
+                disabled
+              >
+                Present
+              </button>
+              <button
+                type="button"
+                data-tense="past"
+                aria-pressed="false"
+                disabled
+              >
+                Past
+              </button>
+              <button
+                type="button"
+                data-tense="future"
+                aria-pressed="false"
+                disabled
+              >
+                Future
+              </button>
+            </div>
+            <p id="demo-prompt" class="demo-prompt">
+              Она работает каждый день.
+            </p>
+            <p class="demo-instruction">
+              Произнеси по-английски. Затем проверь себя.
+            </p>
+            <details id="demo-answer">
+              <summary>Показать ответ</summary>
+              <p id="demo-english" lang="en">She works every day.</p>
+            </details>
+            <div class="demo-bottom">
+              <span id="demo-form">Утверждение</span
+              ><button id="next-form" type="button" disabled>
+                Другая форма <span aria-hidden="true">↻</span>
+              </button>
+            </div>
+            <noscript
+              ><p>
+                Это пример задания. Полный тренажёр работает с JavaScript.
+              </p></noscript
+            >
+          </div>
+        </div>
+        <div class="hero-bottom">
+          <p class="hero-description">
+            Английские времена для тех, кто знает правила, но подбирает слова
+            слишком долго.
+          </p>
+          <div class="hero-start">
+            <a class="button" href="../app/#drill"
+              >Начать практику <span aria-hidden="true">↗</span></a
+            >
+            <p>Без регистрации. В своём темпе.</p>
+          </div>
+        </div>
+        <div class="facts" aria-label="Возможности тренажёра">
+          <p><strong>12</strong> английских времён</p>
+          <p><strong>+ − ?</strong> три формы фразы</p>
+          <p><strong>A2–B1</strong> если правила уже знакомы</p>
+        </div>
+      </section>
+
+      <section class="method" id="practice" aria-labelledby="method-title">
+        <div class="wrap">
+          <div class="section-intro">
+            <h2 id="method-title">У правила<br />появляется голос</h2>
+            <p>
+              Одна фраза проходит через разные времена и формы. Меняй
+              конструкцию, сохраняя мысль.
+            </p>
+          </div>
+          <div class="staircase">
+            <article>
+              <h3>Сначала произнеси</h3>
+              <p>
+                Посмотри на задание и составь предложение вслух. В быстром
+                дрилле ничего не нужно печатать.
+              </p>
+              <p class="phrase" lang="en">She works every day.</p>
+            </article>
+            <article>
+              <h3>Затем сравни</h3>
+              <p>
+                Открой ответ. Проверь порядок слов, вспомогательный глагол и
+                окончание.
+              </p>
+              <p class="phrase" lang="en">Does she work every day?</p>
+            </article>
+            <article>
+              <h3>И поменяй время</h3>
+              <p>
+                Пройди девять форм одной группы или смешай все времена. Выбирай
+                ручной режим или автотемп.
+              </p>
+              <p class="phrase" lang="en">Did she work yesterday?</p>
+            </article>
+            <article>
+              <h3>Вернись к сложному</h3>
+              <p>
+                В переводе оцени свой ответ сам. Неудачные попытки можно
+                повторить отдельно.
+              </p>
+              <p class="phrase" lang="en">She will work tomorrow.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="showcase wrap" id="inside" aria-labelledby="inside-title">
+        <div class="section-intro">
+          <h2 id="inside-title">Вся практика<br />в одном месте</h2>
+          <p>
+            Сначала опора на таблицу. Потом перевод без готовой фразы.
+            Результаты остаются в твоём браузере.
+          </p>
+        </div>
+        <div class="screens">
+          <figure class="screen-main">
+            <div class="image-field">
+              <img
+                src="./assets/drill.webp"
+                alt="Быстрый дрилл TenseLab: базовая фраза, ответ и девять форм текущего круга"
+                width="1180"
+                height="807"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <strong>Быстрый дрилл</strong
+              ><span>Проговаривай формы по порядку или случайно.</span>
+            </figcaption>
+          </figure>
+          <figure class="screen-secondary">
+            <div class="image-field dark-field">
+              <img
+                src="./assets/translation.webp"
+                alt="Задание на перевод с русского на английский в тёмной теме TenseLab"
+                width="1180"
+                height="709"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <strong>Перевод</strong
+              ><span>Выбирай времена и возвращайся к ошибкам.</span>
+            </figcaption>
+          </figure>
+          <figure class="screen-reference">
+            <div class="image-field">
+              <img
+                src="./assets/reference.webp"
+                alt="Справочник TenseLab с картой всех двенадцати английских времён"
+                width="1180"
+                height="1355"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <strong>Карта времён</strong
+              ><span>Сравнивай конструкции на одной таблице.</span>
+            </figcaption>
+          </figure>
+          <figure class="screen-progress">
+            <div class="image-field mint-field">
+              <img
+                src="./assets/progress.webp"
+                alt="Экран локального прогресса TenseLab с результатами практики"
+                width="1180"
+                height="852"
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              <strong>Твой прогресс</strong
+              ><span>Смотри результаты на этом устройстве.</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="image-note">
+          Реальные экраны TenseLab. Светлая и тёмная темы доступны в приложении.
+        </p>
+      </section>
+
+      <section class="faq wrap" id="questions" aria-labelledby="faq-title">
+        <h2 id="faq-title">До первой фразы</h2>
+        <div class="questions">
+          <details>
+            <summary>Мне подойдёт TenseLab?</summary>
+            <p>
+              Если ты знаком с основами английской грамматики и хочешь
+              практиковать построение фраз. Начальная аудитория — A2–B1.
+              Объяснения в интерфейсе на русском языке.
+            </p>
+          </details>
+          <details>
+            <summary>Сколько времени нужно?</summary>
+            <p>
+              Начни с одного круга из девяти форм. Для более длинного занятия
+              можно совместить быстрый дрилл, перевод и повторение ошибок. Темп
+              выбираешь сам.
+            </p>
+          </details>
+          <details>
+            <summary>Кто проверяет ответ?</summary>
+            <p>
+              Ты сам сравниваешь свою фразу с ответом тренажёра и отмечаешь
+              результат. Автоматической проверки речи и оценки произношения
+              сейчас нет.
+            </p>
+          </details>
+          <details>
+            <summary>Нужно создавать аккаунт?</summary>
+            <p>
+              Нет. Можно сразу открыть упражнение. Результаты хранятся локально
+              в браузере; между устройствами они не синхронизируются. Очистка
+              данных сайта удалит сохранённый прогресс.
+            </p>
+          </details>
+          <details>
+            <summary>Можно заниматься без интернета?</summary>
+            <p>
+              Да, после первой успешной загрузки приложения и готовности
+              офлайн-кэша. Дождись надписи «Доступно без интернета». Для озвучки
+              без сети нужен установленный голос, который поддерживает
+              офлайн-работу.
+            </p>
+          </details>
+          <details>
+            <summary>Таблица научит свободно говорить?</summary>
+            <p>
+              Тренажёр даёт практику конкретных конструкций. Дополняй её
+              аудированием, живыми диалогами и фразами в контексте. Самооценка в
+              упражнениях не является оценкой общего уровня английского.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <footer class="closing" aria-labelledby="closing-title">
+        <div class="wrap">
+          <div class="closing-top">
+            <div>
+              <h2 id="closing-title">Теперь — вслух.</h2>
+              <p>Начни с одной фразы. Следующая уже в тренажёре.</p>
+              <a class="button" href="../app/#drill"
+                >Начать практику <span aria-hidden="true">↗</span></a
+              >
+            </div>
+            <div class="closing-links">
+              <a href="../app/#translation">Перевод</a
+              ><a href="../app/#reference">Справочник</a
+              ><a href="../app/#progress">Прогресс</a
+              ><a href="../old/">Исходная версия</a>
+            </div>
+          </div>
+          <div class="footer-note">
+            <p>От знания правил к практике речи.</p>
+            <a href="#main">Вернуться наверх ↑</a>
+          </div>
+          <div class="footer-wordmark" aria-hidden="true">TenseLab</div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

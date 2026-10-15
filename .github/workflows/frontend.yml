@@ -1,0 +1,113 @@
+name: Frontend checks and Pages
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # Both branches publish the same site; never deploy them concurrently.
+  group: ${{ github.event_name == 'pull_request' && format('frontend-pr-{0}', github.event.pull_request.number) || 'tenselab-pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=desktop --project=mobile
+
+  build-pages:
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    needs: check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - branch: main
+            channel: app
+          - branch: develop
+            channel: demo
+    env:
+      VITE_APP_CHANNEL: ${{ matrix.channel }}
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=desktop --project=mobile
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pages-${{ matrix.channel }}
+          path: frontend/dist
+          if-no-files-found: error
+
+  package-pages:
+    needs: build-pages
+    runs-on: ubuntu-latest
+    steps:
+      # Root landing page and packaging script always come from main.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: pages-app
+          path: builds/app
+      - uses: actions/download-artifact@v4
+        with:
+          name: pages-demo
+          path: builds/demo
+      - run: node scripts/package-pages.mjs builds/app builds/demo
+      - run: node --test scripts/pages.test.mjs
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/pages
+
+  deploy:
+    needs: package-pages
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/deploy-pages@v4
+        id: deployment

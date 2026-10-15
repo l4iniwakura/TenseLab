@@ -1,0 +1,244 @@
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 24px;
+  align-items: start;
+}
+.controls {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.fourControls {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.stage {
+  background: var(--drill);
+  padding: 38px 24px;
+  border-radius: 14px;
+  text-align: center;
+}
+.coordinates {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.coordinates span + span::before {
+  content: '·';
+  margin-right: 8px;
+}
+.source {
+  font-size: 1.875rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 24px 0 0;
+}
+.source::first-letter {
+  text-transform: uppercase;
+}
+.answerSlot {
+  min-height: 110px;
+  display: grid;
+  align-content: center;
+}
+.answer {
+  font-size: 1.625rem;
+  font-weight: 650;
+  line-height: 1.4;
+  color: var(--mint);
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+.prompt {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.actionRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+.autoRow {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  min-height: 44px;
+}
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+.roundHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.roundHeading h2 {
+  font-size: 1.125rem;
+  margin: 0;
+}
+.roundHeading > span {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 20px 0;
+}
+.cell {
+  min-height: 76px;
+  padding: 8px 4px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  background: var(--panel);
+  color: var(--muted);
+}
+.cell > span {
+  display: block;
+  font-size: 1.125rem;
+  margin-bottom: 5px;
+}
+.cell.current {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+.cell.visited {
+  color: var(--mint);
+  border-color: var(--mint);
+}
+.fullWidth {
+  width: 100%;
+}
+.help {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  margin: 18px 0 0;
+}
+.taskMeta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.translationStage {
+  padding: 30px;
+  background: var(--drill);
+  border-radius: 14px;
+}
+.russian {
+  font-size: 1.875rem;
+  line-height: 1.4;
+  font-weight: 650;
+  max-width: 36ch;
+  margin: 30px 0;
+}
+.translationStage input {
+  font-size: 1.125rem;
+}
+.reveal {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 8px;
+}
+.reveal > p:not(.answer) {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.comparison {
+  overflow-wrap: anywhere;
+}
+.sessionFoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+@media (max-width: 1000px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr) 290px;
+    gap: 16px;
+  }
+  .controls {
+    gap: 10px;
+  }
+  .fourControls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 780px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  .round .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cell {
+    min-height: 64px;
+  }
+}
+@media (max-width: 540px) {
+  .controls {
+    grid-template-columns: 1fr 1fr;
+  }
+  .controls > :first-child {
+    grid-column: 1 / -1;
+  }
+  .fourControls > :first-child {
+    grid-column: auto;
+  }
+  .stage {
+    padding: 24px 14px;
+  }
+  .source {
+    font-size: 1.5rem;
+  }
+  .answer {
+    font-size: 1.375rem;
+  }
+  .translationStage {
+    padding: 20px 16px;
+  }
+  .russian {
+    font-size: 1.5rem;
+  }
+  .actionRow > button {
+    flex-grow: 1;
+  }
+  .autoRow > button {
+    width: 100%;
+  }
+}

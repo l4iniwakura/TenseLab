@@ -1,0 +1,24 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.field select {
+  width: 100%;
+}
+.progress {
+  height: 6px;
+  background: var(--line);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress span {
+  height: 100%;
+  display: block;
+  background: var(--accent);
+  transition: width 180ms ease-out;
+}
