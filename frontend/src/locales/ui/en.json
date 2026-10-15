@@ -12,8 +12,6 @@
   "shell.light": "Light theme",
   "shell.dark": "Dark theme",
   "shell.navigation": "TenseLab sections",
-  "shell.today": "Today",
-  "shell.daily": "Today's progress",
   "shell.update": "A new version is available.",
   "shell.reload": "Update app",
   "shell.storage": "The browser could not save your progress. Results are available in this session but may disappear after reloading.",

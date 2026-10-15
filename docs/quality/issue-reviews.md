@@ -21,3 +21,9 @@ Validation: lint, TypeScript/build and 21 unit tests pass, including resource ke
 Removed the shell-only summary, its catalog import, both desktop/mobile styles and the unused key in all UI locales. Reviewed the remaining daily row: the goal and progress bar remain intact for this commit, and no empty summary container or replacement metric remains. Exercise catalog and available tense selection are untouched. No unresolved findings.
 
 Validation: formatting, lint and production build pass; existing drill/theme/table browser smoke passes on desktop and mobile. Generator code is unchanged.
+
+## #9 — Remove daily progress from the shared shell
+
+Removed the complete daily shell row and its remaining responsive styles, imports and locale keys. Updated the design context to reflect the requested shell. Reviewed persistence and lifecycle: daily refresh remains active, and no progress store or storage behavior changed. The progress page goal and drill-round indicator remain in their own sections. No replacement widget or blank row remains. No unresolved findings.
+
+Validation: formatting, lint and build pass. Four desktop/mobile browser scenarios for drill navigation/theme and persisted translation progress/filtering/reset pass. Review confirms the shared row is absent for every section because it no longer exists in the shell component.

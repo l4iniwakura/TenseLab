@@ -7,7 +7,7 @@ import { Drill } from '../features/Drill';
 import { Translation } from '../features/Translation';
 import { Reference } from '../features/Reference';
 import { Progress } from '../features/Progress';
-import { Icon, ProgressBar } from '../components/Controls';
+import { Icon } from '../components/Controls';
 import type { Section } from '../domain/types';
 import { uiLocales, type UiLocale } from '../stores/I18nStore';
 import { Field } from '../components/Controls';
@@ -148,18 +148,6 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
           </a>
         ))}
       </nav>
-      <div className={styles.daily}>
-        <span>
-          <strong>{t('shell.today')}</strong>{' '}
-          {t('count.goal', { count: root.progress.todayCount })}
-        </span>
-        <div>
-          <ProgressBar
-            value={root.progress.percentage}
-            label={t('shell.daily')}
-          />
-        </div>
-      </div>
       {updateReady && (
         <div className="note" role="status">
           {t('shell.update')}{' '}

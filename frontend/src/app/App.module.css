@@ -63,23 +63,6 @@
   color: var(--accent);
   border-bottom-color: var(--accent);
 }
-.daily {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 0.75rem;
-  color: var(--muted);
-  padding: 22px 0;
-  font-variant-numeric: tabular-nums;
-}
-.daily strong {
-  font-weight: 600;
-  color: var(--text);
-  margin-right: 8px;
-}
-.daily > div {
-  width: 140px;
-}
 .main {
   padding-top: 20px;
   outline: none;
@@ -161,15 +144,6 @@
   .navigation a[aria-current] {
     background: var(--panel2);
     border-color: var(--accent);
-  }
-  .daily {
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 22px 0 12px;
-  }
-  .daily > div {
-    flex: 1;
-    min-width: 70px;
   }
   .main {
     padding-top: 14px;

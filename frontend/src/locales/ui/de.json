@@ -12,8 +12,6 @@
   "shell.light": "Helles Farbschema",
   "shell.dark": "Dunkles Farbschema",
   "shell.navigation": "TenseLab-Bereiche",
-  "shell.today": "Heute",
-  "shell.daily": "Heutiger Fortschritt",
   "shell.update": "Eine neue Version ist verfügbar.",
   "shell.reload": "App aktualisieren",
   "shell.storage": "Der Browser konnte deinen Fortschritt nicht speichern. Die Ergebnisse sind in dieser Sitzung verfügbar, können nach dem Neuladen aber verloren gehen.",
