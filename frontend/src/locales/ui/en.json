@@ -135,7 +135,6 @@
     "one": "{count} combination",
     "other": "{count} combinations"
   },
-  "shell.bank": "{count} combinations · 12 tenses",
   "count.goal": "{count} / 20 sentences",
   "count.fraction": "{count} / {total}",
   "drill.cell": "{tense}, {form}"

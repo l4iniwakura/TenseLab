@@ -15,3 +15,9 @@ Implemented typed semantic UI keys, ru/en/de resources, interpolation, Intl plur
 Review findings fixed before commit: shared MobX components now participate in Fast Refresh lint checks; fallback plurals follow the fallback resource's language; native select fields stack on mobile to show long German labels; hidden skip link remains accessible without appearing in full-page captures. Reviewed all four screens, dynamic store messages, accessibility labels, storage keys and content language attributes. No unresolved findings.
 
 Validation: lint, TypeScript/build and 21 unit tests pass, including resource keys/parameters/plural categories, fallback, browser detection, denied storage, state preservation and exhaustive generator parity. 18 browser tests pass on desktop and emulated iPhone/Chrome; 2 PR-only tests are intentionally skipped in app mode. Browser coverage includes all sections, ru/en/de switching, persisted theme/locale/progress, retained answer/retry/custom set, denied storage and all three locales after offline reload. German desktop/mobile screenshots inspected. Formatting passes. No new dependencies.
+
+## #8 — Remove the global combination summary
+
+Removed the shell-only summary, its catalog import, both desktop/mobile styles and the unused key in all UI locales. Reviewed the remaining daily row: the goal and progress bar remain intact for this commit, and no empty summary container or replacement metric remains. Exercise catalog and available tense selection are untouched. No unresolved findings.
+
+Validation: formatting, lint and production build pass; existing drill/theme/table browser smoke passes on desktop and mobile. Generator code is unchanged.

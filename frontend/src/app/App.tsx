@@ -8,7 +8,6 @@ import { Translation } from '../features/Translation';
 import { Reference } from '../features/Reference';
 import { Progress } from '../features/Progress';
 import { Icon, ProgressBar } from '../components/Controls';
-import { verbs } from '../domain/catalog';
 import type { Section } from '../domain/types';
 import { uiLocales, type UiLocale } from '../stores/I18nStore';
 import { Field } from '../components/Controls';
@@ -160,9 +159,6 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
             label={t('shell.daily')}
           />
         </div>
-        <span className={styles.bank}>
-          {t('shell.bank', { count: 12 * 3 * 6 * verbs.length })}
-        </span>
       </div>
       {updateReady && (
         <div className="note" role="status">

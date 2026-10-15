@@ -141,7 +141,6 @@
     "many": "{count} комбинаций",
     "other": "{count} комбинации"
   },
-  "shell.bank": "{count} комбинаций · 12 времён",
   "count.goal": "{count} / 20 предложений",
   "count.fraction": "{count} / {total}",
   "drill.cell": "{tense}, {form}"

@@ -135,7 +135,6 @@
     "one": "{count} Kombination",
     "other": "{count} Kombinationen"
   },
-  "shell.bank": "{count} Kombinationen · 12 Zeitformen",
   "count.goal": "{count} / 20 Sätze",
   "count.fraction": "{count} / {total}",
   "drill.cell": "{tense}, {form}"
