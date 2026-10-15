@@ -133,5 +133,11 @@
   },
   "count.goal": "{count} / 20 Sätze",
   "count.fraction": "{count} / {total}",
-  "drill.cell": "{tense}, {form}"
+  "drill.cell": "{tense}, {form}",
+  "usage.open": "Beispiele",
+  "usage.trigger": "Beispiele: {tense}",
+  "usage.title": "{tense} — Beispiele",
+  "usage.close": "Beispiele schließen",
+  "usage.situations": "Anwendungssituationen",
+  "usage.compare": "Bedeutungen vergleichen"
 }

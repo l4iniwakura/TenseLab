@@ -139,5 +139,11 @@
   },
   "count.goal": "{count} / 20 предложений",
   "count.fraction": "{count} / {total}",
-  "drill.cell": "{tense}, {form}"
+  "drill.cell": "{tense}, {form}",
+  "usage.open": "Примеры",
+  "usage.trigger": "Примеры: {tense}",
+  "usage.title": "{tense} — примеры",
+  "usage.close": "Закрыть примеры",
+  "usage.situations": "Ситуации применения",
+  "usage.compare": "Сравнить смысл"
 }

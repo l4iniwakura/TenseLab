@@ -81,24 +81,24 @@
   padding: 0;
   height: 1px;
 }
-.overview td button {
+.overview td .tenseSelect {
   padding: 14px 12px;
   min-height: 132px;
-  height: 100%;
+  flex: 1;
   text-align: left;
   width: 100%;
   border: 0;
   background: transparent;
   color: var(--text);
 }
-.overview td button:hover {
+.overview td .tenseSelect:hover {
   background: var(--drill);
 }
-.overview td button[aria-pressed='true'] {
+.overview td .tenseSelect[aria-pressed='true'] {
   background: var(--drill);
   box-shadow: inset 0 0 0 2px var(--accent);
 }
-.overview td button:focus-visible {
+.overview td .tenseSelect:focus-visible {
   outline-offset: -3px;
 }
 .caption {
@@ -133,4 +133,94 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+.mapCell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.usageTrigger {
+  flex-shrink: 0;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: var(--accent);
+  background: var(--panel);
+  text-align: left;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.usageTrigger:hover,
+.usageTrigger[aria-expanded='true'] {
+  background: var(--panel2);
+}
+.usage {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 24px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  scroll-margin-top: 20px;
+}
+.usage .heading h3 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+.usageList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 70ch;
+}
+.usageList li {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.context {
+  max-width: 70ch;
+  margin: 20px 0;
+}
+.english {
+  font-weight: 650;
+  font-size: 1rem;
+  margin: 0 0 6px;
+}
+.translation {
+  color: var(--muted);
+  margin: 0 0 8px;
+  font-size: 0.9375rem;
+}
+.explanation {
+  max-width: 70ch;
+  color: var(--muted);
+  margin: 8px 0 0;
+  font-size: 0.9375rem;
+}
+.contrast {
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+.contrast summary {
+  cursor: pointer;
+  padding: 12px 0;
+  min-height: 44px;
+  font-weight: 600;
+}
+.contrast .english:not(:first-child) {
+  margin-top: 16px;
+}
+
+.usage .heading {
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+.usage .heading > button {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
 }

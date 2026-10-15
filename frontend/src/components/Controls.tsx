@@ -85,7 +85,8 @@ export function Icon({
     | 'sun'
     | 'moon'
     | 'sound'
-    | 'arrow';
+    | 'arrow'
+    | 'close';
 }) {
   const paths = {
     drill: 'm13 2-9 12h7l-1 8 10-12h-7l1-8Z',
@@ -97,6 +98,7 @@ export function Icon({
     sun: 'M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1 1M18 18l1 1M5 19l1-1M18 6l1-1M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z',
     moon: 'M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10Z',
     sound: 'M11 5 6 9H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14',
+    close: 'm6 6 12 12M18 6 6 18',
     arrow: 'M5 12h14m-6-6 6 6-6 6',
   };
   return (

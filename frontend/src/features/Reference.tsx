@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { groups, times } from '../domain/catalog';
 import { overviewExamples } from '../domain/overview';
@@ -14,6 +14,7 @@ import { useStores } from '../stores/context';
 import { GroupSelect } from '../components/Controls';
 import { Formula, FormulaKey } from '../components/Formula';
 import { referenceContent } from '../locales/content/reference';
+import { UsageExamples } from './UsageExamples';
 import styles from './Reference.module.css';
 
 export const Reference = observer(function Reference() {
@@ -23,6 +24,12 @@ export const Reference = observer(function Reference() {
   const { learning, groupDescriptions, tenseDescriptions, tableTranslations } =
     referenceContent(referenceLocale);
   const drill = root.drill;
+  const [exampleTense, setExampleTense] = useState<TenseId | null>(null);
+  const exampleTrigger = useRef<HTMLButtonElement | null>(null);
+  const closeExamples = () => {
+    setExampleTense(null);
+    exampleTrigger.current?.focus();
+  };
   const [form, setForm] = useState<Form>('pos');
   const [group, setGroup] = useState<GroupId>('simple');
   return (
@@ -126,20 +133,39 @@ export const Reference = observer(function Reference() {
                     const tense = times.find((t) => t.id === id)!;
                     return (
                       <td key={id}>
-                        <button
-                          onClick={() => drill.toggleTense(id)}
-                          aria-label={tense.label}
-                          aria-pressed={drill.selectedTenses.includes(id)}
-                          aria-describedby="drill-selection-help"
-                        >
-                          <Formula tense={id} form={form} />
-                          <strong lang="en">
-                            {overviewExamples[id][forms.indexOf(form)]}
-                          </strong>
-                          <small lang={referenceLocale}>
-                            {tenseDescriptions[id]}
-                          </small>
-                        </button>
+                        <div className={styles.mapCell}>
+                          <button
+                            className={styles.tenseSelect}
+                            onClick={() => drill.toggleTense(id)}
+                            aria-label={tense.label}
+                            aria-pressed={drill.selectedTenses.includes(id)}
+                            aria-describedby="drill-selection-help"
+                          >
+                            <Formula tense={id} form={form} />
+                            <strong lang="en">
+                              {overviewExamples[id][forms.indexOf(form)]}
+                            </strong>
+                            <small lang={referenceLocale}>
+                              {tenseDescriptions[id]}
+                            </small>
+                          </button>
+                          <button
+                            className={styles.usageTrigger}
+                            aria-label={t('usage.trigger', {
+                              tense: tense.label,
+                            })}
+                            aria-expanded={exampleTense === id}
+                            aria-controls={
+                              exampleTense === id ? 'tense-usage' : undefined
+                            }
+                            onClick={(event) => {
+                              exampleTrigger.current = event.currentTarget;
+                              setExampleTense(id);
+                            }}
+                          >
+                            {t('usage.open')}
+                          </button>
+                        </div>
                       </td>
                     );
                   })}
@@ -151,6 +177,13 @@ export const Reference = observer(function Reference() {
         <p className={styles.caption} lang={referenceLocale}>
           {learning.mapCaption}
         </p>
+        {exampleTense && (
+          <UsageExamples
+            key={exampleTense}
+            tense={exampleTense}
+            onClose={closeExamples}
+          />
+        )}
       </div>
       <div className="panel">
         <div className={styles.heading}>
