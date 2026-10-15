@@ -31,6 +31,9 @@ test('published previews reference their own assets and have no offline service 
     const html = readFileSync(resolve(root, entry.name, 'index.html'), 'utf8');
     assert.ok(html.includes(`/TenseLab/${entry.name}/assets/`), entry.name);
     assert.equal(existsSync(resolve(root, entry.name, 'sw.js')), false, entry.name);
+    const revision = JSON.parse(readFileSync(resolve(root, entry.name, 'preview.json'), 'utf8'));
+    assert.equal(revision.number, Number(entry.name.slice(3)), entry.name);
+    assert.match(revision.sha, /^[a-f0-9]{40}$/, entry.name);
     for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
       if (!match[1].startsWith('/TenseLab/')) continue;
       const relative = match[1].slice('/TenseLab/'.length);
