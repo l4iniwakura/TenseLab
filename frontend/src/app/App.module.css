@@ -41,6 +41,8 @@
   border-bottom: 1px solid var(--line);
 }
 .navigation a {
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--muted);
   text-decoration: none;
   padding: 15px 18px;
@@ -100,7 +102,11 @@
 .skip {
   position: fixed;
   left: 16px;
-  top: -80px;
+  top: 12px;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
   z-index: 10;
   background: var(--accent);
   color: var(--on-accent);
@@ -108,7 +114,10 @@
   border-radius: 8px;
 }
 .skip:focus {
-  top: 12px;
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
 }
 @media (max-width: 780px) {
   .wrap {
@@ -174,5 +183,23 @@
   }
   .footer {
     margin-top: 28px;
+  }
+}
+.header {
+  flex-wrap: wrap;
+}
+.language {
+  min-width: 140px;
+  max-width: 100%;
+}
+.contentNotice {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  margin: 16px 0 0;
+}
+@media (max-width: 540px) {
+  .language {
+    flex-basis: 100%;
+    order: 1;
   }
 }

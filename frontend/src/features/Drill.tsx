@@ -1,26 +1,25 @@
 import { observer } from 'mobx-react-lite';
 import { times } from '../domain/catalog';
-import { formNames, formSigns } from '../domain/types';
+import { formSigns } from '../domain/types';
 import { useStores } from '../stores/context';
 import { Field, GroupSelect, Icon, ProgressBar } from '../components/Controls';
 import { Formula, FormulaKey } from '../components/Formula';
+import { learning } from '../locales/content/ru/learning';
 import styles from './Practice.module.css';
 
 export const Drill = observer(function Drill() {
   const root = useStores();
+  const { t } = root.i18n;
   const drill = root.drill;
   const tense = times.find((t) => t.id === drill.current.tense)!;
   return (
     <section aria-labelledby="drill-title">
       <div className="section-heading">
         <div>
-          <h1 id="drill-title">От правила — к автоматизму.</h1>
-          <p>
-            Одна фраза. Форм в раунде: {drill.sequence.length}. Сначала скажи
-            вслух, затем проверь.
-          </p>
+          <h1 id="drill-title">{t('drill.title')}</h1>
+          <p>{t('drill.intro', { count: drill.sequence.length })}</p>
         </div>
-        <span className="tag">Раунд {drill.round}</span>
+        <span className="tag">{t('drill.round', { count: drill.round })}</span>
       </div>
       <div className={styles.workspace}>
         <div className="panel">
@@ -30,25 +29,27 @@ export const Drill = observer(function Drill() {
               onChange={drill.setGroup}
               custom={drill.customTenses !== null}
             />
-            <Field label="Порядок">
+            <Field label={t('drill.order')}>
               <select
                 value={drill.order}
                 onChange={(e) =>
                   drill.setOrder(e.target.value as 'ordered' | 'random')
                 }
               >
-                <option value="ordered">По таблице</option>
-                <option value="random">Случайный</option>
+                <option value="ordered">{t('drill.ordered')}</option>
+                <option value="random">{t('drill.random')}</option>
               </select>
             </Field>
-            <Field label="Автотемп">
+            <Field label={t('drill.tempo')}>
               <select
                 value={drill.speed}
                 onChange={(e) => drill.setSpeed(Number(e.target.value))}
               >
                 {[0, 3, 5, 7, 10].map((n) => (
                   <option key={n} value={n}>
-                    {n === 0 ? 'Вручную / авто 5 сек.' : `${n} секунд`}
+                    {n === 0
+                      ? t('drill.manual')
+                      : t('count.seconds', { count: n })}
                   </option>
                 ))}
               </select>
@@ -56,14 +57,18 @@ export const Drill = observer(function Drill() {
           </div>
           <p className={styles.help}>
             {drill.customTenses
-              ? `Свой набор: ${drill.customTenses.map((id) => times.find((t) => t.id === id)!.label).join(', ')}. `
-              : 'Хочешь тренировать конкретные времена? '}
-            <a href="#reference">Выбрать времена в карте</a>
+              ? t('drill.custom', {
+                  tenses: drill.customTenses
+                    .map((id) => times.find((t) => t.id === id)!.label)
+                    .join(', '),
+                })
+              : t('drill.chooseHint')}{' '}
+            <a href="#reference">{t('drill.choose')}</a>
           </p>
           <div className={styles.stage}>
             <div className={styles.coordinates}>
               <span>{tense.label}</span>
-              <span>{formNames[drill.current.form]}</span>
+              <span>{t(`form.${drill.current.form}`)}</span>
             </div>
             <p className={styles.source} lang="en">
               {drill.source}
@@ -78,7 +83,7 @@ export const Drill = observer(function Drill() {
                 form={drill.current.form}
                 person={drill.person}
               />
-              <p>S — твоё местоимение. Подставь глагол в нужной форме.</p>
+              <p>{t('drill.subject')}</p>
             </div>
             <div
               className={styles.answerSlot}
@@ -90,21 +95,21 @@ export const Drill = observer(function Drill() {
                   {drill.answer}
                 </p>
               ) : (
-                <p className={styles.prompt}>Составь предложение вслух</p>
+                <p className={styles.prompt}>{t('drill.prompt')}</p>
               )}
             </div>
             <button className="button primary" onClick={drill.toggleAnswer}>
-              {drill.visible ? 'Скрыть ответ' : 'Показать ответ'}
-              <kbd>Пробел</kbd>
+              {drill.visible ? t('answer.hide') : t('answer.show')}
+              <kbd>{t('key.space')}</kbd>
             </button>
           </div>
           <div className={styles.actionRow}>
             <button className="button" onClick={() => root.speak(drill.answer)}>
               <Icon name="sound" />
-              Озвучить
+              {t('speech.play')}
             </button>
             <button className="button" onClick={drill.next}>
-              Следующая форма
+              {t('drill.next')}
               <Icon name="arrow" />
             </button>
           </div>
@@ -113,7 +118,7 @@ export const Drill = observer(function Drill() {
               className={`button ${drill.running ? 'selected' : ''}`}
               onClick={drill.play}
             >
-              {drill.running ? 'Пауза' : 'Автоматический дрилл'}
+              {drill.running ? t('drill.pause') : t('drill.auto')}
             </button>
             <label className={styles.checkbox}>
               <input
@@ -121,30 +126,33 @@ export const Drill = observer(function Drill() {
                 checked={drill.autoReveal}
                 onChange={(e) => drill.setAutoReveal(e.target.checked)}
               />
-              Показывать ответ в автотемпе
+              {t('drill.autoReveal')}
             </label>
           </div>
         </div>
         <aside
           className={`panel ${styles.round}`}
-          aria-label="Формы текущего раунда"
+          aria-label={t('drill.forms')}
         >
           <div className={styles.roundHeading}>
-            <h2>Твой круг</h2>
+            <h2>{t('drill.circle')}</h2>
             <span>
-              {drill.index + 1} / {drill.sequence.length}
+              {t('count.fraction', {
+                count: drill.index + 1,
+                total: drill.sequence.length,
+              })}
             </span>
           </div>
-          <ProgressBar
-            value={drill.percentage}
-            label="Пройденные формы раунда"
-          />
+          <ProgressBar value={drill.percentage} label={t('drill.completed')} />
           <div className={styles.grid}>
             {drill.sequence.map((cell, index) => (
               <button
                 key={`${cell.tense}-${cell.form}`}
                 className={`${styles.cell} ${index === drill.index ? styles.current : ''} ${index < drill.index ? styles.visited : ''}`}
-                aria-label={`${times.find((t) => t.id === cell.tense)!.label}, ${formNames[cell.form]}`}
+                aria-label={t('drill.cell', {
+                  tense: times.find((t) => t.id === cell.tense)!.label,
+                  form: t(`form.${cell.form}`),
+                })}
                 aria-current={index === drill.index ? 'step' : undefined}
                 onClick={() => drill.jump(index)}
               >
@@ -159,35 +167,23 @@ export const Drill = observer(function Drill() {
             className={`button ${styles.fullWidth}`}
             onClick={drill.newRound}
           >
-            Новая фраза
+            {t('drill.new')}
           </button>
-          <p className={styles.help}>
-            Пробел — ответ, стрелка вправо — следующая форма. Озвучка
-            запускается только по нажатию.
-          </p>
+          <p className={styles.help}>{t('drill.shortcuts')}</p>
         </aside>
       </div>
       <details className="guide">
-        <summary>Как читать формулы</summary>
+        <summary>{t('formula.guide')}</summary>
         <FormulaKey />
-        <p>
-          После do / does / did глагол всегда в начальной форме V1. Формулы
-          Simple здесь — для обычных глаголов; to be и модальные глаголы
-          работают по отдельным правилам.
-        </p>
+        <p lang={root.i18n.contentLocale}>{learning.simpleRules}</p>
       </details>
       <details className="guide">
-        <summary>Как заниматься за 10–15 минут</summary>
+        <summary>{t('drill.guide')}</summary>
         <ol>
-          <li>Проговори формы выбранных времён по таблице — около 2 минут.</li>
-          <li>
-            Перейди в «Перевод» и потренируйся без подсказок — около 7 минут.
-          </li>
-          <li>Вернись к ошибкам и проверь себя — около 3 минут.</li>
-          <li>
-            Добавь короткий фрагмент живого диалога из своего источника: таблица
-            не заменяет контекст.
-          </li>
+          <li>{t('drill.step1')}</li>
+          <li>{t('drill.step2')}</li>
+          <li>{t('drill.step3')}</li>
+          <li>{t('drill.step4')}</li>
         </ol>
       </details>
     </section>

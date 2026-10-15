@@ -8,6 +8,7 @@ export default defineConfig({
   fullyParallel: false,
   use: {
     baseURL,
+    locale: 'ru-RU',
     trace: 'retain-on-failure',
   },
   projects: [

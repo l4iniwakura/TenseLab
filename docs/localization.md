@@ -1,0 +1,11 @@
+# Frontend localization
+
+UI resources live in `frontend/src/locales/ui/{ru,en,de}.json`. `I18nStore` registers supported locales with their native names. All resources are statically imported into the app bundle and included in the existing service-worker precache; switching languages needs no network request.
+
+Call `i18n.t('stable.semantic.key', { count, ...values })` from observed React components or stores. Strings interpolate named `{parameters}` as plain text. Never concatenate translated sentence fragments or render translations as HTML. Use `i18n.number` and `i18n.date` for display, and `Intl.PluralRules` plural maps (`one`, `few`, `many`, `other` as needed) for quantities. Dates stored for study-day boundaries continue to use `localDay`, not display formatting.
+
+The browser language list is considered in order, including regional variants. The default is Russian (`ru`). An explicit choice overrides browser settings and is stored under `tenselab:${channel}:uiLocale` (app/demo/PR isolated). Denied storage leaves the choice active for the current session. The shell updates the document language immediately. Missing keys fall back to Russian, then to the stable key; development mode warns. Unit tests enforce identical keys and parameter names, nonempty values and all plural categories in every resource.
+
+To add a UI language, add a resource file and register its import/resource entry and native name in `I18nStore`. Run the resource contract tests and check all screens on mobile, including long accessible labels. No changes to exercises, domain IDs or answer validation are needed.
+
+Learning content is a separate Russian-to-English pack in `locales/content/ru/`: lexical catalog, tense explanations, group descriptions and formula reading guide. The `domain/catalog.ts` facade preserves existing engine imports. `contentLocale = ru` and `targetLanguage = en` are independent of `uiLocale`. The shell explains this boundary in the selected UI language. Educational English originals and grammar notation stay in English; Russian prompts, translations and explanations are marked `lang="ru"`. UI switching does not recreate stores, change filters, answers, retry queues, rounds, theme or statistics. Additional learning packs require their own content selection/generator contract; they are not UI translations.

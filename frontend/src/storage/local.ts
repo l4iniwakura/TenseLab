@@ -7,6 +7,7 @@ export interface Progress {
 }
 const channel = import.meta.env.VITE_APP_CHANNEL ?? 'app';
 export const PROGRESS_KEY = `tenselab:${channel}:progress:v1`;
+export const LOCALE_KEY = `tenselab:${channel}:uiLocale`;
 export const THEME_KEY = `tenselab:${channel}:theme`;
 export function emptyProgress(): Progress {
   return { done: 0, right: 0, streak: 0, today: '', todayCount: 0 };

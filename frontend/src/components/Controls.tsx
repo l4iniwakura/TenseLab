@@ -1,4 +1,6 @@
 import { cloneElement, useId, type ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../stores/context';
 import { groups } from '../domain/catalog';
 import type { GroupId } from '../domain/types';
 import styles from './Controls.module.css';
@@ -18,7 +20,7 @@ export function Field({
     </div>
   );
 }
-export function GroupSelect({
+export const GroupSelect = observer(function GroupSelect({
   value,
   onChange,
   custom = false,
@@ -27,28 +29,29 @@ export function GroupSelect({
   onChange: (group: GroupId) => void;
   custom?: boolean;
 }) {
+  const { t } = useStores().i18n;
   return (
-    <Field label="Таблица">
+    <Field label={t('controls.table')}>
       <select
         value={custom ? 'custom' : value}
         onChange={(e) => onChange(e.target.value as GroupId)}
       >
-        {custom && <option value="custom">Свой набор времён</option>}
+        {custom && <option value="custom">{t('controls.custom')}</option>}
         {(Object.keys(groups) as GroupId[]).map((id) => (
           <option key={id} value={id}>
             {id === 'simple'
-              ? 'Simple · дрилл-таблица'
+              ? t('groupOption.simple')
               : id === 'all'
-                ? 'Все 12 времён'
+                ? t('group.all')
                 : id === 'presentPerfect'
-                  ? 'Present Perfect отдельно'
-                  : groups[id].name.replace('Таблица · ', '')}
+                  ? t('groupOption.presentPerfect')
+                  : t(`group.${id}`)}
           </option>
         ))}
       </select>
     </Field>
   );
-}
+});
 export function ProgressBar({
   value,
   label,
