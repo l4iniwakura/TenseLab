@@ -6,8 +6,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig(({ mode }) => {
   const channel =
     loadEnv(mode, process.cwd(), 'VITE_').VITE_APP_CHANNEL ?? 'app';
-  if (channel !== 'app' && channel !== 'demo') {
-    throw new Error('VITE_APP_CHANNEL must be app or demo');
+  if (!/^(app|demo|pr-[1-9]\d*)$/.test(channel)) {
+    throw new Error('VITE_APP_CHANNEL must be app, demo or pr-<number>');
   }
   const base = `/TenseLab/${channel}/`;
   return {
@@ -17,6 +17,8 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         base,
         scope: base,
+        // Preview reloads should show the deployed commit without an old SW.
+        disable: channel.startsWith('pr-'),
         registerType: 'prompt',
         manifest: false,
         workbox: {
