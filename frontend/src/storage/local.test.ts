@@ -30,3 +30,23 @@ it('keeps demo progress and theme separate from app and legacy data', async () =
   expect(demo.readText(demo.THEME_KEY)).toBe('light');
   expect(localStorage.getItem('tenselab-theme')).toBe('dark');
 });
+
+it('isolates each MR preview from other previews and release channels', async () => {
+  const channels = ['app', 'demo', 'pr-3', 'pr-4'];
+  const stores = [];
+  for (const [index, channel] of channels.entries()) {
+    vi.stubEnv('VITE_APP_CHANNEL', channel);
+    vi.resetModules();
+    const storage = await import('./local');
+    expect(storage.readProgress().done).toBe(0);
+    storage.writeText(
+      storage.PROGRESS_KEY,
+      JSON.stringify({ done: index + 1 }),
+    );
+    stores.push(storage);
+  }
+  expect(stores.map((storage) => storage.readProgress().done)).toEqual([
+    1, 2, 3, 4,
+  ]);
+  expect(new Set(stores.map((storage) => storage.THEME_KEY)).size).toBe(4);
+});
