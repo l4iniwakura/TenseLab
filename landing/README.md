@@ -1,6 +1,6 @@
 # Лендинг TenseLab и GitHub Pages
 
-Исходники находятся отдельно в `landing/`. При публикации упаковщик копирует **содержимое** этой папки в корень GitHub Pages. Адрес не содержит `/landing/`.
+Исходники находятся отдельно в `landing/`. При публикации упаковщик копирует **содержимое** этой папки в каталог landing/ на GitHub Pages. Адрес лендинга — `/TenseLab/landing/`. В корне сайта находится выбор версии.
 
 Страница статическая: HTML, CSS, JavaScript и локальные WebP. Ей не нужны npm-сборка, внешние шрифты и серверный API. Кнопка «Начать практику» ведёт в `./app/#drill`.
 
@@ -18,7 +18,7 @@
 
 | Страница | Адрес |
 | --- | --- |
-| Лендинг | `https://USERNAME.github.io/TenseLab/` |
+| Лендинг | `https://USERNAME.github.io/TenseLab/landing/` |
 | Основное приложение из main | `https://USERNAME.github.io/TenseLab/app/` |
 | Приложение из develop | `https://USERNAME.github.io/TenseLab/demo/` |
 | Исходный HTML-тренажёр | `https://USERNAME.github.io/TenseLab/old/` |
@@ -30,16 +30,16 @@ Source должен быть **GitHub Actions**: публикуется подг
 ## Что делает упаковщик
 
 ```text
-landing/index.html   → dist/pages/index.html
-landing/styles.css   → dist/pages/styles.css
-landing/script.js    → dist/pages/script.js
-landing/assets/      → dist/pages/assets/
+landing/index.html   → dist/pages/landing/index.html
+landing/styles.css   → dist/pages/landing/styles.css
+landing/script.js    → dist/pages/landing/script.js
+landing/assets/      → dist/pages/landing/assets/
 сборка main          → dist/pages/app/
 сборка develop       → dist/pages/demo/
 old/                 → dist/pages/old/
 ```
 
-Документы `.md` из `landing/` в публикацию не попадают. Также создаётся `.nojekyll`. Корневой исходный `index.html` репозитория не используется для итоговой главной: источником служит `landing/index.html`.
+Документы `.md` из `landing/` в публикацию не попадают. Также создаётся `.nojekyll`. Корневой `index.html` репозитория используется как страница выбора версии. Источник лендинга — `landing/index.html`.
 
 ## Собственный адрес
 

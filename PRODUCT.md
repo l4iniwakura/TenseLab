@@ -28,4 +28,4 @@ Keep the TenseLab name, Russian interface, familiar light/dark design, violet ac
 
 ## Evidence on Hand
 
-The incumbent HTML is preserved at old/index.html. It and docs/TenseLab_Product_Architecture_v0.1.docx describe the existing functionality and product direction. No learning-effectiveness claims have been validated. GitHub Pages serves the landing at /TenseLab/, main at /app/, develop at /demo/ and the original HTML at /old/.
+The incumbent HTML is preserved at old/index.html. It and docs/TenseLab_Product_Architecture_v0.1.docx describe the existing functionality and product direction. No learning-effectiveness claims have been validated. GitHub Pages serves version selection at /TenseLab/, the landing at /landing/, main at /app/, develop at /demo/ and the original HTML at /old/.

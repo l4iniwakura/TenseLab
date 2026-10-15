@@ -6,7 +6,7 @@ Workflow хранится в `.github/workflows/frontend.yml`. Это YAML-ко�
 
 - `main` → `/TenseLab/app/`.
 - `develop` → `/TenseLab/demo/`.
-- Лендинг из `landing/` в ветке `main` публикуется в корне `/TenseLab/`. Исходники лендинга остаются отдельной директорией; в URL `/landing/` не используется. Каталог `old/` также берётся из `main`, если существует.
+- Лендинг из `landing/` в ветке `main` публикуется в `/TenseLab/landing/`. Корневой `index.html` содержит выбор версии, а `old/` — исходный HTML. Эти файлы также берутся из `main`.
 - Push в любую из двух веток запускает проверки и сборку обеих веток. Обе сборки проходят unit-тесты и Playwright на desktop/mobile, включая offline reload.
 - `scripts/package-pages.mjs` копирует лендинг в `dist/pages/`, а сборки — в `dist/pages/app/` и `dist/pages/demo/`. Только полный пакет загружается через `upload-pages-artifact` и публикуется через `deploy-pages`.
 - Публикации используют общую concurrency-группу; параллельные запуски не перезаписывают сайт одновременно. При ошибке любой сборки существующий сайт остаётся опубликованным.

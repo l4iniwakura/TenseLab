@@ -93,6 +93,7 @@ jobs:
           name: pages-demo
           path: builds/demo
       - run: node scripts/package-pages.mjs builds/app builds/demo
+      - run: node --test scripts/pages.test.mjs
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist/pages

@@ -8,7 +8,8 @@
 
 | Адрес | Назначение | Исходники |
 | --- | --- | --- |
-| `/TenseLab/` | Лендинг и выбор версии | `landing/` |
+| `/TenseLab/` | Выбор версии | `index.html` |
+| `/TenseLab/landing/` | Лендинг | `landing/` |
 | `/TenseLab/app/` | Стабильное React-приложение | `main:frontend/` |
 | `/TenseLab/demo/` | Тестовое React-приложение | `develop:frontend/` |
 | `/TenseLab/old/` | Исходная HTML-версия без изменений | `old/index.html` |
@@ -51,7 +52,7 @@ npm run test:e2e
 
 ## GitHub Pages
 
-Лендинг по taste skill находится в `landing/`; упаковщик публикует его содержимое в корне `/TenseLab/`. Инструкция по настройке Pages и адресов: [landing/README.md](landing/README.md).
+Лендинг по taste skill находится в `landing/` и публикуется в `/TenseLab/landing/`. В корне сайта — страница выбора версии. Инструкция по настройке Pages и адресов: [landing/README.md](landing/README.md).
 
 Workflow находится в `.github/workflows/frontend.yml`: это YAML-конфигурация GitHub Actions. Pull request запускает проверки, push в `main` или `develop` — сборку обеих веток и публикацию общего пакета: `main` в `/TenseLab/app/`, `develop` в `/TenseLab/demo/`. Если проверка любой версии падает, публикация не выполняется.
 
