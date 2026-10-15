@@ -4,12 +4,13 @@ import { formSigns } from '../domain/types';
 import { useStores } from '../stores/context';
 import { Field, GroupSelect, Icon, ProgressBar } from '../components/Controls';
 import { Formula, FormulaKey } from '../components/Formula';
-import { learning } from '../locales/content/ru/learning';
+import { referenceContent } from '../locales/content/reference';
 import styles from './Practice.module.css';
 
 export const Drill = observer(function Drill() {
   const root = useStores();
   const { t } = root.i18n;
+  const { learning } = referenceContent(root.i18n.uiLocale);
   const drill = root.drill;
   const tense = times.find((t) => t.id === drill.current.tense)!;
   return (
@@ -175,7 +176,7 @@ export const Drill = observer(function Drill() {
       <details className="guide">
         <summary>{t('formula.guide')}</summary>
         <FormulaKey />
-        <p lang={root.i18n.contentLocale}>{learning.simpleRules}</p>
+        <p lang={root.i18n.uiLocale}>{learning.simpleRules}</p>
       </details>
       <details className="guide">
         <summary>{t('drill.guide')}</summary>

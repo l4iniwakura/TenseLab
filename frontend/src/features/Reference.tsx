@@ -13,12 +13,15 @@ import {
 import { useStores } from '../stores/context';
 import { GroupSelect } from '../components/Controls';
 import { Formula, FormulaKey } from '../components/Formula';
-import { learning, groupDescriptions } from '../locales/content/ru/learning';
+import { referenceContent } from '../locales/content/reference';
 import styles from './Reference.module.css';
 
 export const Reference = observer(function Reference() {
   const root = useStores();
   const { t } = root.i18n;
+  const referenceLocale = root.i18n.uiLocale;
+  const { learning, groupDescriptions, tenseDescriptions, tableTranslations } =
+    referenceContent(referenceLocale);
   const drill = root.drill;
   const [form, setForm] = useState<Form>('pos');
   const [group, setGroup] = useState<GroupId>('simple');
@@ -133,8 +136,8 @@ export const Reference = observer(function Reference() {
                           <strong lang="en">
                             {overviewExamples[id][forms.indexOf(form)]}
                           </strong>
-                          <small lang={root.i18n.contentLocale}>
-                            {tense.exp}
+                          <small lang={referenceLocale}>
+                            {tenseDescriptions[id]}
                           </small>
                         </button>
                       </td>
@@ -145,7 +148,7 @@ export const Reference = observer(function Reference() {
             </tbody>
           </table>
         </div>
-        <p className={styles.caption} lang={root.i18n.contentLocale}>
+        <p className={styles.caption} lang={referenceLocale}>
           {learning.mapCaption}
         </p>
       </div>
@@ -153,7 +156,7 @@ export const Reference = observer(function Reference() {
         <div className={styles.heading}>
           <div>
             <h2>{t(`group.${group}`)}</h2>
-            <p lang={root.i18n.contentLocale}>{groupDescriptions[group]}</p>
+            <p lang={referenceLocale}>{groupDescriptions[group]}</p>
           </div>
           <GroupSelect value={group} onChange={setGroup} />
         </div>
@@ -184,7 +187,13 @@ export const Reference = observer(function Reference() {
                       <td key={f}>
                         <Formula tense={id} form={f} />
                         <strong lang="en">{item.en}</strong>
-                        <small lang={root.i18n.contentLocale}>{item.ru}</small>
+                        {referenceLocale !== 'en' && (
+                          <small lang={referenceLocale}>
+                            {referenceLocale === 'ru'
+                              ? item.ru
+                              : tableTranslations[id]?.[f]}
+                          </small>
+                        )}
                       </td>
                     );
                   })}
@@ -193,7 +202,7 @@ export const Reference = observer(function Reference() {
             </tbody>
           </table>
         </div>
-        <p className="note" lang={root.i18n.contentLocale}>
+        <p className="note" lang={referenceLocale}>
           {group === 'simple'
             ? learning.simpleNote
             : group === 'presentPerfect'

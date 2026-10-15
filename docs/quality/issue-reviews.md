@@ -33,3 +33,11 @@ Validation: formatting, lint and build pass. Four desktop/mobile browser scenari
 Applied the user's follow-up: every specific tense/aspect option now uses only the English grammar name (Simple, Continuous, Perfect, Perfect Continuous, Present Perfect). All-tenses/custom-set options remain descriptive. The full Simple drill-table title remains in the reference heading. Removed unused locale keys. Reviewed the shared selector so all sections and UI languages get the same labels.
 
 Validation: formatting, lint, build and desktop/mobile drill/table-selection smoke pass. No learning or persistence changes.
+
+## #10 follow-up — Aligned flags and translated reference content
+
+Applied the user's explicit request to replace the visible language label/select with flag buttons. Native language names remain as tooltips and accessible button names; selected language uses aria-pressed, each target is 44px, and the theme control shares the same aligned toolbar. This requested flag UI supersedes the original issue preference for visible native names.
+
+Added separate ru/en/de reference content packs for tense descriptions, formula guidance, table explanations and German example translations. Reference content follows the displayed UI as requested; translation exercises retain their independent Russian-to-English content pack and checking. English tables avoid repeating their English originals as translations. Updated the content-boundary notice.
+
+Review: no exercise generator or saved state changes. Browser assertions confirm matching toolbar centers and no Cyrillic remains in the full English/German reference, including all 12 tenses. Header desktop/mobile screenshots inspected. Validation: lint, build, 21 unit tests and 22 desktop/mobile browser tests pass (2 PR-only skips in app mode). No unresolved findings.

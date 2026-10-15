@@ -1,0 +1,95 @@
+{
+  "tenseDescriptions": {
+    "presentSimple": "Eine Gewohnheit oder Tatsache",
+    "pastSimple": "Ein abgeschlossenes Ereignis in der Vergangenheit",
+    "futureSimple": "Eine zukünftige Handlung",
+    "presentContinuous": "Eine Handlung, die gerade stattfindet",
+    "pastContinuous": "Eine laufende Handlung zu einem vergangenen Zeitpunkt",
+    "futureContinuous": "Eine laufende Handlung zu einem zukünftigen Zeitpunkt",
+    "presentPerfect": "Ein vergangenes Ereignis mit Bezug zu jetzt",
+    "pastPerfect": "Etwas, das vor einem anderen vergangenen Ereignis geschah",
+    "futurePerfect": "Etwas, das bis zu einem zukünftigen Zeitpunkt abgeschlossen ist",
+    "presentPerfectContinuous": "Eine früher begonnene Handlung, die noch andauert",
+    "pastPerfectContinuous": "Wie lange eine Handlung vor einem vergangenen Zeitpunkt schon andauerte",
+    "futurePerfectContinuous": "Wie lange eine Handlung zu einem zukünftigen Zeitpunkt schon angedauert haben wird"
+  },
+  "groupDescriptions": {
+    "all": "Eine Übersicht aller Zeitformen: erst die Struktur verstehen, dann üben.",
+    "simple": "Drei Simple-Zeitformen × drei Satzarten: Aussage, Verneinung und Frage.",
+    "continuous": "Übe Handlungen, die gerade im Verlauf sind.",
+    "perfect": "Ein Ergebnis bis zu einem bestimmten Zeitpunkt.",
+    "perfectContinuous": "Wie lange eine Handlung bis zu einem bestimmten Zeitpunkt andauert.",
+    "presentPerfect": "Drei Formen des Present Perfect für alle Pronomen."
+  },
+  "learning": {
+    "subject": "— Subjekt: I, you, he, she, we, they",
+    "formulas": "Lies von links nach rechts und ergänze die übrigen Wörter. Present Simple: Bei he / she / it steht V-s (-s / -es) oder does; bei den anderen Subjekten V1 oder do. Present Perfect: he / she / it mit has; die anderen mit have. Continuous: I mit am; he / she / it mit is; you / we / they mit are. In der Vergangenheit: I / he / she / it mit was; you / we / they mit were.",
+    "simpleRules": "Nach do / does / did steht das Verb immer in der Grundform V1. Diese Simple-Formeln gelten für gewöhnliche Verben; to be und Modalverben folgen eigenen Regeln.",
+    "mapCaption": "Die Beispiele verwenden work. Einige Formen, besonders Future Perfect Continuous, sind selten: Wähle die Form passend zum Kontext.",
+    "simpleNote": "Die Drilltabelle umfasst die drei Simple-Zeitformen. To be und Modalverben folgen eigenen Regeln.",
+    "perfectNote": "Present Perfect: have/has + V3. Already und yet sind Hinweise, keine zwingenden Merkmale.",
+    "otherNote": "Diese Tabelle erweitert das Muster auf andere Aspekte. Wähle eine Form nach Bedeutung und Kontext."
+  },
+  "tableTranslations": {
+    "presentSimple": {
+      "pos": "Ich schreibe jeden Tag einen Bericht.",
+      "neg": "Ich schreibe nicht jeden Tag einen Bericht.",
+      "q": "Schreibe ich jeden Tag einen Bericht?"
+    },
+    "pastSimple": {
+      "pos": "Ich habe gestern einen Bericht geschrieben.",
+      "neg": "Ich habe gestern keinen Bericht geschrieben.",
+      "q": "Habe ich gestern einen Bericht geschrieben?"
+    },
+    "futureSimple": {
+      "pos": "Ich werde morgen einen Bericht schreiben.",
+      "neg": "Ich werde morgen keinen Bericht schreiben.",
+      "q": "Werde ich morgen einen Bericht schreiben?"
+    },
+    "presentContinuous": {
+      "pos": "Ich schreibe gerade einen Bericht.",
+      "neg": "Ich schreibe gerade keinen Bericht.",
+      "q": "Schreibe ich gerade einen Bericht?"
+    },
+    "pastContinuous": {
+      "pos": "Gestern um diese Zeit schrieb ich gerade einen Bericht.",
+      "neg": "Gestern um diese Zeit schrieb ich gerade keinen Bericht.",
+      "q": "Schrieb ich gestern um diese Zeit gerade einen Bericht?"
+    },
+    "futureContinuous": {
+      "pos": "Morgen um diese Zeit werde ich gerade einen Bericht schreiben.",
+      "neg": "Morgen um diese Zeit werde ich gerade keinen Bericht schreiben.",
+      "q": "Werde ich morgen um diese Zeit gerade einen Bericht schreiben?"
+    },
+    "presentPerfect": {
+      "pos": "Ich habe bereits einen Bericht geschrieben.",
+      "neg": "Ich habe noch keinen Bericht geschrieben.",
+      "q": "Habe ich schon einen Bericht geschrieben?"
+    },
+    "pastPerfect": {
+      "pos": "Bis dahin hatte ich einen Bericht geschrieben.",
+      "neg": "Bis dahin hatte ich keinen Bericht geschrieben.",
+      "q": "Hatte ich bis dahin einen Bericht geschrieben?"
+    },
+    "futurePerfect": {
+      "pos": "Bis morgen Abend werde ich einen Bericht geschrieben haben.",
+      "neg": "Bis morgen Abend werde ich keinen Bericht geschrieben haben.",
+      "q": "Werde ich bis morgen Abend einen Bericht geschrieben haben?"
+    },
+    "presentPerfectContinuous": {
+      "pos": "Ich schreibe seit zwei Stunden an einem Bericht.",
+      "neg": "Ich schreibe nicht seit zwei Stunden an einem Bericht.",
+      "q": "Schreibe ich seit zwei Stunden an einem Bericht?"
+    },
+    "pastPerfectContinuous": {
+      "pos": "Bis dahin hatte ich schon zwei Stunden an einem Bericht geschrieben.",
+      "neg": "Bis dahin hatte ich nicht zwei Stunden an einem Bericht geschrieben.",
+      "q": "Hatte ich bis dahin schon zwei Stunden an einem Bericht geschrieben?"
+    },
+    "futurePerfectContinuous": {
+      "pos": "Bis morgen Abend werde ich zwei Stunden lang an einem Bericht geschrieben haben.",
+      "neg": "Bis morgen Abend werde ich nicht zwei Stunden lang an einem Bericht geschrieben haben.",
+      "q": "Werde ich bis morgen Abend zwei Stunden lang an einem Bericht geschrieben haben?"
+    }
+  }
+}

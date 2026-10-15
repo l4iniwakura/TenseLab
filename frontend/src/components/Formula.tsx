@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useStores } from '../stores/context';
-import { learning } from '../locales/content/ru/learning';
+import { referenceContent } from '../locales/content/reference';
 import { Fragment } from 'react';
 import { formula } from '../domain/formulas';
 import type { Form, PersonId, TenseId } from '../domain/types';
@@ -53,13 +53,10 @@ export const Formula = observer(function Formula({
 });
 
 export const FormulaKey = observer(function FormulaKey() {
-  const { t, contentLocale } = useStores().i18n;
+  const { t, uiLocale } = useStores().i18n;
+  const { learning } = referenceContent(uiLocale);
   return (
-    <div
-      className={styles.key}
-      aria-label={t('formula.guide')}
-      lang={contentLocale}
-    >
+    <div className={styles.key} aria-label={t('formula.guide')} lang={uiLocale}>
       <span>
         <b>S</b> {learning.subject}
       </span>

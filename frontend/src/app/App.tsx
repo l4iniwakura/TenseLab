@@ -9,8 +9,7 @@ import { Reference } from '../features/Reference';
 import { Progress } from '../features/Progress';
 import { Icon } from '../components/Controls';
 import type { Section } from '../domain/types';
-import { uiLocales, type UiLocale } from '../stores/I18nStore';
-import { Field } from '../components/Controls';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import styles from './App.module.css';
 
 const sections: Section[] = ['drill', 'translation', 'reference', 'progress'];
@@ -111,30 +110,19 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
               ? t('shell.ready')
               : t('shell.pace')}
         </span>
-        <div className={styles.language}>
-          <Field label={t('shell.language')}>
-            <select
-              value={root.i18n.uiLocale}
-              onChange={(e) => root.i18n.setLocale(e.target.value as UiLocale)}
-            >
-              {uiLocales.map(({ id, name }) => (
-                <option key={id} value={id} lang={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </Field>
+        <div className={styles.settings}>
+          <LanguageSwitcher />
+          <button
+            className="button"
+            aria-label={t('shell.theme')}
+            onClick={root.toggleTheme}
+          >
+            <Icon name={root.theme === 'dark' ? 'sun' : 'moon'} />
+            <span className={styles.themeText}>
+              {root.theme === 'dark' ? t('shell.light') : t('shell.dark')}
+            </span>
+          </button>
         </div>
-        <button
-          className="button"
-          aria-label={t('shell.theme')}
-          onClick={root.toggleTheme}
-        >
-          <Icon name={root.theme === 'dark' ? 'sun' : 'moon'} />
-          <span>
-            {root.theme === 'dark' ? t('shell.light') : t('shell.dark')}
-          </span>
-        </button>
       </header>
       <nav className={styles.navigation} aria-label={t('shell.navigation')}>
         {sections.map((section) => (
