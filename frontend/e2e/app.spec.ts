@@ -134,11 +134,31 @@ test('speech synthesis is user initiated and scoped to the current activity', as
   expect(utterances[0].text).toContain('every day');
 });
 
+test('preview reloads use the network and never register an offline service worker', async ({
+  page,
+}) => {
+  test.skip(!process.env.VITE_APP_CHANNEL?.startsWith('pr-'));
+  await page.goto('./');
+  await page.reload();
+  await expect(
+    page.getByRole('heading', { name: 'От правила — к автоматизму.' }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      async () => (await navigator.serviceWorker.getRegistrations()).length,
+    ),
+  ).toBe(0);
+});
+
 test('production cache supports offline reload within the React subpath', async ({
   page,
   context,
   baseURL,
 }) => {
+  test.skip(
+    process.env.VITE_APP_CHANNEL?.startsWith('pr-') === true,
+    'MR previews use the network instead of an offline service worker',
+  );
   await page.goto('./');
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
