@@ -12,6 +12,7 @@
 | `/TenseLab/landing/` | Лендинг | `landing/` |
 | `/TenseLab/app/` | Стабильное React-приложение | `main:frontend/` |
 | `/TenseLab/demo/` | Тестовое React-приложение | `develop:frontend/` |
+| `/TenseLab/pr-<номер>/` | Предпросмотр открытого MR | Head-коммит ветки MR |
 | `/TenseLab/old/` | Исходная HTML-версия без изменений | `old/index.html` |
 
 ## Разработка
@@ -54,11 +55,11 @@ npm run test:e2e
 
 Лендинг по taste skill находится в `landing/` и публикуется в `/TenseLab/landing/`. В корне сайта — страница выбора версии. Инструкция по настройке Pages и адресов: [landing/README.md](landing/README.md).
 
-Workflow находится в `.github/workflows/frontend.yml`: это YAML-конфигурация GitHub Actions. Pull request запускает проверки, push в `main` или `develop` — сборку обеих веток и публикацию общего пакета: `main` в `/TenseLab/app/`, `develop` в `/TenseLab/demo/`. Если проверка любой версии падает, публикация не выполняется.
+Workflow находится в `.github/workflows/frontend.yml`. Push в `main` или `develop`, открытие MR и новые коммиты публикуют общий пакет: `main` в `/TenseLab/app/`, `develop` в `/TenseLab/demo/`, открытые MR из этого репозитория в `/TenseLab/pr-<номер>/`. Закрытие MR удаляет его предпросмотр при следующей публикации. Ссылки находятся в summary задачи deploy, SHA сборки — в `pr-<номер>/preview.json`. Ошибка отдельной тестовой ветки не блокирует сборку остальных версий.
 
-В Settings → Pages выбери Source: **GitHub Actions**. В environment `github-pages` разреши публикацию из обеих веток. Workflow и поддержка `VITE_APP_CHANNEL` должны находиться в обеих ветках до первого запуска.
+В Settings → Pages выбери Source: **GitHub Actions**. В environment `github-pages` разреши `main`, `develop` и `refs/pull/*/merge`. Новый workflow должен находиться в обеих ветках до первого запуска: старый workflow из main не сохраняет предпросмотры. Старые ветки MR нужно обновить из develop для поддержки канала `pr-<номер>`.
 
-Service worker каждой версии ограничен её каталогом и использует отдельный cacheId. Подробности настройки, локальной сборки и упаковки — в [docs/deployment.md](docs/deployment.md).
+Service worker app/demo ограничен каталогом версии и использует отдельный cacheId. У предпросмотров отдельный localStorage и отключённый service worker, чтобы обновление страницы показывало актуальную сборку. Подробности — в [docs/deployment.md](docs/deployment.md).
 
 ## Продуктовые документы
 

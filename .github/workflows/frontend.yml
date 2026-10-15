@@ -2,6 +2,7 @@ name: Frontend checks and Pages
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
   push:
     branches: [main, develop]
   workflow_dispatch:
@@ -9,24 +10,29 @@ on:
 permissions:
   contents: read
 
+# Every publication is a complete snapshot, including all currently open PRs.
+# Do not cancel cleanup halfway through a deployment.
 concurrency:
-  # Both branches publish the same site; never deploy them concurrently.
-  group: ${{ github.event_name == 'pull_request' && format('frontend-pr-{0}', github.event.pull_request.number) || 'tenselab-pages' }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: tenselab-pages
+  cancel-in-progress: false
 
 jobs:
   check:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+      - run: node --test ../scripts/preview-plan.test.mjs ../scripts/package-pages.test.mjs
       - run: npm ci
       - run: npm run format:check
       - run: npm run lint
@@ -35,17 +41,40 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test --project=desktop --project=mobile
 
-  build-pages:
-    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+  plan-pages:
     needs: check
+    if: >-
+      always() && !cancelled() &&
+      (needs.check.result == 'success' || github.event.action == 'closed') &&
+      ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) ||
+       (github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      stable: ${{ steps.plan.outputs.stable }}
+      previews: ${{ steps.plan.outputs.previews }}
+      hasPreviews: ${{ steps.plan.outputs.hasPreviews }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.action == 'closed' && github.event.pull_request.base.ref || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - id: plan
+        run: node scripts/preview-plan.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  build-pages:
+    needs: plan-pages
+    if: always() && needs.plan-pages.result == 'success'
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include:
-          - branch: main
-            channel: app
-          - branch: develop
-            channel: demo
+      matrix: ${{ fromJSON(needs.plan-pages.outputs.stable) }}
     env:
       VITE_APP_CHANNEL: ${{ matrix.channel }}
     defaults:
@@ -54,7 +83,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ matrix.branch }}
+          ref: ${{ matrix.ref }}
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -73,14 +103,67 @@ jobs:
           path: frontend/dist
           if-no-files-found: error
 
-  package-pages:
-    needs: build-pages
+  build-previews:
+    needs: plan-pages
+    if: always() && needs.plan-pages.result == 'success' && needs.plan-pages.outputs.hasPreviews == 'true'
     runs-on: ubuntu-latest
+    # A broken feature branch must not prevent app/demo deployment or cleanup.
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan-pages.outputs.previews) }}
+    env:
+      VITE_APP_CHANNEL: ${{ matrix.channel }}
+      PREVIEW_SHA: ${{ matrix.ref }}
+      PREVIEW_NUMBER: ${{ matrix.number }}
+    defaults:
+      run:
+        working-directory: frontend
     steps:
-      # Root landing page and packaging script always come from main.
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ matrix.ref }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=desktop --project=mobile
+      - name: Record deployed revision
+        run: node -e "require('node:fs').writeFileSync('dist/preview.json', JSON.stringify({number:Number(process.env.PREVIEW_NUMBER),sha:process.env.PREVIEW_SHA}))"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ matrix.channel }}
+          path: frontend/dist
+          if-no-files-found: error
+
+  package-pages:
+    needs: [plan-pages, build-pages, build-previews]
+    if: >-
+      always() && !cancelled() && needs.plan-pages.result == 'success' &&
+      needs.build-pages.result == 'success' &&
+      (needs.build-previews.result == 'success' || needs.build-previews.result == 'failure' || needs.build-previews.result == 'skipped')
+    runs-on: ubuntu-latest
+    outputs:
+      previews: ${{ steps.package.outputs.previews }}
+    steps:
+      # Packaging tooling comes from this workflow revision; public content from main.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.action == 'closed' && github.event.pull_request.base.ref || github.sha }}
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ fromJSON(needs.plan-pages.outputs.stable).include[0].ref }}
+          path: site-content
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -92,7 +175,12 @@ jobs:
         with:
           name: pages-demo
           path: builds/demo
-      - run: node scripts/package-pages.mjs builds/app builds/demo
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: preview-pr-*
+          path: builds/previews
+      - id: package
+        run: node scripts/package-pages.mjs builds/app builds/demo builds/previews site-content
       - run: node --test scripts/pages.test.mjs
       - uses: actions/upload-pages-artifact@v4
         with:
@@ -100,6 +188,7 @@ jobs:
 
   deploy:
     needs: package-pages
+    if: always() && needs.package-pages.result == 'success'
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -111,3 +200,9 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/deploy-pages@v4
         id: deployment
+      - name: Preview links
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          PREVIEWS: ${{ needs.package-pages.outputs.previews }}
+        run: |
+          node -e 'const fs = require("node:fs"); const links = JSON.parse(process.env.PREVIEWS).map(n => `- [MR #${n}](${process.env.PAGE_URL}pr-${n}/)`); fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, "## Предпросмотры MR\n\n" + (links.join("\n") || "Открытых MR с успешной сборкой нет.") + "\n");'

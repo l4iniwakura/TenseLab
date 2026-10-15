@@ -1,5 +1,48 @@
 import { test, expect } from '@playwright/test';
 
+test('formulas stay visible before answers and follow tense and form selection', async ({
+  page,
+}) => {
+  await page.goto('./#drill');
+  const stage = page
+    .locator('[aria-live="polite"]')
+    .filter({ has: page.locator('[aria-label^="Формула:"]') });
+  await expect(stage.locator('[aria-label^="Формула:"]')).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Показать ответ' }),
+  ).toBeVisible();
+  await page
+    .getByRole('button', { name: 'Present Simple, Отрицание', exact: true })
+    .click();
+  await expect(stage).toContainText('not');
+  await expect(stage).toContainText('V1');
+  await page
+    .getByRole('button', { name: 'Past Simple, Вопрос', exact: true })
+    .click();
+  await expect(stage.locator('[aria-label^="Формула:"]')).toHaveAttribute(
+    'aria-label',
+    'Формула: did + S + V1 ?',
+  );
+  await page.getByRole('link', { name: 'Карта времён' }).click();
+  const map = page.getByRole('region', { name: 'Карта двенадцати времён' });
+  await expect(map.locator('[aria-label^="Формула:"]')).toHaveCount(12);
+  await page.getByRole('button', { name: '? Вопрос', exact: true }).click();
+  await expect(map.locator('[aria-label^="Формула:"]')).toHaveCount(12);
+  await expect(
+    map.locator('[aria-label="Формула: will + S + have + been + V-ing ?"]'),
+  ).toBeVisible();
+  const matrix = page.getByRole('region', {
+    name: 'Подробная таблица конструкций',
+  });
+  await page.getByLabel('Таблица', { exact: true }).selectOption('all');
+  await expect(matrix.locator('[aria-label^="Формула:"]')).toHaveCount(36);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
 test('drill navigation, keyboard controls, theme and table selection', async ({
   page,
 }) => {
@@ -134,11 +177,31 @@ test('speech synthesis is user initiated and scoped to the current activity', as
   expect(utterances[0].text).toContain('every day');
 });
 
+test('preview reloads use the network and never register an offline service worker', async ({
+  page,
+}) => {
+  test.skip(!process.env.VITE_APP_CHANNEL?.startsWith('pr-'));
+  await page.goto('./');
+  await page.reload();
+  await expect(
+    page.getByRole('heading', { name: 'От правила — к автоматизму.' }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      async () => (await navigator.serviceWorker.getRegistrations()).length,
+    ),
+  ).toBe(0);
+});
+
 test('production cache supports offline reload within the React subpath', async ({
   page,
   context,
   baseURL,
 }) => {
+  test.skip(
+    process.env.VITE_APP_CHANNEL?.startsWith('pr-') === true,
+    'MR previews use the network instead of an offline service worker',
+  );
   await page.goto('./');
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;

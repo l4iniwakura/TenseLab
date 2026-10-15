@@ -12,6 +12,7 @@ import {
 } from '../domain/types';
 import { useStores } from '../stores/context';
 import { GroupSelect } from '../components/Controls';
+import { Formula, FormulaKey } from '../components/Formula';
 import styles from './Reference.module.css';
 
 export function Reference() {
@@ -53,6 +54,7 @@ export function Reference() {
             ))}
           </div>
         </div>
+        <FormulaKey />
         <div
           className={styles.scroll}
           role="region"
@@ -92,11 +94,14 @@ export function Reference() {
                           onClick={() => train(id)}
                           aria-label={`Тренировать ${tense.label}`}
                         >
+                          <Formula tense={id} form={form} />
                           <strong lang="en">
                             {overviewExamples[id][forms.indexOf(form)]}
                           </strong>
                           <small>{tense.exp}</small>
-                          <span>Тренировать ↗</span>
+                          <span className={styles.trainLink}>
+                            Тренировать ↗
+                          </span>
                         </button>
                       </td>
                     );
@@ -144,6 +149,7 @@ export function Reference() {
                     const item = example(id, f);
                     return (
                       <td key={f}>
+                        <Formula tense={id} form={f} />
                         <strong lang="en">{item.en}</strong>
                         <small>{item.ru}</small>
                       </td>

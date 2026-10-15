@@ -3,6 +3,7 @@ import { times } from '../domain/catalog';
 import { formNames, formSigns } from '../domain/types';
 import { useStores } from '../stores/context';
 import { Field, GroupSelect, Icon, ProgressBar } from '../components/Controls';
+import { Formula, FormulaKey } from '../components/Formula';
 import styles from './Practice.module.css';
 
 export const Drill = observer(function Drill() {
@@ -56,6 +57,18 @@ export const Drill = observer(function Drill() {
             <p className={styles.source} lang="en">
               {drill.source}
             </p>
+            <div
+              className={styles.formulaHint}
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <Formula
+                tense={drill.current.tense}
+                form={drill.current.form}
+                person={drill.person}
+              />
+              <p>S — твоё местоимение. Подставь глагол в нужной форме.</p>
+            </div>
             <div
               className={styles.answerSlot}
               aria-live="polite"
@@ -143,6 +156,15 @@ export const Drill = observer(function Drill() {
           </p>
         </aside>
       </div>
+      <details className="guide">
+        <summary>Как читать формулы</summary>
+        <FormulaKey />
+        <p>
+          После do / does / did глагол всегда в начальной форме V1. Формулы
+          Simple здесь — для обычных глаголов; to be и модальные глаголы
+          работают по отдельным правилам.
+        </p>
+      </details>
       <details className="guide">
         <summary>Как заниматься за 10–15 минут</summary>
         <ol>

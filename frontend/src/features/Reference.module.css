@@ -92,7 +92,7 @@
 .overview td button:hover {
   background: var(--drill);
 }
-.overview td button > span {
+.overview td button > .trainLink {
   display: block;
   color: var(--accent);
   font-size: 0.75rem;
