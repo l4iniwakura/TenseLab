@@ -16,7 +16,8 @@ export const Drill = observer(function Drill() {
         <div>
           <h1 id="drill-title">От правила — к автоматизму.</h1>
           <p>
-            Одна фраза. Девять превращений. Сначала скажи вслух, затем проверь.
+            Одна фраза. Форм в раунде: {drill.sequence.length}. Сначала скажи
+            вслух, затем проверь.
           </p>
         </div>
         <span className="tag">Раунд {drill.round}</span>
@@ -24,7 +25,11 @@ export const Drill = observer(function Drill() {
       <div className={styles.workspace}>
         <div className="panel">
           <div className={styles.controls}>
-            <GroupSelect value={drill.group} onChange={drill.setGroup} />
+            <GroupSelect
+              value={drill.group}
+              onChange={drill.setGroup}
+              custom={drill.customTenses !== null}
+            />
             <Field label="Порядок">
               <select
                 value={drill.order}
@@ -49,6 +54,12 @@ export const Drill = observer(function Drill() {
               </select>
             </Field>
           </div>
+          <p className={styles.help}>
+            {drill.customTenses
+              ? `Свой набор: ${drill.customTenses.map((id) => times.find((t) => t.id === id)!.label).join(', ')}. `
+              : 'Хочешь тренировать конкретные времена? '}
+            <a href="#reference">Выбрать времена в карте</a>
+          </p>
           <div className={styles.stage}>
             <div className={styles.coordinates}>
               <span>{tense.label}</span>
@@ -168,7 +179,7 @@ export const Drill = observer(function Drill() {
       <details className="guide">
         <summary>Как заниматься за 10–15 минут</summary>
         <ol>
-          <li>Проговори 9 форм по таблице — около 2 минут.</li>
+          <li>Проговори формы выбранных времён по таблице — около 2 минут.</li>
           <li>
             Перейди в «Перевод» и потренируйся без подсказок — около 7 минут.
           </li>

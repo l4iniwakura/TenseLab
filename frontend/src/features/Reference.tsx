@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { groups, times } from '../domain/catalog';
 import { overviewExamples } from '../domain/overview';
 import { example } from '../domain/sentences';
@@ -15,22 +16,19 @@ import { GroupSelect } from '../components/Controls';
 import { Formula, FormulaKey } from '../components/Formula';
 import styles from './Reference.module.css';
 
-export function Reference() {
+export const Reference = observer(function Reference() {
   const root = useStores();
+  const drill = root.drill;
   const [form, setForm] = useState<Form>('pos');
   const [group, setGroup] = useState<GroupId>('simple');
-  const train = (id: TenseId) => {
-    root.translation.trainTense(id, times.find((t) => t.id === id)!.cat);
-    root.navigate('translation');
-  };
   return (
     <section aria-labelledby="reference-title">
       <div className="section-heading">
         <div>
           <h1 id="reference-title">Вся система перед глазами.</h1>
           <p>
-            Сравни одну мысль в разных конструкциях. Нажми на время, чтобы
-            потренироваться.
+            Сравни одну мысль в разных конструкциях. Нажми на нужные ячейки,
+            чтобы выбрать времена для своего дрилла.
           </p>
         </div>
       </div>
@@ -52,6 +50,44 @@ export function Reference() {
                 {formSigns[f]} {formNames[f]}
               </button>
             ))}
+          </div>
+        </div>
+        <div className={styles.builder}>
+          <div>
+            <h3>Собери свой дрилл</h3>
+            <p id="drill-selection-help">
+              Нажми на ячейку, чтобы выбрать время, ещё раз — чтобы снять выбор.
+              В дрилл войдут все три формы каждого времени.
+            </p>
+            <span role="status">
+              Выбрано времён: {drill.selectedTenses.length} из 12 · форм в
+              раунде: {drill.selectedTenses.length * 3}
+            </span>
+          </div>
+          <div className={styles.builderActions}>
+            <button
+              className="button"
+              onClick={() => drill.selectTenses(times.map((t) => t.id))}
+            >
+              Выбрать все
+            </button>
+            <button
+              className="button"
+              disabled={!drill.selectedTenses.length}
+              onClick={() => drill.selectTenses([])}
+            >
+              Снять выбор
+            </button>
+            <button
+              className="button primary"
+              disabled={!drill.selectedTenses.length}
+              onClick={() => {
+                drill.startCustom();
+                root.navigate('drill');
+              }}
+            >
+              Начать дрилл
+            </button>
           </div>
         </div>
         <FormulaKey />
@@ -91,17 +127,16 @@ export function Reference() {
                     return (
                       <td key={id}>
                         <button
-                          onClick={() => train(id)}
-                          aria-label={`Тренировать ${tense.label}`}
+                          onClick={() => drill.toggleTense(id)}
+                          aria-label={tense.label}
+                          aria-pressed={drill.selectedTenses.includes(id)}
+                          aria-describedby="drill-selection-help"
                         >
                           <Formula tense={id} form={form} />
                           <strong lang="en">
                             {overviewExamples[id][forms.indexOf(form)]}
                           </strong>
                           <small>{tense.exp}</small>
-                          <span className={styles.trainLink}>
-                            Тренировать ↗
-                          </span>
                         </button>
                       </td>
                     );
@@ -179,4 +214,4 @@ export function Reference() {
       </div>
     </section>
   );
-}
+});
