@@ -650,8 +650,8 @@ export const groups: Record<GroupId, Group> = {
     ids: times.map((t) => t.id),
   },
   simple: {
-    name: 'Таблица Петрова · Simple',
-    desc: 'Оригинальный формат 3 × 3: Present / Past / Future и три типа предложений.',
+    name: 'Дрилл-таблица · Simple',
+    desc: 'Три времени Simple × три типа предложения: утверждение, отрицание и вопрос.',
     ids: times.slice(0, 3).map((t) => t.id),
   },
   continuous: {

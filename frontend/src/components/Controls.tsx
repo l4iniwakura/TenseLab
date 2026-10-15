@@ -37,7 +37,7 @@ export function GroupSelect({
         {(Object.keys(groups) as GroupId[]).map((id) => (
           <option key={id} value={id}>
             {id === 'simple'
-              ? 'Simple · таблица Петрова'
+              ? 'Simple · дрилл-таблица'
               : id === 'all'
                 ? 'Все 12 времён'
                 : id === 'presentPerfect'
