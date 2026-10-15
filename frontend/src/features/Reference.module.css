@@ -1,0 +1,105 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.heading h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.heading p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  max-width: 64ch;
+  margin-bottom: 0;
+}
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.switcher button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-height: 44px;
+  font-size: 0.8125rem;
+}
+.switcher button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.scroll table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+.scroll th,
+.scroll td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  font-size: 0.875rem;
+}
+.scroll thead th {
+  background: var(--panel2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.scroll tbody th {
+  color: var(--mint);
+  width: 130px;
+}
+.scroll tr:last-child > * {
+  border-bottom: 0;
+}
+.scroll strong {
+  font-weight: 600;
+  display: block;
+}
+.scroll small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.overview td {
+  padding: 0;
+}
+.overview td button {
+  padding: 18px 16px;
+  min-height: 148px;
+  text-align: left;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+}
+.overview td button:hover {
+  background: var(--drill);
+}
+.overview td button > span {
+  display: block;
+  color: var(--accent);
+  font-size: 0.75rem;
+  margin-top: 16px;
+}
+.caption {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  margin-bottom: 0;
+}
