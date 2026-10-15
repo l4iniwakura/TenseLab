@@ -21,16 +21,19 @@ export function Field({
 export function GroupSelect({
   value,
   onChange,
+  custom = false,
 }: {
   value: GroupId;
   onChange: (group: GroupId) => void;
+  custom?: boolean;
 }) {
   return (
     <Field label="Таблица">
       <select
-        value={value}
+        value={custom ? 'custom' : value}
         onChange={(e) => onChange(e.target.value as GroupId)}
       >
+        {custom && <option value="custom">Свой набор времён</option>}
         {(Object.keys(groups) as GroupId[]).map((id) => (
           <option key={id} value={id}>
             {id === 'simple'

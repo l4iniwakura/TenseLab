@@ -58,6 +58,51 @@ describe('progress persistence', () => {
   });
 });
 describe('drill lifecycle', () => {
+  it('runs only selected tenses through every form across rounds and ordering changes', () => {
+    const store = new DrillStore();
+    store.selectTenses(['pastSimple', 'presentPerfect', 'pastSimple']);
+    store.startCustom();
+    expect(store.sequence).toHaveLength(6);
+    const cells = store.sequence
+      .map((cell) => `${cell.tense}:${cell.form}`)
+      .sort();
+    expect(cells).toEqual([
+      'pastSimple:neg',
+      'pastSimple:pos',
+      'pastSimple:q',
+      'presentPerfect:neg',
+      'presentPerfect:pos',
+      'presentPerfect:q',
+    ]);
+    store.selectTenses([]);
+    store.startCustom();
+    expect(store.sequence).toHaveLength(6);
+    store.setOrder('random');
+    store.jump(5);
+    store.next();
+    expect(store.index).toBe(0);
+    expect(
+      store.sequence.map((cell) => `${cell.tense}:${cell.form}`).sort(),
+    ).toEqual(cells);
+    store.newRound();
+    expect(store.sequence).toHaveLength(6);
+    store.setGroup('simple');
+    expect(store.customTenses).toBeNull();
+    expect(store.sequence).toHaveLength(9);
+  });
+  it('stops the previous timer when starting a custom drill', () => {
+    vi.useFakeTimers();
+    const store = new DrillStore();
+    store.play();
+    store.toggleTense('futurePerfect');
+    store.startCustom();
+    expect(store.running).toBe(false);
+    expect(vi.getTimerCount()).toBe(0);
+    expect(store.sequence).toHaveLength(3);
+    store.toggleTense('futurePerfect');
+    expect(store.selectedTenses).toEqual([]);
+    expect(store.customTenses).toEqual(['futurePerfect']);
+  });
   it('covers every form, respects groups, and randomizes without losing cells', () => {
     const store = new DrillStore();
     expect(store.sequence).toHaveLength(9);

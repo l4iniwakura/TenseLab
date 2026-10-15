@@ -1,5 +1,49 @@
 import { test, expect } from '@playwright/test';
 
+test('builds a custom drill from the tense map and keeps the selection when editing', async ({
+  page,
+}) => {
+  await page.goto('./#reference');
+  const start = page.getByRole('button', { name: 'Начать дрилл', exact: true });
+  await expect(start).toBeDisabled();
+  await page
+    .getByRole('checkbox', { name: 'Present Simple', exact: true })
+    .check();
+  await page
+    .getByRole('checkbox', { name: 'Past Perfect', exact: true })
+    .check();
+  await page.getByRole('button', { name: '? Вопрос', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText(
+    'Выбрано времён: 2 из 12 · форм в раунде: 6',
+  );
+  await start.click();
+  await expect(page).toHaveURL(/#drill$/);
+  await expect(page.getByLabel('Таблица', { exact: true })).toHaveValue(
+    'custom',
+  );
+  const round = page.getByRole('complementary');
+  await expect(round.getByRole('button')).toHaveCount(7);
+  await expect(round).not.toContainText('Future');
+  await page.getByLabel('Порядок').selectOption('random');
+  await page.getByRole('button', { name: 'Новая фраза', exact: true }).click();
+  await expect(round.getByRole('button')).toHaveCount(7);
+  await page.getByRole('link', { name: 'Выбрать времена в карте' }).click();
+  await expect(
+    page.getByRole('checkbox', { name: 'Past Perfect', exact: true }),
+  ).toBeChecked();
+  await page.getByRole('button', { name: 'Выбрать все', exact: true }).click();
+  await expect(page.getByRole('checkbox', { checked: true })).toHaveCount(12);
+  await page.getByRole('button', { name: 'Снять выбор', exact: true }).click();
+  await expect(start).toBeDisabled();
+  await page
+    .getByRole('checkbox', { name: 'Future Continuous', exact: true })
+    .check();
+  await start.click();
+  await expect(round.getByRole('button')).toHaveCount(4);
+  await page.getByLabel('Таблица', { exact: true }).selectOption('simple');
+  await expect(round.getByRole('button')).toHaveCount(10);
+});
+
 test('formulas stay visible before answers and follow tense and form selection', async ({
   page,
 }) => {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { groups, times } from '../domain/catalog';
 import { overviewExamples } from '../domain/overview';
 import { example } from '../domain/sentences';
@@ -15,8 +16,9 @@ import { GroupSelect } from '../components/Controls';
 import { Formula, FormulaKey } from '../components/Formula';
 import styles from './Reference.module.css';
 
-export function Reference() {
+export const Reference = observer(function Reference() {
   const root = useStores();
+  const drill = root.drill;
   const [form, setForm] = useState<Form>('pos');
   const [group, setGroup] = useState<GroupId>('simple');
   const train = (id: TenseId) => {
@@ -29,8 +31,8 @@ export function Reference() {
         <div>
           <h1 id="reference-title">Вся система перед глазами.</h1>
           <p>
-            Сравни одну мысль в разных конструкциях. Нажми на время, чтобы
-            потренироваться.
+            Сравни одну мысль в разных конструкциях. Отметь времена для своего
+            дрилла или открой перевод отдельного времени.
           </p>
         </div>
       </div>
@@ -52,6 +54,44 @@ export function Reference() {
                 {formSigns[f]} {formNames[f]}
               </button>
             ))}
+          </div>
+        </div>
+        <div className={styles.builder}>
+          <div>
+            <h3>Собери свой дрилл</h3>
+            <p id="drill-selection-help">
+              Отметь времена в карте. В дрилл войдут все три формы каждого
+              времени.
+            </p>
+            <span role="status">
+              Выбрано времён: {drill.selectedTenses.length} из 12 · форм в
+              раунде: {drill.selectedTenses.length * 3}
+            </span>
+          </div>
+          <div className={styles.builderActions}>
+            <button
+              className="button"
+              onClick={() => drill.selectTenses(times.map((t) => t.id))}
+            >
+              Выбрать все
+            </button>
+            <button
+              className="button"
+              disabled={!drill.selectedTenses.length}
+              onClick={() => drill.selectTenses([])}
+            >
+              Снять выбор
+            </button>
+            <button
+              className="button primary"
+              disabled={!drill.selectedTenses.length}
+              onClick={() => {
+                drill.startCustom();
+                root.navigate('drill');
+              }}
+            >
+              Начать дрилл
+            </button>
           </div>
         </div>
         <FormulaKey />
@@ -89,7 +129,23 @@ export function Reference() {
                     const id: TenseId = `${time}${aspect}`;
                     const tense = times.find((t) => t.id === id)!;
                     return (
-                      <td key={id}>
+                      <td
+                        key={id}
+                        className={
+                          drill.selectedTenses.includes(id)
+                            ? styles.selectedTense
+                            : ''
+                        }
+                      >
+                        <label className={styles.tenseChoice}>
+                          <input
+                            type="checkbox"
+                            checked={drill.selectedTenses.includes(id)}
+                            onChange={() => drill.toggleTense(id)}
+                            aria-describedby="drill-selection-help"
+                          />
+                          {tense.label}
+                        </label>
                         <button
                           onClick={() => train(id)}
                           aria-label={`Тренировать ${tense.label}`}
@@ -99,9 +155,7 @@ export function Reference() {
                             {overviewExamples[id][forms.indexOf(form)]}
                           </strong>
                           <small>{tense.exp}</small>
-                          <span className={styles.trainLink}>
-                            Тренировать ↗
-                          </span>
+                          <span className={styles.trainLink}>Перевод ↗</span>
                         </button>
                       </td>
                     );
@@ -179,4 +233,4 @@ export function Reference() {
       </div>
     </section>
   );
-}
+});
