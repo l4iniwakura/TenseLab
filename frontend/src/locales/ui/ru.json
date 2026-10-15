@@ -30,8 +30,6 @@
   "group.perfect": "Таблица · Perfect",
   "group.perfectContinuous": "Таблица · Perfect Continuous",
   "group.presentPerfect": "Present Perfect · отдельная таблица",
-  "groupOption.simple": "Simple · дрилл-таблица",
-  "groupOption.presentPerfect": "Present Perfect отдельно",
   "drill.title": "От правила — к автоматизму.",
   "drill.intro": "Одна фраза. Форм в раунде: {count}. Сначала скажи вслух, затем проверь.",
   "drill.round": "Раунд {count}",

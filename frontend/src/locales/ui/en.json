@@ -30,8 +30,6 @@
   "group.perfect": "Table · Perfect",
   "group.perfectContinuous": "Table · Perfect Continuous",
   "group.presentPerfect": "Present Perfect · separate table",
-  "groupOption.simple": "Simple · drill table",
-  "groupOption.presentPerfect": "Present Perfect separately",
   "drill.title": "From rules to fluent practice.",
   "drill.intro": "One phrase. Forms in this round: {count}. Say it aloud, then check.",
   "drill.round": "Round {count}",

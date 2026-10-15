@@ -30,8 +30,6 @@
   "group.perfect": "Tabelle · Perfect",
   "group.perfectContinuous": "Tabelle · Perfect Continuous",
   "group.presentPerfect": "Present Perfect · eigene Tabelle",
-  "groupOption.simple": "Simple · Drilltabelle",
-  "groupOption.presentPerfect": "Present Perfect einzeln",
   "drill.title": "Von der Regel zur Routine.",
   "drill.intro": "Ein Satz. Formen in dieser Runde: {count}. Erst laut sprechen, dann prüfen.",
   "drill.round": "Runde {count}",

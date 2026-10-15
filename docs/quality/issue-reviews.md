@@ -27,3 +27,9 @@ Validation: formatting, lint and production build pass; existing drill/theme/tab
 Removed the complete daily shell row and its remaining responsive styles, imports and locale keys. Updated the design context to reflect the requested shell. Reviewed persistence and lifecycle: daily refresh remains active, and no progress store or storage behavior changed. The progress page goal and drill-round indicator remain in their own sections. No replacement widget or blank row remains. No unresolved findings.
 
 Validation: formatting, lint and build pass. Four desktop/mobile browser scenarios for drill navigation/theme and persisted translation progress/filtering/reset pass. Review confirms the shared row is absent for every section because it no longer exists in the shell component.
+
+## #7 follow-up — Consistent selector labels
+
+Applied the user's follow-up: every specific tense/aspect option now uses only the English grammar name (Simple, Continuous, Perfect, Perfect Continuous, Present Perfect). All-tenses/custom-set options remain descriptive. The full Simple drill-table title remains in the reference heading. Removed unused locale keys. Reviewed the shared selector so all sections and UI languages get the same labels.
+
+Validation: formatting, lint, build and desktop/mobile drill/table-selection smoke pass. No learning or persistence changes.

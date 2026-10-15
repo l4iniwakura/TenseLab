@@ -20,6 +20,14 @@ export function Field({
     </div>
   );
 }
+const groupLabels: Record<Exclude<GroupId, 'all'>, string> = {
+  simple: 'Simple',
+  continuous: 'Continuous',
+  perfect: 'Perfect',
+  perfectContinuous: 'Perfect Continuous',
+  presentPerfect: 'Present Perfect',
+};
+
 export const GroupSelect = observer(function GroupSelect({
   value,
   onChange,
@@ -39,13 +47,7 @@ export const GroupSelect = observer(function GroupSelect({
         {custom && <option value="custom">{t('controls.custom')}</option>}
         {(Object.keys(groups) as GroupId[]).map((id) => (
           <option key={id} value={id}>
-            {id === 'simple'
-              ? t('groupOption.simple')
-              : id === 'all'
-                ? t('group.all')
-                : id === 'presentPerfect'
-                  ? t('groupOption.presentPerfect')
-                  : t(`group.${id}`)}
+            {id === 'all' ? t('group.all') : groupLabels[id]}
           </option>
         ))}
       </select>
