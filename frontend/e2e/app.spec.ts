@@ -6,12 +6,20 @@ test('builds a custom drill from the tense map and keeps the selection when edit
   await page.goto('./#reference');
   const start = page.getByRole('button', { name: 'Начать дрилл', exact: true });
   await expect(start).toBeDisabled();
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  const present = page.getByRole('button', {
+    name: 'Present Simple',
+    exact: true,
+  });
+  await present.click();
+  await expect(present).toHaveAttribute('aria-pressed', 'true');
+  await present.press('Space');
+  await expect(present).toHaveAttribute('aria-pressed', 'false');
+  await expect(page).toHaveURL(/#reference$/);
   await page
-    .getByRole('checkbox', { name: 'Present Simple', exact: true })
-    .check();
-  await page
-    .getByRole('checkbox', { name: 'Past Perfect', exact: true })
-    .check();
+    .getByRole('button', { name: 'Present Simple', exact: true })
+    .click();
+  await page.getByRole('button', { name: 'Past Perfect', exact: true }).click();
   await page.getByRole('button', { name: '? Вопрос', exact: true }).click();
   await expect(page.getByRole('status')).toContainText(
     'Выбрано времён: 2 из 12 · форм в раунде: 6',
@@ -29,15 +37,19 @@ test('builds a custom drill from the tense map and keeps the selection when edit
   await expect(round.getByRole('button')).toHaveCount(7);
   await page.getByRole('link', { name: 'Выбрать времена в карте' }).click();
   await expect(
-    page.getByRole('checkbox', { name: 'Past Perfect', exact: true }),
-  ).toBeChecked();
+    page.getByRole('button', { name: 'Past Perfect', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'Выбрать все', exact: true }).click();
-  await expect(page.getByRole('checkbox', { checked: true })).toHaveCount(12);
+  await expect(
+    page
+      .getByRole('region', { name: 'Карта двенадцати времён' })
+      .getByRole('button', { pressed: true }),
+  ).toHaveCount(12);
   await page.getByRole('button', { name: 'Снять выбор', exact: true }).click();
   await expect(start).toBeDisabled();
   await page
-    .getByRole('checkbox', { name: 'Future Continuous', exact: true })
-    .check();
+    .getByRole('button', { name: 'Future Continuous', exact: true })
+    .click();
   await start.click();
   await expect(round.getByRole('button')).toHaveCount(4);
   await page.getByLabel('Таблица', { exact: true }).selectOption('simple');
@@ -164,14 +176,10 @@ test('saved progress, translation filters, reference links and reset', async ({
   ).toBeVisible();
   await page.getByRole('link', { name: 'Карта времён' }).click();
   await page
-    .getByRole('button', { name: 'Тренировать Future Continuous', exact: true })
+    .getByRole('button', { name: 'Future Continuous', exact: true })
     .click();
-  await expect(page.getByLabel('Время', { exact: true })).toHaveValue(
-    'futureContinuous',
-  );
-  await expect(page.getByLabel('Таблица', { exact: true })).toHaveValue(
-    'continuous',
-  );
+  await expect(page).toHaveURL(/#reference$/);
+  await page.getByRole('button', { name: 'Начать дрилл', exact: true }).click();
   await page.goBack();
   await expect(
     page.getByRole('heading', { name: 'Вся система перед глазами.' }),

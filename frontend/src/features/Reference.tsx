@@ -21,18 +21,14 @@ export const Reference = observer(function Reference() {
   const drill = root.drill;
   const [form, setForm] = useState<Form>('pos');
   const [group, setGroup] = useState<GroupId>('simple');
-  const train = (id: TenseId) => {
-    root.translation.trainTense(id, times.find((t) => t.id === id)!.cat);
-    root.navigate('translation');
-  };
   return (
     <section aria-labelledby="reference-title">
       <div className="section-heading">
         <div>
           <h1 id="reference-title">Вся система перед глазами.</h1>
           <p>
-            Сравни одну мысль в разных конструкциях. Отметь времена для своего
-            дрилла или открой перевод отдельного времени.
+            Сравни одну мысль в разных конструкциях. Нажми на нужные ячейки,
+            чтобы выбрать времена для своего дрилла.
           </p>
         </div>
       </div>
@@ -60,8 +56,8 @@ export const Reference = observer(function Reference() {
           <div>
             <h3>Собери свой дрилл</h3>
             <p id="drill-selection-help">
-              Отметь времена в карте. В дрилл войдут все три формы каждого
-              времени.
+              Нажми на ячейку, чтобы выбрать время, ещё раз — чтобы снять выбор.
+              В дрилл войдут все три формы каждого времени.
             </p>
             <span role="status">
               Выбрано времён: {drill.selectedTenses.length} из 12 · форм в
@@ -129,33 +125,18 @@ export const Reference = observer(function Reference() {
                     const id: TenseId = `${time}${aspect}`;
                     const tense = times.find((t) => t.id === id)!;
                     return (
-                      <td
-                        key={id}
-                        className={
-                          drill.selectedTenses.includes(id)
-                            ? styles.selectedTense
-                            : ''
-                        }
-                      >
-                        <label className={styles.tenseChoice}>
-                          <input
-                            type="checkbox"
-                            checked={drill.selectedTenses.includes(id)}
-                            onChange={() => drill.toggleTense(id)}
-                            aria-describedby="drill-selection-help"
-                          />
-                          {tense.label}
-                        </label>
+                      <td key={id}>
                         <button
-                          onClick={() => train(id)}
-                          aria-label={`Тренировать ${tense.label}`}
+                          onClick={() => drill.toggleTense(id)}
+                          aria-label={tense.label}
+                          aria-pressed={drill.selectedTenses.includes(id)}
+                          aria-describedby="drill-selection-help"
                         >
                           <Formula tense={id} form={form} />
                           <strong lang="en">
                             {overviewExamples[id][forms.indexOf(form)]}
                           </strong>
                           <small>{tense.exp}</small>
-                          <span className={styles.trainLink}>Перевод ↗</span>
                         </button>
                       </td>
                     );
