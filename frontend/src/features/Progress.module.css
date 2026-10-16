@@ -74,8 +74,9 @@
 .dayControls {
   gap: 8px;
 }
-.dayControls .field {
-  max-width: 180px;
+input.dayInput {
+  width: 150px;
+  flex: 0 0 150px;
 }
 .range {
   margin: 24px 0 10px;
@@ -130,10 +131,18 @@
 }
 .legend {
   justify-content: end;
-  gap: 6px;
+  gap: 8px 16px;
   margin-top: 18px;
 }
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
 .swatch {
+  display: inline-block;
+  flex: 0 0 14px;
   width: 14px;
   height: 14px;
 }
@@ -155,36 +164,6 @@
 .weekday {
   text-align: center;
   padding: 8px 0;
-}
-.confirmation {
-  border-top: 1px solid var(--line);
-  padding: 16px 0;
-  margin-top: 20px;
-  max-width: 72ch;
-}
-.fileInput {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.8125rem;
-  color: var(--muted);
-  max-width: 100%;
-}
-.fileInput input {
-  width: 100%;
-  max-width: 280px;
-  padding: 8px;
-}
-.reset {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.reset summary {
-  min-height: 44px;
-  cursor: pointer;
-  color: var(--muted);
-  padding: 10px 0;
 }
 .actions {
   margin-top: 16px;
@@ -217,9 +196,11 @@
   .dayControls {
     width: 100%;
   }
-  .dayControls .field {
-    max-width: none;
+  input.dayInput {
     flex: 1;
     min-width: 145px;
+  }
+  .legend {
+    gap: 8px 12px;
   }
 }

@@ -136,7 +136,7 @@ test('drill navigation, keyboard controls, theme and table selection', async ({
   ).toBe(true);
 });
 
-test('saved progress, translation filters, reference links and reset', async ({
+test('saved progress, translation filters and reference links', async ({
   page,
 }) => {
   await page.addInitScript(
@@ -185,16 +185,7 @@ test('saved progress, translation filters, reference links and reset', async ({
     page.getByRole('heading', { name: 'Вся система перед глазами.' }),
   ).toBeVisible();
   await page.getByRole('link', { name: 'Мой прогресс' }).click();
-  await page.getByRole('button', { name: 'Сбросить статистику' }).click();
-  await page.getByRole('button', { name: 'Отмена', exact: true }).click();
   await expect(page.getByText('67 %', { exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Сбросить статистику' }).click();
-  await page.getByRole('button', { name: 'Да, сбросить', exact: true }).click();
-  await expect(
-    page
-      .getByRole('region', { name: 'За всё время' })
-      .getByText('0 %', { exact: true }),
-  ).toBeVisible();
 });
 
 test('speech synthesis is user initiated and scoped to the current activity', async ({

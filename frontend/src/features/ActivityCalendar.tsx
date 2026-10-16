@@ -158,17 +158,16 @@ export const ActivityCalendar = observer(function ActivityCalendar() {
         </div>
       </div>
       <div className={styles.legend}>
-        <span>{t('progress.less')}</span>
         {[0, 1, 2, 3, 4].map((item) => (
-          <span
-            key={item}
-            className={styles.swatch}
-            data-level={item}
-            title={['0', '1–2', '3–5', '6–9', '10+'][item]}
-          />
+          <span className={styles.legendItem} key={item}>
+            <span
+              className={styles.swatch}
+              data-level={item}
+              aria-hidden="true"
+            />
+            <span>{['0', '1–2', '3–5', '6–9', '10+'][item]}</span>
+          </span>
         ))}
-        <span>{t('progress.more')}</span>
-        <span>0 · 1–2 · 3–5 · 6–9 · 10+</span>
       </div>
       <p className={styles.calendarDetail} aria-live="polite">
         {description(focused)}

@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite';
 import { useStores } from '../stores/context';
 import { ProgressBar } from '../components/Controls';
 import { ActivityCalendar } from './ActivityCalendar';
-import { ProgressBackup } from './ProgressBackup';
 import { shiftDay } from '../storage/progress';
 import styles from './Progress.module.css';
 
@@ -71,15 +70,14 @@ export const Progress = observer(function Progress() {
             >
               {t('progress.previousDay')}
             </button>
-            <label className={styles.field}>
-              {t('progress.chooseDay')}
-              <input
-                type="date"
-                value={day}
-                max={progress.day}
-                onChange={(event) => progress.selectDay(event.target.value)}
-              />
-            </label>
+            <input
+              className={styles.dayInput}
+              type="date"
+              aria-label={t('progress.chooseDay')}
+              value={day}
+              max={progress.day}
+              onChange={(event) => progress.selectDay(event.target.value)}
+            />
             <button
               className="button"
               disabled={day >= progress.day}
@@ -172,12 +170,6 @@ export const Progress = observer(function Progress() {
           </button>
         </div>
       </div>
-      <div className="panel">
-        <h2>{t('progress.meaning')}</h2>
-        <p className={styles.support}>{t('progress.explain')}</p>
-        <p className={styles.support}>{t('progress.timezone')}</p>
-      </div>
-      <ProgressBackup />
     </section>
   );
 });
