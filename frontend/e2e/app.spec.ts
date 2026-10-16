@@ -190,7 +190,11 @@ test('saved progress, translation filters, reference links and reset', async ({
   await expect(page.getByText('67 %', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Сбросить статистику' }).click();
   await page.getByRole('button', { name: 'Да, сбросить', exact: true }).click();
-  await expect(page.getByText('0 %', { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole('region', { name: 'За всё время' })
+      .getByText('0 %', { exact: true }),
+  ).toBeVisible();
 });
 
 test('speech synthesis is user initiated and scoped to the current activity', async ({

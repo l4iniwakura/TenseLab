@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { groups, people, verbs } from '../domain/catalog';
 import { eng } from '../domain/sentences';
+import type { ProgressStore } from './ProgressStore';
 import {
   forms,
   type Form,
@@ -27,9 +28,14 @@ export class DrillStore {
   visible = false;
   running = false;
   round = 0;
+  completedCells = new Set<number>();
   timer: ReturnType<typeof setTimeout> | null = null;
-  constructor() {
-    makeAutoObservable(this, { timer: false }, { autoBind: true });
+  constructor(readonly progress?: ProgressStore) {
+    makeAutoObservable(
+      this,
+      { timer: false, progress: false },
+      { autoBind: true },
+    );
     this.newRound();
   }
   get current() {
@@ -61,6 +67,7 @@ export class DrillStore {
       }
     }
     this.sequence = sequence;
+    this.completedCells.clear();
     this.index = 0;
     this.visible = false;
   }
@@ -80,7 +87,11 @@ export class DrillStore {
     this.verbIndex = next % verbs.length;
   }
   advance() {
+    // Advancing completes the current card. Jumping alone never completes one.
+    this.completedCells.add(this.index);
     if (this.index === this.sequence.length - 1) {
+      if (this.completedCells.size === this.sequence.length)
+        this.progress?.recordDrill();
       this.choosePhrase();
       this.round++;
       this.makeSequence();

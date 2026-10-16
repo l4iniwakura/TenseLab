@@ -58,6 +58,60 @@ describe('progress persistence', () => {
   });
 });
 describe('drill lifecycle', () => {
+  it('counts complete rounds once, including custom random sets and repeated cards', () => {
+    const progress = new ProgressStore();
+    const store = new DrillStore(progress);
+    store.selectTenses(['pastSimple', 'presentPerfect']);
+    store.startCustom();
+    store.setOrder('random');
+    store.next();
+    store.jump(0);
+    store.next();
+    for (let i = 1; i < 6; i++) store.next();
+    expect(progress.stats.drills).toBe(1);
+    expect(new ProgressStore().stats.drills).toBe(1);
+    expect(store.index).toBe(0);
+    for (let i = 0; i < 6; i++) store.next();
+    expect(progress.stats.drills).toBe(2);
+    expect(progress.stats.done).toBe(0);
+  });
+  it('does not count skipped cards, restarted rounds or changed groups and ordering', () => {
+    const progress = new ProgressStore();
+    const store = new DrillStore(progress);
+    store.jump(store.sequence.length - 1);
+    store.next();
+    expect(progress.stats.drills).toBe(0);
+    store.next();
+    store.newRound();
+    store.jump(store.sequence.length - 1);
+    store.next();
+    store.next();
+    store.setOrder('random');
+    store.jump(store.sequence.length - 1);
+    store.next();
+    store.next();
+    store.setGroup('presentPerfect');
+    store.jump(2);
+    store.next();
+    expect(progress.stats.drills).toBe(0);
+  });
+  it.each([false, true])(
+    'counts automatic rounds with autoReveal=%s and keeps pauses partial',
+    (autoReveal) => {
+      vi.useFakeTimers();
+      const progress = new ProgressStore();
+      const store = new DrillStore(progress);
+      store.setGroup('presentPerfect');
+      store.setSpeed(1);
+      store.setAutoReveal(autoReveal);
+      store.play();
+      vi.advanceTimersByTime(autoReveal ? 3400 : 3000);
+      expect(progress.stats.drills).toBe(1);
+      store.stop();
+      vi.advanceTimersByTime(10000);
+      expect(progress.stats.drills).toBe(1);
+    },
+  );
   it('runs only selected tenses through every form across rounds and ordering changes', () => {
     const store = new DrillStore();
     store.selectTenses(['pastSimple', 'presentPerfect', 'pastSimple']);

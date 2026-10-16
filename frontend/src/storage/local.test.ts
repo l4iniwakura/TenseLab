@@ -50,3 +50,37 @@ it('isolates each MR preview from other previews and release channels', async ()
   ]);
   expect(new Set(stores.map((storage) => storage.THEME_KEY)).size).toBe(4);
 });
+
+it('migrates only its own channel and isolates v2 history and backup keys', async () => {
+  const channels = ['app', 'demo', 'pr-3', 'pr-4'];
+  const stores = [];
+  for (const [index, channel] of channels.entries()) {
+    vi.stubEnv('VITE_APP_CHANNEL', channel);
+    vi.resetModules();
+    const storage = await import('./progress');
+    const old = await import('./local');
+    localStorage.setItem(
+      old.PROGRESS_KEY,
+      JSON.stringify({
+        done: index + 1,
+        right: 0,
+        streak: 0,
+        today: '',
+        todayCount: 0,
+      }),
+    );
+    const loaded = storage.loadProgress();
+    expect(loaded.problem).toBeNull();
+    expect(loaded.data.totals.done).toBe(index + 1);
+    expect(
+      Object.keys(localStorage).some((key) =>
+        key.startsWith(`${old.PROGRESS_KEY}:backup:`),
+      ),
+    ).toBe(true);
+    stores.push(storage);
+  }
+  expect(
+    stores.map((storage) => storage.loadProgress().data.totals.done),
+  ).toEqual([1, 2, 3, 4]);
+  expect(new Set(stores.map((storage) => storage.HISTORY_KEY)).size).toBe(4);
+});

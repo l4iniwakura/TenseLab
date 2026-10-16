@@ -17,7 +17,7 @@ export function sectionFromHash(hash: string): Section {
 export class RootStore {
   i18n = new I18nStore();
   progress = new ProgressStore();
-  drill = new DrillStore();
+  drill = new DrillStore(this.progress);
   translation = new TranslationStore(this.progress);
   theme: 'light' | 'dark' = readText(THEME_KEY) === 'dark' ? 'dark' : 'light';
   section: Section = sectionFromHash(window.location.hash);
