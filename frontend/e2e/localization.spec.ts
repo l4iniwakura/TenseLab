@@ -86,7 +86,10 @@ test('switches languages immediately in all sections without resetting exercises
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByRole('link', { name: 'My progress', exact: true }).click();
   await expect(
-    page.getByText('Total completed', { exact: true }).locator('..'),
+    page
+      .getByRole('region', { name: 'All time' })
+      .getByText('Self-assessed translations', { exact: true })
+      .locator('..'),
   ).toContainText('1');
   expect(
     await page.evaluate(
