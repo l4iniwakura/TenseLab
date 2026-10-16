@@ -1,0 +1,447 @@
+{
+  "presentSimple": {
+    "situations": {
+      "routine": {
+        "title": "A regular routine",
+        "context": "You are telling a friend about your usual day.",
+        "examples": {
+          "breakfast": {
+            "translation": "I eat porridge every morning.",
+            "explanation": "This is a habit, not what is on your spoon right now."
+          },
+          "walk": {
+            "translation": "We walk to school together.",
+            "explanation": "This is your usual way to get to school; you could be at home now."
+          }
+        }
+      },
+      "facts": {
+        "title": "How familiar things work",
+        "context": "A child asks about animals and the shop's closing time.",
+        "examples": {
+          "shop": {
+            "translation": "The shop closes at six.",
+            "explanation": "You are giving the shop's usual scheduled closing time."
+          },
+          "sleep": {
+            "translation": "Cats sleep a lot.",
+            "explanation": "This is a general observation about cats, not what one cat is doing right now."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I play football on Sundays.",
+      "second": "I am playing football now.",
+      "explanation": "The first sentence describes a habit. The second describes a game in progress now."
+    }
+  },
+  "pastSimple": {
+    "situations": {
+      "finished": {
+        "title": "A finished day",
+        "context": "At home, you are describing what happened yesterday after school.",
+        "examples": {
+          "park": {
+            "translation": "We played in the park yesterday.",
+            "explanation": "You place the game in yesterday's finished day, without focusing on a moment inside it."
+          },
+          "soup": {
+            "translation": "Dad made soup last night.",
+            "explanation": "Making soup was an event last night."
+          }
+        }
+      },
+      "story": {
+        "title": "Telling a sequence",
+        "context": "A friend asks how your walk went on Saturday.",
+        "examples": {
+          "rain": {
+            "translation": "It started to rain, so we went home.",
+            "explanation": "You name two finished events in sequence."
+          },
+          "friend": {
+            "translation": "I met Anna and gave her the book.",
+            "explanation": "In your story, meeting Anna and giving her the book happen one after another."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I lost my key yesterday.",
+      "second": "I have lost my key. I cannot open the door.",
+      "explanation": "The first tells what happened yesterday. The second focuses on the missing key now."
+    }
+  },
+  "futureSimple": {
+    "situations": {
+      "decision": {
+        "title": "A decision or promise now",
+        "context": "Your friend's hands are full and the phone rings. You decide to help.",
+        "examples": {
+          "phone": {
+            "translation": "I will answer the phone.",
+            "explanation": "You decide what to do in response to the situation."
+          },
+          "bag": {
+            "translation": "I will carry your bag.",
+            "explanation": "You offer help and promise to take the bag."
+          }
+        }
+      },
+      "prediction": {
+        "title": "What you expect tomorrow",
+        "context": "You discuss tomorrow's outing and what you think will happen.",
+        "examples": {
+          "weather": {
+            "translation": "I think it will be sunny tomorrow.",
+            "explanation": "You give your prediction about the weather."
+          },
+          "game": {
+            "translation": "You will enjoy this game.",
+            "explanation": "Knowing your friend's tastes, you predict their reaction."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I will call Anna now.",
+      "second": "I am meeting Anna at five.",
+      "explanation": "The first is a decision made now. The second is an arrangement already made. Will is not the only way to talk about the future."
+    }
+  },
+  "presentContinuous": {
+    "situations": {
+      "now": {
+        "title": "Look at what is happening",
+        "context": "You look into the kitchen and out into the garden right now.",
+        "examples": {
+          "dinner": {
+            "translation": "Mum is cooking dinner.",
+            "explanation": "Cooking is happening now; dinner is still being prepared."
+          },
+          "ball": {
+            "translation": "The children are playing outside.",
+            "explanation": "You see the game in progress rather than describe a habit."
+          }
+        }
+      },
+      "arranged": {
+        "title": "An arrangement already made",
+        "context": "You check your plans: the meeting is arranged and the tickets are bought.",
+        "examples": {
+          "meeting": {
+            "translation": "I am meeting Leo after school tomorrow.",
+            "explanation": "The meeting is in the future, but you have already arranged it."
+          },
+          "cinema": {
+            "translation": "We are going to the cinema on Friday.",
+            "explanation": "This is an arrangement for Friday, not an action happening now."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "She reads before bed.",
+      "second": "She is reading on the sofa now.",
+      "explanation": "The first is her usual evening routine. The second is what she is doing now."
+    }
+  },
+  "pastContinuous": {
+    "situations": {
+      "background": {
+        "title": "What was happening then",
+        "context": "A friend called yesterday at seven. You recall what you were doing.",
+        "examples": {
+          "dinner": {
+            "translation": "I was eating dinner when you called.",
+            "explanation": "The call came in the middle of dinner; you had started eating and had not finished."
+          },
+          "window": {
+            "translation": "It was raining when I left school.",
+            "explanation": "Rain is the background at the moment you leave, not a separate step in the story."
+          }
+        }
+      },
+      "parallel": {
+        "title": "Two activities at once",
+        "context": "You describe yesterday evening at home when everyone was busy.",
+        "examples": {
+          "family": {
+            "translation": "I was drawing while Dad was cooking.",
+            "explanation": "Drawing and cooking were both in progress at the same time."
+          },
+          "bedtime": {
+            "translation": "At eight, my sister was reading and I was brushing my teeth.",
+            "explanation": "It is like a snapshot of two activities at eight o'clock."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I cooked dinner at six.",
+      "second": "I was cooking dinner at six.",
+      "explanation": "The first reports cooking dinner as an event. The second places you in the middle of cooking at six, without saying when you finished."
+    }
+  },
+  "futureContinuous": {
+    "situations": {
+      "futureMoment": {
+        "title": "A look into tomorrow",
+        "context": "A friend suggests calling at seven tomorrow. You explain what you will be doing.",
+        "examples": {
+          "dinner": {
+            "translation": "At seven tomorrow, we will be eating dinner.",
+            "explanation": "You picture a moment in the middle of tomorrow's dinner."
+          },
+          "bus": {
+            "translation": "At this time tomorrow, I will be travelling home.",
+            "explanation": "At that future moment, the journey will still be in progress."
+          }
+        }
+      },
+      "expected": {
+        "title": "An expected activity",
+        "context": "You prepare for Saturday's party and discuss everyone's morning tasks.",
+        "examples": {
+          "cake": {
+            "translation": "I will be baking the cake all morning on Saturday.",
+            "explanation": "The focus is on the activity that will occupy the morning."
+          },
+          "garden": {
+            "translation": "The children will be playing in the garden while we set the table.",
+            "explanation": "You picture their future game as the background to setting the table."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I will call you at six.",
+      "second": "At six, I will be walking home.",
+      "explanation": "The first promises a call. The second describes an activity that will be in progress at six."
+    }
+  },
+  "presentPerfect": {
+    "situations": {
+      "result": {
+        "title": "It happened earlier and matters now",
+        "context": "You are at the door or about to eat: the result matters now.",
+        "examples": {
+          "key": {
+            "translation": "I have lost my key. I cannot get in.",
+            "explanation": "You do not say when the key was lost; what matters is that it is missing now."
+          },
+          "hands": {
+            "translation": "I have washed my hands. I am ready to eat.",
+            "explanation": "Your hands are clean now, so you are ready to eat."
+          }
+        }
+      },
+      "experience": {
+        "title": "Things you have experienced",
+        "context": "You discuss experiences in your lives up to now, without giving a date.",
+        "examples": {
+          "sea": {
+            "translation": "I have seen the sea.",
+            "explanation": "You say that this experience is part of your life up to now."
+          },
+          "sushi": {
+            "translation": "Have you ever tried sushi?",
+            "explanation": "You ask about experience up to now, not a particular dinner."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I saw the sea last summer.",
+      "second": "I have seen the sea.",
+      "explanation": "The first refers to a finished time last summer. The second reports an experience up to today."
+    }
+  },
+  "pastPerfect": {
+    "situations": {
+      "before": {
+        "title": "What had happened earlier",
+        "context": "You got home yesterday at six and found dinner already prepared.",
+        "examples": {
+          "cooking": {
+            "translation": "Mum had cooked dinner before we got home.",
+            "explanation": "Mum finished cooking first; you arrived later. You look back from that past arrival."
+          },
+          "homework": {
+            "translation": "I had finished my homework before my friend arrived.",
+            "explanation": "The homework was already finished when your friend arrived."
+          }
+        }
+      },
+      "explanation": {
+        "title": "Why something happened then",
+        "context": "You describe yesterday's outing and explain a surprise.",
+        "examples": {
+          "missed": {
+            "translation": "The film had started when we reached the cinema.",
+            "explanation": "The film started before your arrival; that is why you were late."
+          },
+          "forgot": {
+            "translation": "I could not open the door because I had left my key at school.",
+            "explanation": "You could not get in later; leaving the key at school happened earlier."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "When I arrived, Dad cooked dinner.",
+      "second": "When I arrived, Dad had cooked dinner.",
+      "explanation": "In the first, cooking follows the arrival. In the second, dinner is ready by the arrival. Past Perfect is not required in every story when the order is already clear."
+    }
+  },
+  "futurePerfect": {
+    "situations": {
+      "deadline": {
+        "title": "Finished by a deadline",
+        "context": "You promise to finish things before the guests arrive tonight.",
+        "examples": {
+          "room": {
+            "translation": "I will have cleaned my room by six.",
+            "explanation": "You picture six o'clock with the cleaning already finished."
+          },
+          "cake": {
+            "translation": "We will have made the cake before the guests arrive.",
+            "explanation": "The guests' arrival is the future point by which the cake will be ready."
+          }
+        }
+      },
+      "lookBack": {
+        "title": "Looking back from the future",
+        "context": "You plan a long trip and discuss what will be behind you by tomorrow evening.",
+        "examples": {
+          "home": {
+            "translation": "By tomorrow evening, we will have reached home.",
+            "explanation": "You look back from tomorrow evening at a journey that will be complete."
+          },
+          "book": {
+            "translation": "By the end of the trip, I will have read this book.",
+            "explanation": "At the end of the trip, the reading will be complete, not still in progress."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "At six, I will be cleaning my room.",
+      "second": "By six, I will have cleaned my room.",
+      "explanation": "In the first, cleaning is in progress at six. In the second, it is finished by six."
+    }
+  },
+  "presentPerfectContinuous": {
+    "situations": {
+      "still": {
+        "title": "Started earlier and still going",
+        "context": "You are still waiting for a friend or doing homework and say how long it has lasted.",
+        "examples": {
+          "wait": {
+            "translation": "I have been waiting for you for twenty minutes.",
+            "explanation": "Waiting started earlier and is still going on; its duration matters."
+          },
+          "study": {
+            "translation": "We have been doing our homework since four.",
+            "explanation": "You are still working now; four o'clock is when you started."
+          }
+        }
+      },
+      "evidence": {
+        "title": "Just stopped, with signs still visible",
+        "context": "You come home wet and your friend has flour on their hands.",
+        "examples": {
+          "rain": {
+            "translation": "I have been walking in the rain. My coat is wet.",
+            "explanation": "The walk may have ended; your wet coat shows the recent activity now."
+          },
+          "baking": {
+            "translation": "She has been baking. There is flour on her hands.",
+            "explanation": "You are explaining signs of recent activity, not counting finished cakes."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "I have made three sandwiches.",
+      "second": "I have been making sandwiches for half an hour.",
+      "explanation": "The first focuses on the completed result and number. The second focuses on the activity and duration, without saying how many are ready."
+    }
+  },
+  "pastPerfectContinuous": {
+    "situations": {
+      "durationBefore": {
+        "title": "How long before that moment",
+        "context": "Your friend finally arrived yesterday at six. You say how long you had waited before that.",
+        "examples": {
+          "waiting": {
+            "translation": "I had been waiting for half an hour when Leo arrived.",
+            "explanation": "You measure the waiting up to Leo's past arrival, not up to now."
+          },
+          "playing": {
+            "translation": "We had been playing for an hour when Mum called us in.",
+            "explanation": "The game had lasted an hour by Mum's call; the focus is on its duration."
+          }
+        }
+      },
+      "pastEvidence": {
+        "title": "Explaining past tiredness or mess",
+        "context": "You remember how you found your friend yesterday after an outing.",
+        "examples": {
+          "running": {
+            "translation": "He was tired because he had been running.",
+            "explanation": "The tiredness was then; the earlier running explains that past state."
+          },
+          "painting": {
+            "translation": "Her hands were blue because she had been painting a picture.",
+            "explanation": "You explain blue hands in the past by the recent activity before that moment."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "When Mum came, I had done my homework.",
+      "second": "When Mum came, I had been doing my homework for an hour.",
+      "explanation": "In the first, the work is finished by Mum's arrival. In the second, we know how long you worked, without claiming it was finished."
+    }
+  },
+  "futurePerfectContinuous": {
+    "situations": {
+      "futureWait": {
+        "title": "Waiting for a train",
+        "context": "The train is delayed. You started waiting at five and discuss the duration by seven.",
+        "examples": {
+          "train": {
+            "translation": "By seven, we will have been waiting for two hours.",
+            "explanation": "You count the waiting from five to the future point at seven, without saying the train will arrive then."
+          },
+          "queue": {
+            "translation": "When the doors open at noon, I will have been standing in this queue for an hour.",
+            "explanation": "You have been queuing since eleven; you count one hour up to the future opening time."
+          }
+        }
+      },
+      "milestone": {
+        "title": "A future anniversary",
+        "context": "You have been doing something for a while and picture a future anniversary.",
+        "examples": {
+          "school": {
+            "translation": "By next June, I will have been learning English for three years.",
+            "explanation": "Learning has already started; you count its duration by next June."
+          },
+          "team": {
+            "translation": "By the end of this season, she will have been playing for our team for five years.",
+            "explanation": "She is already on the team; by the future season's end, her playing time will total five years."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "At seven, we will be waiting at the station.",
+      "second": "By seven, we will have been waiting for two hours.",
+      "explanation": "The first shows an activity at seven. The second also tells how long it will have lasted by then. This long form serves that focus; it is not required for everyday plans."
+    },
+    "note": "This form is uncommon. It is useful when duration up to a future point matters; a simpler sentence is often enough in everyday conversation."
+  }
+}

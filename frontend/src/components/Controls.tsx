@@ -1,4 +1,6 @@
 import { cloneElement, useId, type ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../stores/context';
 import { groups } from '../domain/catalog';
 import type { GroupId } from '../domain/types';
 import styles from './Controls.module.css';
@@ -18,7 +20,15 @@ export function Field({
     </div>
   );
 }
-export function GroupSelect({
+const groupLabels: Record<Exclude<GroupId, 'all'>, string> = {
+  simple: 'Simple',
+  continuous: 'Continuous',
+  perfect: 'Perfect',
+  perfectContinuous: 'Perfect Continuous',
+  presentPerfect: 'Present Perfect',
+};
+
+export const GroupSelect = observer(function GroupSelect({
   value,
   onChange,
   custom = false,
@@ -27,28 +37,23 @@ export function GroupSelect({
   onChange: (group: GroupId) => void;
   custom?: boolean;
 }) {
+  const { t } = useStores().i18n;
   return (
-    <Field label="Таблица">
+    <Field label={t('controls.table')}>
       <select
         value={custom ? 'custom' : value}
         onChange={(e) => onChange(e.target.value as GroupId)}
       >
-        {custom && <option value="custom">Свой набор времён</option>}
+        {custom && <option value="custom">{t('controls.custom')}</option>}
         {(Object.keys(groups) as GroupId[]).map((id) => (
           <option key={id} value={id}>
-            {id === 'simple'
-              ? 'Simple · таблица Петрова'
-              : id === 'all'
-                ? 'Все 12 времён'
-                : id === 'presentPerfect'
-                  ? 'Present Perfect отдельно'
-                  : groups[id].name.replace('Таблица · ', '')}
+            {id === 'all' ? t('group.all') : groupLabels[id]}
           </option>
         ))}
       </select>
     </Field>
   );
-}
+});
 export function ProgressBar({
   value,
   label,
@@ -80,7 +85,8 @@ export function Icon({
     | 'sun'
     | 'moon'
     | 'sound'
-    | 'arrow';
+    | 'arrow'
+    | 'close';
 }) {
   const paths = {
     drill: 'm13 2-9 12h7l-1 8 10-12h-7l1-8Z',
@@ -92,6 +98,7 @@ export function Icon({
     sun: 'M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1 1M18 18l1 1M5 19l1-1M18 6l1-1M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z',
     moon: 'M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10Z',
     sound: 'M11 5 6 9H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14',
+    close: 'm6 6 12 12M18 6 6 18',
     arrow: 'M5 12h14m-6-6 6 6-6 6',
   };
   return (

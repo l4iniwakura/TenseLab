@@ -1,9 +1,12 @@
+import { observer } from 'mobx-react-lite';
+import { useStores } from '../stores/context';
+import { referenceContent } from '../locales/content/reference';
 import { Fragment } from 'react';
 import { formula } from '../domain/formulas';
 import type { Form, PersonId, TenseId } from '../domain/types';
 import styles from './Formula.module.css';
 
-export function Formula({
+export const Formula = observer(function Formula({
   tense,
   form,
   person,
@@ -12,11 +15,14 @@ export function Formula({
   form: Form;
   person?: PersonId;
 }) {
+  const { t } = useStores().i18n;
   const parts = formula(tense, form, person);
   return (
     <span
       className={styles.formula}
-      aria-label={`Формула: ${parts.join(' + ')}${form === 'q' ? ' ?' : ''}`}
+      aria-label={t('formula.label', {
+        formula: `${parts.join(' + ')}${form === 'q' ? ' ?' : ''}`,
+      })}
     >
       {parts.map((part, index) => (
         <Fragment key={index}>
@@ -44,13 +50,15 @@ export function Formula({
       {form === 'q' && <span aria-hidden="true">?</span>}
     </span>
   );
-}
+});
 
-export function FormulaKey() {
+export const FormulaKey = observer(function FormulaKey() {
+  const { t, uiLocale } = useStores().i18n;
+  const { learning } = referenceContent(uiLocale);
   return (
-    <div className={styles.key} aria-label="Как читать формулы">
+    <div className={styles.key} aria-label={t('formula.guide')} lang={uiLocale}>
       <span>
-        <b>S</b> — кто: I, you, he, she, we, they
+        <b>S</b> {learning.subject}
       </span>
       <span>
         <b>V1</b> — write
@@ -67,13 +75,7 @@ export function FormulaKey() {
       <span>
         <b>V-ing</b> — writing
       </span>
-      <p>
-        Читай слева направо, затем добавь остальные слова. В Present Simple с he
-        / she / it используй V-s (окончание -s / -es) или does; с остальными —
-        V1 или do. В Present Perfect: he / she / it — has; остальные — have. Для
-        Continuous: I — am; he / she / it — is; you / we / they — are. В
-        прошлом: I / he / she / it — was; you / we / they — were.
-      </p>
+      <p>{learning.formulas}</p>
     </div>
   );
-}
+});

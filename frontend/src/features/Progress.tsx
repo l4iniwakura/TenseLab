@@ -6,78 +6,67 @@ import styles from './Progress.module.css';
 
 export const Progress = observer(function Progress() {
   const root = useStores();
+  const { t, number } = root.i18n;
   const progress = root.progress;
   const [confirmReset, setConfirmReset] = useState(false);
   return (
     <section aria-labelledby="progress-title">
       <div className="section-heading">
         <div>
-          <h1 id="progress-title">Маленькие шаги. Каждый день.</h1>
-          <p>Твои результаты перевода сохраняются в этом браузере.</p>
+          <h1 id="progress-title">{t('progress.title')}</h1>
+          <p>{t('progress.intro')}</p>
         </div>
       </div>
       <div className="panel">
         <div className={styles.goal}>
-          <h2>Цель на сегодня</h2>
-          <span>{progress.todayCount} / 20 предложений</span>
+          <h2>{t('progress.goal')}</h2>
+          <span>{t('count.goal', { count: progress.todayCount })}</span>
         </div>
-        <ProgressBar value={progress.percentage} label="Ежедневная цель" />
+        <ProgressBar value={progress.percentage} label={t('progress.daily')} />
         <p className={styles.support}>
           {progress.todayCount >= 20
-            ? 'Цель достигнута. Можно закончить на сегодня или продолжить в своём темпе.'
-            : 'Немного практики каждый день. Точность важнее скорости.'}
+            ? t('progress.reached')
+            : t('progress.practice')}
         </p>
         <dl className={styles.stats}>
           <div>
-            <dt>Решено всего</dt>
-            <dd>{progress.stats.done}</dd>
+            <dt>{t('progress.total')}</dt>
+            <dd>{number(progress.stats.done)}</dd>
           </div>
           <div>
-            <dt>Доля «получилось»</dt>
-            <dd>{progress.accuracy}%</dd>
+            <dt>{t('progress.accuracy')}</dt>
+            <dd>{number(progress.accuracy / 100, { style: 'percent' })}</dd>
           </div>
           <div>
-            <dt>Подряд правильно</dt>
-            <dd>{progress.stats.streak}</dd>
+            <dt>{t('progress.streak')}</dt>
+            <dd>{number(progress.stats.streak)}</dd>
           </div>
         </dl>
         {progress.stats.done === 0 && (
-          <p className="note">
-            Начни с одной карточки перевода: открой ответ и оцени себя — здесь
-            появится первый результат.
-          </p>
+          <p className="note">{t('progress.empty')}</p>
         )}
         <button
           className="button primary"
           onClick={() => root.navigate('translation')}
         >
-          Продолжить перевод
+          {t('progress.continue')}
         </button>
       </div>
       <div className="panel">
-        <h2>Что означают эти числа</h2>
-        <p className={styles.support}>
-          Это самооценка в тренажёре перевода, а не измерение уровня
-          английского. Устный дрилл помогает практиковаться, но не оценивает
-          произношение и не увеличивает эти счётчики.
-        </p>
-        <p className={styles.support}>
-          Прогресс и тема остаются на устройстве. Синхронизации между браузерами
-          пока нет.
-        </p>
+        <h2>{t('progress.meaning')}</h2>
+        <p className={styles.support}>{t('progress.explain')}</p>
+        <p className={styles.support}>{t('progress.local')}</p>
         {!confirmReset ? (
           <button className="button" onClick={() => setConfirmReset(true)}>
-            Сбросить статистику
+            {t('progress.reset')}
           </button>
         ) : (
           <div
             className={styles.reset}
             role="group"
-            aria-label="Подтверждение сброса"
+            aria-label={t('progress.confirmLabel')}
           >
-            <p>
-              Сбросить все результаты перевода? Это действие нельзя отменить.
-            </p>
+            <p>{t('progress.confirm')}</p>
             <button
               className="button bad"
               onClick={() => {
@@ -85,10 +74,10 @@ export const Progress = observer(function Progress() {
                 setConfirmReset(false);
               }}
             >
-              Да, сбросить
+              {t('progress.yes')}
             </button>
             <button className="button" onClick={() => setConfirmReset(false)}>
-              Отмена
+              {t('common.cancel')}
             </button>
           </div>
         )}

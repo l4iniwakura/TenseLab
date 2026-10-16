@@ -25,8 +25,6 @@ export interface Tense {
   rus: string;
 }
 export interface Group {
-  name: string;
-  desc: string;
   ids: TenseId[];
 }
 export interface Exercise {
@@ -39,9 +37,4 @@ export interface Exercise {
 }
 export type Section = 'drill' | 'translation' | 'reference' | 'progress';
 export const forms: Form[] = ['pos', 'neg', 'q'];
-export const formNames: Record<Form, string> = {
-  pos: 'Утверждение',
-  neg: 'Отрицание',
-  q: 'Вопрос',
-};
 export const formSigns: Record<Form, string> = { pos: '+', neg: '−', q: '?' };

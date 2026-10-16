@@ -251,3 +251,10 @@ kbd {
     scroll-behavior: auto !important;
   }
 }
+/* Translated controls can wrap without widening the page. */
+.section-heading > *,
+.panel > *,
+.button {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

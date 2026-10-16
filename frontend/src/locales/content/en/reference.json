@@ -1,0 +1,34 @@
+{
+  "tenseDescriptions": {
+    "presentSimple": "A habit or a fact",
+    "pastSimple": "A finished event in the past",
+    "futureSimple": "A future action",
+    "presentContinuous": "An action happening now",
+    "pastContinuous": "An action in progress at a past moment",
+    "futureContinuous": "An action in progress at a future moment",
+    "presentPerfect": "A past event connected to now",
+    "pastPerfect": "Something that happened before another past event",
+    "futurePerfect": "Something completed by a future point",
+    "presentPerfectContinuous": "An activity that started earlier and is still going on",
+    "pastPerfectContinuous": "How long an activity had been going on before a past point",
+    "futurePerfectContinuous": "How long an activity will have been going on at a future point"
+  },
+  "groupDescriptions": {
+    "all": "A map of all tenses: understand the structure, then practice.",
+    "simple": "Three Simple tenses × three sentence types: affirmative, negative and question.",
+    "continuous": "Practice actions in progress.",
+    "perfect": "A result by a particular point in time.",
+    "perfectContinuous": "How long an activity has been going on up to a point in time.",
+    "presentPerfect": "Three Present Perfect forms for all pronouns."
+  },
+  "learning": {
+    "subject": "— subject: I, you, he, she, we, they",
+    "formulas": "Read from left to right, then add the remaining words. Present Simple: use V-s (-s / -es) or does with he / she / it; use V1 or do with other subjects. Present Perfect: he / she / it takes has; others take have. Continuous: I takes am; he / she / it takes is; you / we / they take are. In the past: I / he / she / it takes was; you / we / they take were.",
+    "simpleRules": "After do / does / did, always use the base verb V1. These Simple formulas apply to ordinary verbs; to be and modal verbs follow separate rules.",
+    "mapCaption": "The examples use work. Some forms, especially Future Perfect Continuous, are uncommon: choose the form that fits the context.",
+    "simpleNote": "The drill table covers the three Simple tenses. To be and modal verbs follow separate rules.",
+    "perfectNote": "Present Perfect: have/has + V3. Already and yet are clues, not required markers.",
+    "otherNote": "This extends the table to other aspects. Choose a form based on meaning and context."
+  },
+  "tableTranslations": {}
+}

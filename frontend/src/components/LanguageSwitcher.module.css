@@ -1,0 +1,22 @@
+.languages {
+  display: inline-flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.languages button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--panel);
+}
+.languages button[aria-pressed='true'] {
+  border: 2px solid var(--accent);
+  background: var(--panel2);
+}
+.languages svg {
+  border-radius: 2px;
+}

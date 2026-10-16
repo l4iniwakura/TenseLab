@@ -154,7 +154,7 @@ test('saved progress, translation filters, reference links and reset', async ({
     process.env.VITE_APP_CHANNEL ?? 'app',
   );
   await page.goto('./#progress');
-  await expect(page.getByText('75%', { exact: true })).toBeVisible();
+  await expect(page.getByText('75 %', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Перевод', exact: true }).click();
   await page.getByLabel('Таблица', { exact: true }).selectOption('perfect');
   await page.getByLabel('Время', { exact: true }).selectOption('pastPerfect');
@@ -187,10 +187,10 @@ test('saved progress, translation filters, reference links and reset', async ({
   await page.getByRole('link', { name: 'Мой прогресс' }).click();
   await page.getByRole('button', { name: 'Сбросить статистику' }).click();
   await page.getByRole('button', { name: 'Отмена', exact: true }).click();
-  await expect(page.getByText('67%', { exact: true })).toBeVisible();
+  await expect(page.getByText('67 %', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Сбросить статистику' }).click();
   await page.getByRole('button', { name: 'Да, сбросить', exact: true }).click();
-  await expect(page.getByText('0%', { exact: true })).toBeVisible();
+  await expect(page.getByText('0 %', { exact: true })).toBeVisible();
 });
 
 test('speech synthesis is user initiated and scoped to the current activity', async ({
