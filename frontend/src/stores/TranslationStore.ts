@@ -43,11 +43,11 @@ export class TranslationStore {
   get matches() {
     return normalize(this.input) === normalize(this.current.en);
   }
-  get comparison() {
-    if (!this.input.trim()) return 'Произнеси ответ вслух и оцени себя.';
+  get comparisonKey() {
+    if (!this.input.trim()) return 'comparison.spoken' as const;
     return this.matches
-      ? 'Совпадает с эталоном.'
-      : `Твой ответ: ${this.input} · Сравни конструкцию самостоятельно; альтернативы могут быть правильными.`;
+      ? ('comparison.match' as const)
+      : ('comparison.other' as const);
   }
   setGroup(group: GroupId) {
     this.group = group;

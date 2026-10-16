@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { groups, times } from '../domain/catalog';
 import { overviewExamples } from '../domain/overview';
 import { example } from '../domain/sentences';
 import {
   forms,
-  formNames,
   formSigns,
   type Form,
   type GroupId,
@@ -12,34 +12,41 @@ import {
 } from '../domain/types';
 import { useStores } from '../stores/context';
 import { GroupSelect } from '../components/Controls';
+import { Formula, FormulaKey } from '../components/Formula';
+import { referenceContent } from '../locales/content/reference';
+import { UsageExamples } from './UsageExamples';
 import styles from './Reference.module.css';
 
-export function Reference() {
+export const Reference = observer(function Reference() {
   const root = useStores();
+  const { t } = root.i18n;
+  const referenceLocale = root.i18n.uiLocale;
+  const { learning, groupDescriptions, tenseDescriptions, tableTranslations } =
+    referenceContent(referenceLocale);
+  const drill = root.drill;
+  const [exampleTense, setExampleTense] = useState<TenseId | null>(null);
+  const exampleTrigger = useRef<HTMLButtonElement | null>(null);
+  const closeExamples = () => {
+    setExampleTense(null);
+    exampleTrigger.current?.focus();
+  };
   const [form, setForm] = useState<Form>('pos');
   const [group, setGroup] = useState<GroupId>('simple');
-  const train = (id: TenseId) => {
-    root.translation.trainTense(id, times.find((t) => t.id === id)!.cat);
-    root.navigate('translation');
-  };
   return (
     <section aria-labelledby="reference-title">
       <div className="section-heading">
         <div>
-          <h1 id="reference-title">Вся система перед глазами.</h1>
-          <p>
-            Сравни одну мысль в разных конструкциях. Нажми на время, чтобы
-            потренироваться.
-          </p>
+          <h1 id="reference-title">{t('reference.title')}</h1>
+          <p>{t('reference.intro')}</p>
         </div>
       </div>
       <div className="panel">
         <div className={styles.heading}>
-          <h2>Карта времён · 3 × 4</h2>
+          <h2>{t('reference.map')}</h2>
           <div
             className={styles.switcher}
             role="group"
-            aria-label="Тип предложения в карте"
+            aria-label={t('reference.form')}
           >
             {forms.map((f) => (
               <button
@@ -48,21 +55,59 @@ export function Reference() {
                 aria-pressed={form === f}
                 onClick={() => setForm(f)}
               >
-                {formSigns[f]} {formNames[f]}
+                {formSigns[f]} {t(`form.${f}`)}
               </button>
             ))}
           </div>
         </div>
+        <div className={styles.builder}>
+          <div>
+            <h3>{t('reference.builder')}</h3>
+            <p id="drill-selection-help">{t('reference.help')}</p>
+            <span role="status">
+              {t('reference.selected', {
+                count: drill.selectedTenses.length,
+                forms: drill.selectedTenses.length * 3,
+              })}
+            </span>
+          </div>
+          <div className={styles.builderActions}>
+            <button
+              className="button"
+              onClick={() => drill.selectTenses(times.map((t) => t.id))}
+            >
+              {t('reference.all')}
+            </button>
+            <button
+              className="button"
+              disabled={!drill.selectedTenses.length}
+              onClick={() => drill.selectTenses([])}
+            >
+              {t('reference.clear')}
+            </button>
+            <button
+              className="button primary"
+              disabled={!drill.selectedTenses.length}
+              onClick={() => {
+                drill.startCustom();
+                root.navigate('drill');
+              }}
+            >
+              {t('reference.start')}
+            </button>
+          </div>
+        </div>
+        <FormulaKey />
         <div
           className={styles.scroll}
           role="region"
-          aria-label="Карта двенадцати времён"
+          aria-label={t('reference.region')}
           tabIndex={0}
         >
           <table className={styles.overview}>
             <thead>
               <tr>
-                <th scope="col">Время / Аспект</th>
+                <th scope="col">{t('reference.axes')}</th>
                 {['Simple', 'Continuous', 'Perfect', 'Perfect Continuous'].map(
                   (a) => (
                     <th scope="col" key={a}>
@@ -88,16 +133,39 @@ export function Reference() {
                     const tense = times.find((t) => t.id === id)!;
                     return (
                       <td key={id}>
-                        <button
-                          onClick={() => train(id)}
-                          aria-label={`Тренировать ${tense.label}`}
-                        >
-                          <strong lang="en">
-                            {overviewExamples[id][forms.indexOf(form)]}
-                          </strong>
-                          <small>{tense.exp}</small>
-                          <span>Тренировать ↗</span>
-                        </button>
+                        <div className={styles.mapCell}>
+                          <button
+                            className={styles.tenseSelect}
+                            onClick={() => drill.toggleTense(id)}
+                            aria-label={tense.label}
+                            aria-pressed={drill.selectedTenses.includes(id)}
+                            aria-describedby="drill-selection-help"
+                          >
+                            <Formula tense={id} form={form} />
+                            <strong lang="en">
+                              {overviewExamples[id][forms.indexOf(form)]}
+                            </strong>
+                            <small lang={referenceLocale}>
+                              {tenseDescriptions[id]}
+                            </small>
+                          </button>
+                          <button
+                            className={styles.usageTrigger}
+                            aria-label={t('usage.trigger', {
+                              tense: tense.label,
+                            })}
+                            aria-expanded={exampleTense === id}
+                            aria-controls={
+                              exampleTense === id ? 'tense-usage' : undefined
+                            }
+                            onClick={(event) => {
+                              exampleTrigger.current = event.currentTarget;
+                              setExampleTense(id);
+                            }}
+                          >
+                            {t('usage.open')}
+                          </button>
+                        </div>
                       </td>
                     );
                   })}
@@ -106,32 +174,38 @@ export function Reference() {
             </tbody>
           </table>
         </div>
-        <p className={styles.caption}>
-          В основе примеров — work. Некоторые формы, особенно Future Perfect
-          Continuous, встречаются редко: выбор определяется контекстом.
+        <p className={styles.caption} lang={referenceLocale}>
+          {learning.mapCaption}
         </p>
+        {exampleTense && (
+          <UsageExamples
+            key={exampleTense}
+            tense={exampleTense}
+            onClose={closeExamples}
+          />
+        )}
       </div>
       <div className="panel">
         <div className={styles.heading}>
           <div>
-            <h2>{groups[group].name}</h2>
-            <p>{groups[group].desc}</p>
+            <h2>{t(`group.${group}`)}</h2>
+            <p lang={referenceLocale}>{groupDescriptions[group]}</p>
           </div>
           <GroupSelect value={group} onChange={setGroup} />
         </div>
         <div
           className={styles.scroll}
           role="region"
-          aria-label="Подробная таблица конструкций"
+          aria-label={t('reference.matrix')}
           tabIndex={0}
         >
           <table>
             <thead>
               <tr>
-                <th scope="col">Время</th>
+                <th scope="col">{t('translation.tense')}</th>
                 {forms.map((f) => (
                   <th scope="col" key={f}>
-                    {formNames[f]} ({formSigns[f]})
+                    {t(`form.${f}`)} ({formSigns[f]})
                   </th>
                 ))}
               </tr>
@@ -144,8 +218,15 @@ export function Reference() {
                     const item = example(id, f);
                     return (
                       <td key={f}>
+                        <Formula tense={id} form={f} />
                         <strong lang="en">{item.en}</strong>
-                        <small>{item.ru}</small>
+                        {referenceLocale !== 'en' && (
+                          <small lang={referenceLocale}>
+                            {referenceLocale === 'ru'
+                              ? item.ru
+                              : tableTranslations[id]?.[f]}
+                          </small>
+                        )}
                       </td>
                     );
                   })}
@@ -154,12 +235,12 @@ export function Reference() {
             </tbody>
           </table>
         </div>
-        <p className="note">
+        <p className="note" lang={referenceLocale}>
           {group === 'simple'
-            ? 'Классическая таблица Петрова охватывает Simple. Глагол to be и модальные глаголы работают по отдельным правилам.'
+            ? learning.simpleNote
             : group === 'presentPerfect'
-              ? 'Present Perfect: have/has + V3. Маркеры already / yet — подсказки, а не обязательные признаки.'
-              : 'Это расширение матрицы на другие аспекты. При выборе формы ориентируйся на смысл и контекст.'}
+              ? learning.perfectNote
+              : learning.otherNote}
         </p>
         <button
           className="button"
@@ -168,9 +249,9 @@ export function Reference() {
             root.navigate('translation');
           }}
         >
-          Тренировать эту таблицу
+          {t('reference.train')}
         </button>
       </div>
     </section>
   );
-}
+});

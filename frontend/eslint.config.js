@@ -23,7 +23,7 @@ export default tseslint.config(
       ...hooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'error',
-        { allowConstantExport: true },
+        { allowConstantExport: true, extraHOCs: ['observer'] },
       ],
     },
   },

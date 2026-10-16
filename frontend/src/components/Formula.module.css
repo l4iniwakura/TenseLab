@@ -1,0 +1,45 @@
+.formula {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.65;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.subject {
+  color: var(--muted);
+}
+.verb {
+  color: var(--mint);
+}
+.auxiliary {
+  color: var(--text);
+}
+.negative {
+  color: var(--error-text);
+}
+.join {
+  color: var(--muted);
+  font-weight: 400;
+}
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+.key b {
+  color: var(--text);
+  font-weight: 650;
+}
+.key p {
+  flex-basis: 100%;
+  margin: 0;
+  max-width: 100ch;
+}

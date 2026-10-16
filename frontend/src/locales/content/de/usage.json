@@ -1,0 +1,447 @@
+{
+  "presentSimple": {
+    "situations": {
+      "routine": {
+        "title": "Eine Gewohnheit",
+        "context": "Du erzählst einem Freund von deinem normalen Tag.",
+        "examples": {
+          "breakfast": {
+            "translation": "Ich esse jeden Morgen Haferbrei.",
+            "explanation": "Es geht um eine Gewohnheit, nicht um das Essen auf deinem Löffel gerade jetzt."
+          },
+          "walk": {
+            "translation": "Wir gehen zusammen zu Fuß zur Schule.",
+            "explanation": "So kommt ihr normalerweise zur Schule; gerade könntet ihr zu Hause sein."
+          }
+        }
+      },
+      "facts": {
+        "title": "Wie vertraute Dinge funktionieren",
+        "context": "Ein Kind fragt nach Tieren und der Schließzeit des Ladens.",
+        "examples": {
+          "shop": {
+            "translation": "Der Laden schließt um sechs.",
+            "explanation": "Du nennst die regelmäßige Schließzeit des Ladens."
+          },
+          "sleep": {
+            "translation": "Katzen schlafen viel.",
+            "explanation": "Das ist eine allgemeine Beobachtung über Katzen, nicht über das, was eine Katze gerade tut."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Sonntags spiele ich Fußball.",
+      "second": "Ich spiele gerade Fußball.",
+      "explanation": "Der erste Satz beschreibt eine Gewohnheit. Im zweiten läuft das Spiel gerade."
+    }
+  },
+  "pastSimple": {
+    "situations": {
+      "finished": {
+        "title": "Ein vergangener Tag",
+        "context": "Zu Hause erzählst du, was gestern nach der Schule passiert ist.",
+        "examples": {
+          "park": {
+            "translation": "Wir haben gestern im Park gespielt.",
+            "explanation": "Du ordnest das Spiel dem abgeschlossenen gestrigen Tag zu, ohne einen Moment mitten darin zu beschreiben."
+          },
+          "soup": {
+            "translation": "Papa hat gestern Abend Suppe gekocht.",
+            "explanation": "Das Kochen war ein Ereignis gestern Abend."
+          }
+        }
+      },
+      "story": {
+        "title": "Eine Reihenfolge erzählen",
+        "context": "Ein Freund fragt, wie dein Spaziergang am Samstag war.",
+        "examples": {
+          "rain": {
+            "translation": "Es fing an zu regnen, deshalb gingen wir nach Hause.",
+            "explanation": "Du nennst zwei abgeschlossene Ereignisse nacheinander."
+          },
+          "friend": {
+            "translation": "Ich traf Anna und gab ihr das Buch.",
+            "explanation": "In deiner Geschichte folgen das Treffen und die Buchübergabe aufeinander."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Ich habe gestern meinen Schlüssel verloren.",
+      "second": "Ich habe meinen Schlüssel verloren. Ich kann die Tür nicht öffnen.",
+      "explanation": "Im ersten Satz erzählst du von gestern. Im zweiten zählt, dass der Schlüssel jetzt fehlt."
+    }
+  },
+  "futureSimple": {
+    "situations": {
+      "decision": {
+        "title": "Eine Entscheidung oder ein Versprechen jetzt",
+        "context": "Dein Freund hat die Hände voll und das Telefon klingelt. Du beschließt zu helfen.",
+        "examples": {
+          "phone": {
+            "translation": "Ich gehe ans Telefon.",
+            "explanation": "Du entscheidest dich als Reaktion auf die Situation."
+          },
+          "bag": {
+            "translation": "Ich trage deine Tasche.",
+            "explanation": "Du bietest Hilfe an und versprichst, die Tasche zu tragen."
+          }
+        }
+      },
+      "prediction": {
+        "title": "Was du für morgen erwartest",
+        "context": "Ihr besprecht den morgigen Ausflug und überlegt, wie er verlaufen wird.",
+        "examples": {
+          "weather": {
+            "translation": "Ich glaube, morgen wird es sonnig.",
+            "explanation": "Du äußerst deine Vermutung über das Wetter."
+          },
+          "game": {
+            "translation": "Dieses Spiel wird dir gefallen.",
+            "explanation": "Du kennst den Geschmack deines Freundes und sagst seine Reaktion voraus."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Ich rufe Anna jetzt an.",
+      "second": "Ich treffe Anna um fünf.",
+      "explanation": "Im ersten Fall fällt die Entscheidung jetzt. Im zweiten ist das Treffen schon vereinbart. Will ist nicht die einzige Möglichkeit, über die Zukunft zu sprechen."
+    }
+  },
+  "presentContinuous": {
+    "situations": {
+      "now": {
+        "title": "Schau, was gerade passiert",
+        "context": "Du schaust gerade in die Küche und in den Garten.",
+        "examples": {
+          "dinner": {
+            "translation": "Mama kocht gerade das Abendessen.",
+            "explanation": "Das Kochen läuft gerade; das Essen ist noch in Arbeit."
+          },
+          "ball": {
+            "translation": "Die Kinder spielen gerade draußen.",
+            "explanation": "Du siehst das laufende Spiel und beschreibst keine Gewohnheit."
+          }
+        }
+      },
+      "arranged": {
+        "title": "Schon vereinbart",
+        "context": "Du prüfst eure Pläne: Das Treffen steht fest, die Karten sind gekauft.",
+        "examples": {
+          "meeting": {
+            "translation": "Morgen nach der Schule treffe ich Leo.",
+            "explanation": "Das Treffen liegt noch vor dir, ist aber schon vereinbart."
+          },
+          "cinema": {
+            "translation": "Am Freitag gehen wir ins Kino.",
+            "explanation": "Das ist eine Verabredung für Freitag, keine Handlung gerade jetzt."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Sie liest vor dem Schlafengehen.",
+      "second": "Sie liest gerade auf dem Sofa.",
+      "explanation": "Der erste Satz beschreibt ihre Abendgewohnheit. Der zweite sagt, was sie gerade tut."
+    }
+  },
+  "pastContinuous": {
+    "situations": {
+      "background": {
+        "title": "Was in dem Moment gerade lief",
+        "context": "Ein Freund rief gestern um sieben an. Du erinnerst dich, was du gerade gemacht hast.",
+        "examples": {
+          "dinner": {
+            "translation": "Als du angerufen hast, habe ich gerade zu Abend gegessen.",
+            "explanation": "Der Anruf kam mitten im Abendessen; du hattest angefangen und warst noch nicht fertig."
+          },
+          "window": {
+            "translation": "Als ich die Schule verließ, regnete es gerade.",
+            "explanation": "Der Regen bildet den Hintergrund beim Verlassen der Schule, keinen neuen Erzählschritt."
+          }
+        }
+      },
+      "parallel": {
+        "title": "Zwei Dinge gleichzeitig",
+        "context": "Du beschreibst den gestrigen Abend zu Hause, als alle beschäftigt waren.",
+        "examples": {
+          "family": {
+            "translation": "Ich malte, während Papa kochte.",
+            "explanation": "Malen und Kochen liefen gleichzeitig."
+          },
+          "bedtime": {
+            "translation": "Um acht las meine Schwester, und ich putzte mir die Zähne.",
+            "explanation": "Es ist wie eine Momentaufnahme von zwei Tätigkeiten um acht Uhr."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Ich habe um sechs das Abendessen gekocht.",
+      "second": "Um sechs war ich gerade dabei, das Abendessen zu kochen.",
+      "explanation": "Der erste Satz nennt das Kochen als Ereignis. Im zweiten warst du um sechs mittendrin; das Ende bleibt offen."
+    }
+  },
+  "futureContinuous": {
+    "situations": {
+      "futureMoment": {
+        "title": "Ein Blick auf morgen",
+        "context": "Ein Freund möchte morgen um sieben anrufen. Du erklärst, womit du dann beschäftigt sein wirst.",
+        "examples": {
+          "dinner": {
+            "translation": "Morgen um sieben werden wir gerade zu Abend essen.",
+            "explanation": "Du stellst dir einen Moment mitten im morgigen Abendessen vor."
+          },
+          "bus": {
+            "translation": "Morgen um diese Zeit werde ich gerade nach Hause fahren.",
+            "explanation": "Zu diesem zukünftigen Zeitpunkt wird die Fahrt noch laufen."
+          }
+        }
+      },
+      "expected": {
+        "title": "Eine erwartete Tätigkeit",
+        "context": "Ihr bereitet die Feier am Samstag vor und verteilt die Aufgaben für den Vormittag.",
+        "examples": {
+          "cake": {
+            "translation": "Am Samstag werde ich den ganzen Vormittag den Kuchen backen.",
+            "explanation": "Im Mittelpunkt steht die Tätigkeit, die den Vormittag ausfüllen wird."
+          },
+          "garden": {
+            "translation": "Die Kinder werden im Garten spielen, während wir den Tisch decken.",
+            "explanation": "Du stellst dir das zukünftige Spiel als Hintergrund zum Tischdecken vor."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Ich rufe dich um sechs an.",
+      "second": "Um sechs werde ich gerade nach Hause gehen.",
+      "explanation": "Der erste Satz verspricht einen Anruf. Der zweite beschreibt eine Tätigkeit, die um sechs gerade laufen wird."
+    }
+  },
+  "presentPerfect": {
+    "situations": {
+      "result": {
+        "title": "Vorher passiert, jetzt wichtig",
+        "context": "Ihr steht vor der Tür oder wollt essen: Jetzt zählt das Ergebnis.",
+        "examples": {
+          "key": {
+            "translation": "Ich habe meinen Schlüssel verloren. Ich komme nicht hinein.",
+            "explanation": "Wann der Schlüssel verloren ging, bleibt offen; wichtig ist, dass er jetzt fehlt."
+          },
+          "hands": {
+            "translation": "Ich habe mir die Hände gewaschen. Ich bin bereit zu essen.",
+            "explanation": "Deine Hände sind jetzt sauber, also kannst du essen."
+          }
+        }
+      },
+      "experience": {
+        "title": "Was du schon erlebt hast",
+        "context": "Ihr sprecht über Erlebnisse bis heute, ohne ein Datum zu nennen.",
+        "examples": {
+          "sea": {
+            "translation": "Ich habe das Meer schon gesehen.",
+            "explanation": "Du sagst, dass dieses Erlebnis bis heute zu deinem Leben gehört."
+          },
+          "sushi": {
+            "translation": "Hast du schon einmal Sushi probiert?",
+            "explanation": "Du fragst nach bisherigen Erfahrungen, nicht nach einem bestimmten Abendessen."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Letzten Sommer habe ich das Meer gesehen.",
+      "second": "Ich habe das Meer schon gesehen.",
+      "explanation": "Der erste Satz bezieht sich auf den abgeschlossenen letzten Sommer. Der zweite nennt eine Erfahrung bis heute."
+    }
+  },
+  "pastPerfect": {
+    "situations": {
+      "before": {
+        "title": "Was vorher schon passiert war",
+        "context": "Ihr kamt gestern um sechs nach Hause und fandet das fertige Essen vor.",
+        "examples": {
+          "cooking": {
+            "translation": "Mama hatte das Abendessen gekocht, bevor wir nach Hause kamen.",
+            "explanation": "Zuerst war Mama mit dem Kochen fertig, dann kamt ihr. Du blickst von der vergangenen Ankunft zurück."
+          },
+          "homework": {
+            "translation": "Ich hatte meine Hausaufgaben fertig gemacht, bevor mein Freund kam.",
+            "explanation": "Als dein Freund kam, waren die Hausaufgaben schon fertig."
+          }
+        }
+      },
+      "explanation": {
+        "title": "Warum es damals so kam",
+        "context": "Du erzählst vom gestrigen Ausflug und erklärst eine Überraschung.",
+        "examples": {
+          "missed": {
+            "translation": "Als wir das Kino erreichten, hatte der Film schon angefangen.",
+            "explanation": "Der Film begann vor eurer Ankunft; deshalb wart ihr zu spät."
+          },
+          "forgot": {
+            "translation": "Ich konnte die Tür nicht öffnen, weil ich meinen Schlüssel in der Schule liegen gelassen hatte.",
+            "explanation": "Du kamst später nicht hinein; den Schlüssel hattest du schon vorher in der Schule vergessen."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Als ich ankam, kochte Papa das Abendessen.",
+      "second": "Als ich ankam, hatte Papa das Abendessen schon gekocht.",
+      "explanation": "Im ersten Satz folgt das Kochen auf die Ankunft. Im zweiten ist das Essen bei der Ankunft schon fertig. Ist die Reihenfolge ohnehin klar, braucht nicht jede Geschichte Past Perfect."
+    }
+  },
+  "futurePerfect": {
+    "situations": {
+      "deadline": {
+        "title": "Bis zur Frist fertig",
+        "context": "Du versprichst, vor der Ankunft der Gäste heute Abend fertig zu sein.",
+        "examples": {
+          "room": {
+            "translation": "Bis sechs werde ich mein Zimmer aufgeräumt haben.",
+            "explanation": "Du stellst dir sechs Uhr vor: Das Aufräumen wird dann schon fertig sein."
+          },
+          "cake": {
+            "translation": "Wir werden den Kuchen fertig gemacht haben, bevor die Gäste kommen.",
+            "explanation": "Die Ankunft der Gäste ist der zukünftige Zeitpunkt, bis zu dem der Kuchen fertig sein wird."
+          }
+        }
+      },
+      "lookBack": {
+        "title": "Aus der Zukunft zurückblicken",
+        "context": "Ihr plant eine lange Fahrt und überlegt, was morgen Abend schon hinter euch liegen wird.",
+        "examples": {
+          "home": {
+            "translation": "Bis morgen Abend werden wir zu Hause angekommen sein.",
+            "explanation": "Du blickst vom morgigen Abend auf die dann abgeschlossene Fahrt zurück."
+          },
+          "book": {
+            "translation": "Bis zum Ende der Reise werde ich dieses Buch gelesen haben.",
+            "explanation": "Am Ende der Reise wird das Lesen abgeschlossen sein und nicht mehr laufen."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Um sechs werde ich gerade mein Zimmer aufräumen.",
+      "second": "Bis sechs werde ich mein Zimmer aufgeräumt haben.",
+      "explanation": "Im ersten Fall läuft das Aufräumen um sechs. Im zweiten ist es bis sechs fertig."
+    }
+  },
+  "presentPerfectContinuous": {
+    "situations": {
+      "still": {
+        "title": "Früher begonnen und noch dabei",
+        "context": "Du wartest noch auf einen Freund oder machst Hausaufgaben und sagst, wie lange schon.",
+        "examples": {
+          "wait": {
+            "translation": "Ich warte schon seit zwanzig Minuten auf dich.",
+            "explanation": "Das Warten begann früher und dauert noch an; die Dauer zählt."
+          },
+          "study": {
+            "translation": "Wir machen seit vier Uhr unsere Hausaufgaben.",
+            "explanation": "Ihr arbeitet noch; vier Uhr ist der Beginn."
+          }
+        }
+      },
+      "evidence": {
+        "title": "Gerade aufgehört, Spuren noch sichtbar",
+        "context": "Du kommst nass nach Hause und dein Freund hat Mehl an den Händen.",
+        "examples": {
+          "rain": {
+            "translation": "Ich bin im Regen spazieren gegangen. Mein Mantel ist nass.",
+            "explanation": "Der Spaziergang kann vorbei sein; der nasse Mantel zeigt jetzt die vorherige Tätigkeit."
+          },
+          "baking": {
+            "translation": "Sie hat gebacken. An ihren Händen ist Mehl.",
+            "explanation": "Du erklärst die Spuren einer kürzlichen Tätigkeit und zählst keine fertigen Kuchen."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Ich habe drei belegte Brote gemacht.",
+      "second": "Ich mache seit einer halben Stunde belegte Brote.",
+      "explanation": "Zuerst zählen Ergebnis und Anzahl. Danach stehen Tätigkeit und Dauer im Mittelpunkt; wie viele fertig sind, bleibt offen."
+    }
+  },
+  "pastPerfectContinuous": {
+    "situations": {
+      "durationBefore": {
+        "title": "Wie lange vor diesem Moment",
+        "context": "Dein Freund kam gestern endlich um sechs. Du sagst, wie lange du vorher gewartet hattest.",
+        "examples": {
+          "waiting": {
+            "translation": "Als Leo kam, hatte ich schon eine halbe Stunde gewartet.",
+            "explanation": "Du misst das Warten bis zu Leos vergangener Ankunft, nicht bis jetzt."
+          },
+          "playing": {
+            "translation": "Als Mama uns hereinrief, hatten wir schon eine Stunde gespielt.",
+            "explanation": "Bis zu Mamas Ruf hatte das Spiel eine Stunde gedauert; die Dauer steht im Mittelpunkt."
+          }
+        }
+      },
+      "pastEvidence": {
+        "title": "Frühere Müdigkeit oder Unordnung erklären",
+        "context": "Du erinnerst dich daran, wie du deinen Freund gestern nach einem Ausflug vorgefunden hast.",
+        "examples": {
+          "running": {
+            "translation": "Er war müde, weil er vorher gelaufen war.",
+            "explanation": "Die Müdigkeit war damals da; das vorherige Laufen erklärt den Zustand."
+          },
+          "painting": {
+            "translation": "Ihre Hände waren blau, weil sie vorher ein Bild gemalt hatte.",
+            "explanation": "Du erklärst die damals blauen Hände durch die kurz davor ausgeübte Tätigkeit."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Als Mama kam, hatte ich meine Hausaufgaben fertig gemacht.",
+      "second": "Als Mama kam, hatte ich schon eine Stunde an meinen Hausaufgaben gearbeitet.",
+      "explanation": "Im ersten Fall ist die Arbeit bei Mamas Ankunft fertig. Im zweiten kennen wir die Dauer, aber das Ende wird nicht behauptet."
+    }
+  },
+  "futurePerfectContinuous": {
+    "situations": {
+      "futureWait": {
+        "title": "Auf den Zug warten",
+        "context": "Der Zug hat Verspätung. Ihr wartet seit fünf und überlegt, wie lange es um sieben sein wird.",
+        "examples": {
+          "train": {
+            "translation": "Um sieben werden wir schon zwei Stunden gewartet haben.",
+            "explanation": "Du zählst die Wartezeit von fünf bis zum zukünftigen Zeitpunkt sieben, ohne eine Ankunft des Zuges zu versprechen."
+          },
+          "queue": {
+            "translation": "Wenn die Türen um zwölf öffnen, werde ich schon eine Stunde in dieser Schlange gestanden haben.",
+            "explanation": "Du stehst seit elf an und zählst eine Stunde bis zur zukünftigen Öffnung."
+          }
+        }
+      },
+      "milestone": {
+        "title": "Ein künftiger Jahrestag",
+        "context": "Du machst etwas schon länger und stellst dir einen zukünftigen Jahrestag vor.",
+        "examples": {
+          "school": {
+            "translation": "Bis nächsten Juni werde ich schon drei Jahre Englisch gelernt haben.",
+            "explanation": "Das Lernen hat schon begonnen; du zählst die Dauer bis nächsten Juni."
+          },
+          "team": {
+            "translation": "Am Ende dieser Saison wird sie schon fünf Jahre für unser Team gespielt haben.",
+            "explanation": "Sie ist schon im Team; bis zum zukünftigen Saisonende kommen fünf Jahre zusammen."
+          }
+        }
+      }
+    },
+    "contrast": {
+      "first": "Um sieben werden wir am Bahnhof warten.",
+      "second": "Um sieben werden wir schon zwei Stunden gewartet haben.",
+      "explanation": "Der erste Satz zeigt die Tätigkeit um sieben. Der zweite nennt zusätzlich ihre bisherige Dauer. Diese lange Form dient genau diesem Schwerpunkt; für alltägliche Pläne ist sie nicht nötig."
+    },
+    "note": "Diese Form ist selten. Sie hilft, wenn die Dauer bis zu einem zukünftigen Zeitpunkt wichtig ist; im Alltag genügt oft ein einfacherer Satz."
+  }
+}

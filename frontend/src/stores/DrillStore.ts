@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { groups, people, verbs } from '../domain/catalog';
 import { eng } from '../domain/sentences';
+import type { ProgressStore } from './ProgressStore';
 import {
   forms,
   type Form,
@@ -15,6 +16,8 @@ interface Cell {
 }
 export class DrillStore {
   group: GroupId = 'simple';
+  selectedTenses: TenseId[] = [];
+  customTenses: TenseId[] | null = null;
   order: 'ordered' | 'random' = 'ordered';
   speed = 0;
   autoReveal = false;
@@ -25,9 +28,14 @@ export class DrillStore {
   visible = false;
   running = false;
   round = 0;
+  completedCells = new Set<number>();
   timer: ReturnType<typeof setTimeout> | null = null;
-  constructor() {
-    makeAutoObservable(this, { timer: false }, { autoBind: true });
+  constructor(readonly progress?: ProgressStore) {
+    makeAutoObservable(
+      this,
+      { timer: false, progress: false },
+      { autoBind: true },
+    );
     this.newRound();
   }
   get current() {
@@ -49,8 +57,8 @@ export class DrillStore {
     return (this.index / this.sequence.length) * 100;
   }
   makeSequence() {
-    const sequence = groups[this.group].ids.flatMap((tense) =>
-      forms.map((form) => ({ tense, form })),
+    const sequence = (this.customTenses ?? groups[this.group].ids).flatMap(
+      (tense) => forms.map((form) => ({ tense, form })),
     );
     if (this.order === 'random') {
       for (let i = sequence.length - 1; i > 0; i--) {
@@ -59,6 +67,7 @@ export class DrillStore {
       }
     }
     this.sequence = sequence;
+    this.completedCells.clear();
     this.index = 0;
     this.visible = false;
   }
@@ -78,7 +87,11 @@ export class DrillStore {
     this.verbIndex = next % verbs.length;
   }
   advance() {
+    // Advancing completes the current card. Jumping alone never completes one.
+    this.completedCells.add(this.index);
     if (this.index === this.sequence.length - 1) {
+      if (this.completedCells.size === this.sequence.length)
+        this.progress?.recordDrill();
       this.choosePhrase();
       this.round++;
       this.makeSequence();
@@ -102,6 +115,20 @@ export class DrillStore {
   }
   setGroup(group: GroupId) {
     this.group = group;
+    this.customTenses = null;
+    this.newRound();
+  }
+  toggleTense(tense: TenseId) {
+    this.selectedTenses = this.selectedTenses.includes(tense)
+      ? this.selectedTenses.filter((id) => id !== tense)
+      : [...this.selectedTenses, tense];
+  }
+  selectTenses(tenses: TenseId[]) {
+    this.selectedTenses = [...new Set(tenses)];
+  }
+  startCustom() {
+    if (this.selectedTenses.length === 0) return;
+    this.customTenses = [...this.selectedTenses];
     this.newRound();
   }
   setOrder(order: 'ordered' | 'random') {

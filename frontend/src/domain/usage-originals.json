@@ -1,0 +1,410 @@
+{
+  "presentSimple": {
+    "situations": [
+      {
+        "id": "routine",
+        "examples": [
+          {
+            "id": "breakfast",
+            "english": "I eat porridge every morning."
+          },
+          {
+            "id": "walk",
+            "english": "We walk to school together."
+          }
+        ]
+      },
+      {
+        "id": "facts",
+        "examples": [
+          {
+            "id": "sleep",
+            "english": "Cats sleep a lot."
+          },
+          {
+            "id": "shop",
+            "english": "The shop closes at six."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I play football on Sundays.",
+      "second": "I am playing football now."
+    }
+  },
+  "pastSimple": {
+    "situations": [
+      {
+        "id": "finished",
+        "examples": [
+          {
+            "id": "park",
+            "english": "We played in the park yesterday."
+          },
+          {
+            "id": "soup",
+            "english": "Dad made soup last night."
+          }
+        ]
+      },
+      {
+        "id": "story",
+        "examples": [
+          {
+            "id": "rain",
+            "english": "It started to rain, so we went home."
+          },
+          {
+            "id": "friend",
+            "english": "I met Anna and gave her the book."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I lost my key yesterday.",
+      "second": "I have lost my key. I cannot open the door."
+    }
+  },
+  "futureSimple": {
+    "situations": [
+      {
+        "id": "decision",
+        "examples": [
+          {
+            "id": "phone",
+            "english": "I will answer the phone."
+          },
+          {
+            "id": "bag",
+            "english": "I will carry your bag."
+          }
+        ]
+      },
+      {
+        "id": "prediction",
+        "examples": [
+          {
+            "id": "weather",
+            "english": "I think it will be sunny tomorrow."
+          },
+          {
+            "id": "game",
+            "english": "You will enjoy this game."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I will call Anna now.",
+      "second": "I am meeting Anna at five."
+    }
+  },
+  "presentContinuous": {
+    "situations": [
+      {
+        "id": "now",
+        "examples": [
+          {
+            "id": "dinner",
+            "english": "Mum is cooking dinner."
+          },
+          {
+            "id": "ball",
+            "english": "The children are playing outside."
+          }
+        ]
+      },
+      {
+        "id": "arranged",
+        "examples": [
+          {
+            "id": "meeting",
+            "english": "I am meeting Leo after school tomorrow."
+          },
+          {
+            "id": "cinema",
+            "english": "We are going to the cinema on Friday."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "She reads before bed.",
+      "second": "She is reading on the sofa now."
+    }
+  },
+  "pastContinuous": {
+    "situations": [
+      {
+        "id": "background",
+        "examples": [
+          {
+            "id": "dinner",
+            "english": "I was eating dinner when you called."
+          },
+          {
+            "id": "window",
+            "english": "It was raining when I left school."
+          }
+        ]
+      },
+      {
+        "id": "parallel",
+        "examples": [
+          {
+            "id": "family",
+            "english": "I was drawing while Dad was cooking."
+          },
+          {
+            "id": "bedtime",
+            "english": "At eight, my sister was reading and I was brushing my teeth."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I cooked dinner at six.",
+      "second": "I was cooking dinner at six."
+    }
+  },
+  "futureContinuous": {
+    "situations": [
+      {
+        "id": "futureMoment",
+        "examples": [
+          {
+            "id": "dinner",
+            "english": "At seven tomorrow, we will be eating dinner."
+          },
+          {
+            "id": "bus",
+            "english": "At this time tomorrow, I will be travelling home."
+          }
+        ]
+      },
+      {
+        "id": "expected",
+        "examples": [
+          {
+            "id": "cake",
+            "english": "I will be baking the cake all morning on Saturday."
+          },
+          {
+            "id": "garden",
+            "english": "The children will be playing in the garden while we set the table."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I will call you at six.",
+      "second": "At six, I will be walking home."
+    }
+  },
+  "presentPerfect": {
+    "situations": [
+      {
+        "id": "result",
+        "examples": [
+          {
+            "id": "key",
+            "english": "I have lost my key. I cannot get in."
+          },
+          {
+            "id": "hands",
+            "english": "I have washed my hands. I am ready to eat."
+          }
+        ]
+      },
+      {
+        "id": "experience",
+        "examples": [
+          {
+            "id": "sea",
+            "english": "I have seen the sea."
+          },
+          {
+            "id": "sushi",
+            "english": "Have you ever tried sushi?"
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I saw the sea last summer.",
+      "second": "I have seen the sea."
+    }
+  },
+  "pastPerfect": {
+    "situations": [
+      {
+        "id": "before",
+        "examples": [
+          {
+            "id": "cooking",
+            "english": "Mum had cooked dinner before we got home."
+          },
+          {
+            "id": "homework",
+            "english": "I had finished my homework before my friend arrived."
+          }
+        ]
+      },
+      {
+        "id": "explanation",
+        "examples": [
+          {
+            "id": "missed",
+            "english": "The film had started when we reached the cinema."
+          },
+          {
+            "id": "forgot",
+            "english": "I could not open the door because I had left my key at school."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "When I arrived, Dad cooked dinner.",
+      "second": "When I arrived, Dad had cooked dinner."
+    }
+  },
+  "futurePerfect": {
+    "situations": [
+      {
+        "id": "deadline",
+        "examples": [
+          {
+            "id": "room",
+            "english": "I will have cleaned my room by six."
+          },
+          {
+            "id": "cake",
+            "english": "We will have made the cake before the guests arrive."
+          }
+        ]
+      },
+      {
+        "id": "lookBack",
+        "examples": [
+          {
+            "id": "home",
+            "english": "By tomorrow evening, we will have reached home."
+          },
+          {
+            "id": "book",
+            "english": "By the end of the trip, I will have read this book."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "At six, I will be cleaning my room.",
+      "second": "By six, I will have cleaned my room."
+    }
+  },
+  "presentPerfectContinuous": {
+    "situations": [
+      {
+        "id": "still",
+        "examples": [
+          {
+            "id": "wait",
+            "english": "I have been waiting for you for twenty minutes."
+          },
+          {
+            "id": "study",
+            "english": "We have been doing our homework since four."
+          }
+        ]
+      },
+      {
+        "id": "evidence",
+        "examples": [
+          {
+            "id": "rain",
+            "english": "I have been walking in the rain. My coat is wet."
+          },
+          {
+            "id": "baking",
+            "english": "She has been baking. There is flour on her hands."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "I have made three sandwiches.",
+      "second": "I have been making sandwiches for half an hour."
+    }
+  },
+  "pastPerfectContinuous": {
+    "situations": [
+      {
+        "id": "durationBefore",
+        "examples": [
+          {
+            "id": "waiting",
+            "english": "I had been waiting for half an hour when Leo arrived."
+          },
+          {
+            "id": "playing",
+            "english": "We had been playing for an hour when Mum called us in."
+          }
+        ]
+      },
+      {
+        "id": "pastEvidence",
+        "examples": [
+          {
+            "id": "running",
+            "english": "He was tired because he had been running."
+          },
+          {
+            "id": "painting",
+            "english": "Her hands were blue because she had been painting a picture."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "When Mum came, I had done my homework.",
+      "second": "When Mum came, I had been doing my homework for an hour."
+    }
+  },
+  "futurePerfectContinuous": {
+    "situations": [
+      {
+        "id": "futureWait",
+        "examples": [
+          {
+            "id": "train",
+            "english": "By seven, we will have been waiting for two hours."
+          },
+          {
+            "id": "queue",
+            "english": "When the doors open at noon, I will have been standing in this queue for an hour."
+          }
+        ]
+      },
+      {
+        "id": "milestone",
+        "examples": [
+          {
+            "id": "school",
+            "english": "By next June, I will have been learning English for three years."
+          },
+          {
+            "id": "team",
+            "english": "By the end of this season, she will have been playing for our team for five years."
+          }
+        ]
+      }
+    ],
+    "contrast": {
+      "first": "At seven, we will be waiting at the station.",
+      "second": "By seven, we will have been waiting for two hours."
+    }
+  }
+}

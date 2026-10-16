@@ -46,6 +46,21 @@
   display: grid;
   align-content: center;
 }
+.formulaHint {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.formulaHint > span {
+  justify-content: center;
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+}
+.formulaHint p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
 .answer {
   font-size: 1.625rem;
   font-weight: 650;
@@ -240,5 +255,10 @@
   }
   .autoRow > button {
     width: 100%;
+  }
+}
+@media (max-width: 540px) {
+  .fourControls {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

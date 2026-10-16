@@ -7,19 +7,15 @@ import { Drill } from '../features/Drill';
 import { Translation } from '../features/Translation';
 import { Reference } from '../features/Reference';
 import { Progress } from '../features/Progress';
-import { Icon, ProgressBar } from '../components/Controls';
-import { verbs } from '../domain/catalog';
+import { Icon } from '../components/Controls';
 import type { Section } from '../domain/types';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import styles from './App.module.css';
 
-const sections: { id: Section; name: string }[] = [
-  { id: 'drill', name: 'Быстрый дрилл' },
-  { id: 'translation', name: 'Перевод' },
-  { id: 'reference', name: 'Карта времён' },
-  { id: 'progress', name: 'Мой прогресс' },
-];
+const sections: Section[] = ['drill', 'translation', 'reference', 'progress'];
 
 const Shell = observer(function Shell({ root }: { root: RootStore }) {
+  const { t } = root.i18n;
   const [offlineReady, setOfflineReady] = useState(false);
   const [updateReady, setUpdateReady] = useState(false);
   const updateApp = useRef<((reload?: boolean) => Promise<void>) | undefined>(
@@ -27,6 +23,9 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
   );
   const heading = useRef<HTMLElement>(null);
   const [online, setOnline] = useState(navigator.onLine);
+  useEffect(() => {
+    document.documentElement.lang = root.i18n.uiLocale;
+  }, [root.i18n.uiLocale]);
   useEffect(() => {
     document.documentElement.dataset.theme = root.theme;
   }, [root.theme]);
@@ -98,74 +97,59 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
           heading.current?.focus();
         }}
       >
-        Перейти к упражнению
+        {t('shell.skip')}
       </a>
       <header className={styles.header}>
-        <a
-          className={styles.brand}
-          href="#drill"
-          aria-label="TenseLab — быстрый дрилл"
-        >
+        <a className={styles.brand} href="#drill" aria-label={t('shell.brand')}>
           <span className={styles.logo}>T</span>TenseLab
         </a>
         <span className={styles.local}>
           {!online
-            ? 'Нет сети · локальная практика'
+            ? t('shell.offline')
             : offlineReady
-              ? 'Доступно без интернета'
-              : 'Практика в своём темпе'}
+              ? t('shell.ready')
+              : t('shell.pace')}
         </span>
-        <button
-          className="button"
-          aria-label="Переключить цветовую тему"
-          onClick={root.toggleTheme}
-        >
-          <Icon name={root.theme === 'dark' ? 'sun' : 'moon'} />
-          <span>{root.theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}</span>
-        </button>
+        <div className={styles.settings}>
+          <LanguageSwitcher />
+          <button
+            className="button"
+            aria-label={t('shell.theme')}
+            onClick={root.toggleTheme}
+          >
+            <Icon name={root.theme === 'dark' ? 'sun' : 'moon'} />
+            <span className={styles.themeText}>
+              {root.theme === 'dark' ? t('shell.light') : t('shell.dark')}
+            </span>
+          </button>
+        </div>
       </header>
-      <nav className={styles.navigation} aria-label="Разделы TenseLab">
+      <nav className={styles.navigation} aria-label={t('shell.navigation')}>
         {sections.map((section) => (
           <a
-            href={`#${section.id}`}
-            key={section.id}
-            aria-current={root.section === section.id ? 'page' : undefined}
+            href={`#${section}`}
+            key={section}
+            aria-current={root.section === section ? 'page' : undefined}
           >
-            <Icon name={section.id} />
-            {section.name}
+            <Icon name={section} />
+            {t(`nav.${section}`)}
           </a>
         ))}
       </nav>
-      <div className={styles.daily}>
-        <span>
-          <strong>Сегодня</strong> {root.progress.todayCount} / 20 предложений
-        </span>
-        <div>
-          <ProgressBar
-            value={root.progress.percentage}
-            label="Прогресс на сегодня"
-          />
-        </div>
-        <span className={styles.bank}>
-          {(12 * 3 * 6 * verbs.length).toLocaleString('ru-RU')} комбинаций · 12
-          времён
-        </span>
-      </div>
       {updateReady && (
         <div className="note" role="status">
-          Доступна новая версия.{' '}
+          {t('shell.update')}{' '}
           <button
             className="button"
             onClick={() => void updateApp.current?.(true)}
           >
-            Обновить приложение
+            {t('shell.reload')}
           </button>
         </div>
       )}
       {!root.progress.storageAvailable && (
         <p className="note" role="status">
-          Браузер не разрешил сохранить прогресс. В этой сессии результаты
-          доступны, но после перезагрузки могут исчезнуть.
+          {t('shell.storage')}
         </p>
       )}
       {root.message && (
@@ -173,6 +157,7 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
           {root.message}
         </p>
       )}
+      <p className={styles.contentNotice}>{t('shell.content')}</p>
       <main
         id="main-content"
         ref={heading}
@@ -185,8 +170,8 @@ const Shell = observer(function Shell({ root }: { root: RootStore }) {
         {root.section === 'progress' && <Progress />}
       </main>
       <footer className={styles.footer}>
-        <span>TenseLab · От знания правил — к автоматизму</span>
-        <span>Прогресс хранится на устройстве</span>
+        <span>{t('shell.motto')}</span>
+        <span>{t('shell.device')}</span>
       </footer>
     </div>
   );

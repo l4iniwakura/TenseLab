@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { readText, THEME_KEY, writeText } from '../storage/local';
+import { I18nStore, type UiKey } from './I18nStore';
 import { DrillStore } from './DrillStore';
 import { ProgressStore } from './ProgressStore';
 import { TranslationStore } from './TranslationStore';
@@ -14,16 +15,20 @@ export function sectionFromHash(hash: string): Section {
     : 'drill';
 }
 export class RootStore {
+  i18n = new I18nStore();
   progress = new ProgressStore();
-  drill = new DrillStore();
+  drill = new DrillStore(this.progress);
   translation = new TranslationStore(this.progress);
   theme: 'light' | 'dark' = readText(THEME_KEY) === 'dark' ? 'dark' : 'light';
   section: Section = sectionFromHash(window.location.hash);
-  message = '';
+  messageKey: UiKey | null = null;
+  get message() {
+    return this.messageKey ? this.i18n.t(this.messageKey) : '';
+  }
   constructor() {
     makeAutoObservable(
       this,
-      { progress: false, drill: false, translation: false },
+      { i18n: false, progress: false, drill: false, translation: false },
       { autoBind: true },
     );
   }
@@ -38,20 +43,19 @@ export class RootStore {
     }
     this.section = section;
     this.progress.refreshDay();
-    this.message = '';
+    this.messageKey = null;
   }
   navigate(section: Section) {
     this.setSection(section);
     window.location.hash = section;
   }
   speak(text: string) {
-    this.message = '';
+    this.messageKey = null;
     if (
       !('speechSynthesis' in window) ||
       !('SpeechSynthesisUtterance' in window)
     ) {
-      this.message =
-        'Озвучка недоступна в этом браузере. Произнеси фразу самостоятельно.';
+      this.messageKey = 'speech.unavailable';
       return;
     }
     window.speechSynthesis.cancel();
@@ -62,7 +66,6 @@ export class RootStore {
     window.speechSynthesis.speak(utterance);
   }
   speechError() {
-    this.message =
-      'Не удалось озвучить фразу. Проверь доступность английского голоса на устройстве.';
+    this.messageKey = 'speech.error';
   }
 }
