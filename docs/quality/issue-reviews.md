@@ -51,3 +51,8 @@ The map has a separate Examples button in each cell; selecting a tense still bel
 Review findings fixed: the lesson is placed below the map; table-cell flex layout prevents an example trigger overflowing under the next row; long mobile lesson titles and close controls now share a compact heading. Content/source separation, keyboard handling, selected-state announcements and language attributes reviewed. Mechanical UI detector reports no findings. Desktop/mobile screenshots of the map and expanded lesson inspected. No unresolved findings.
 
 Validation: format, lint, TypeScript and production build pass; 24 unit tests pass, including all content IDs/contexts/translations, all UI keys/plurals and all 7,344 legacy generator combinations. App-mode browser suite: 26 passed, 2 PR-only skips. PR-mode browser suite: 24 passed, 4 offline-only skips. All 12 lessons tested with Enter/Escape, scenario switching, contrast disclosure, preserved selection/round, mouse click, Space, locale switching and no horizontal overflow of explanations. Seven Pages planning/packaging tests pass. Mobile checks use emulated iPhone/Chrome, not a physical device.
+
+
+## #17 — Storage test formatting recheck (2026-10-18)
+
+Rechecked on develop f791a98. Prettier produces no diff for src/storage/local.test.ts; the reported formatting problem is not present in this committed revision. No behavioral or cosmetic change was manufactured. `npm run format:check` passes and all 45 unit tests pass. Formatting remains a required workflow gate.
