@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
-import { groups, verbs } from '../domain/catalog';
+import { groups } from '../domain/catalog';
 import { example } from '../domain/sentences';
+import { phrases } from '../domain/phrases';
 import { normalize } from '../domain/answers';
 import {
   forms,
@@ -30,12 +31,13 @@ export class TranslationStore {
   get pool(): Coordinates[] {
     const tenses = this.tense === 'all' ? groups[this.group].ids : [this.tense];
     const selectedForms = this.form === 'all' ? forms : [this.form];
-    const people: PersonId[] =
-      this.person === 'all' ? [0, 1, 2, 3, 4, 5] : [this.person];
+    const selectedPhrases = phrases.filter(
+      (phrase) => this.person === 'all' || phrase.person === this.person,
+    );
     return tenses.flatMap((t) =>
       selectedForms.flatMap((f) =>
-        people.flatMap((p) =>
-          verbs.map((_, vi) => [t, f, p, vi] as Coordinates),
+        selectedPhrases.map(
+          ({ person, verbIndex }) => [t, f, person, verbIndex] as Coordinates,
         ),
       ),
     );

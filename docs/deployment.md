@@ -54,3 +54,18 @@ node --test scripts/pages.test.mjs
 ```
 
 В `builds/previews/` находятся каталоги `preview-pr-3`, `preview-pr-4` и т. п. Отсутствие каталога предпросмотров допустимо. Упаковщик проверяет входные сборки до замены выходного каталога и каждый раз создаёт `dist/pages/` заново.
+
+
+## Shared checks and release verification (#20)
+
+The common install → format → lint → unit → build → Chromium → desktop/mobile sequence lives in `.github/actions/check-frontend/action.yml`. Each job still checks its own source revision and inherits its own `VITE_APP_CHANNEL`. Build jobs load the action into `workflow-tools` from the immutable `github.workflow_sha` revision (also on PR closure), independently of the source checkout: an older app/demo/PR revision does not need to contain this new action. `preview.json`, artifact names, publication conditions, permissions and preview error isolation remain in the calling workflow.
+
+Before release, verify these GitHub scenarios (local tests cannot execute the Actions service):
+
+1. Open/update a same-repository PR: check passes, app/demo and all open previews run their own full checks; its `preview.json` SHA equals its head SHA.
+2. Push to main and develop: both stable matrix revisions pass their checks with `app`/`demo`; open previews remain present.
+3. Break a separate preview branch: that matrix member fails, successful previews and app/demo still deploy on a subsequent successful publication event.
+4. Close a PR without merging, then merge another: closed preview directories disappear; remaining previews retain their own SHA; app/demo remain available.
+5. A fork PR runs checks without publishing. A failed stable build prevents deployment. Closing the last PR skips the preview matrix and still deploys/cleans up.
+
+Validate workflow syntax with actionlint, and run `node --test scripts/preview-plan.test.mjs scripts/package-pages.test.mjs` for SHA/channel selection, closed-PR exclusion, and packaging behavior. Composite actions follow [GitHub's local action conventions](https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action).

@@ -159,7 +159,7 @@ test('saved progress, translation filters and reference links', async ({
   await page.getByLabel('Таблица', { exact: true }).selectOption('perfect');
   await page.getByLabel('Время', { exact: true }).selectOption('pastPerfect');
   await page.getByLabel('Тип предложения').selectOption('q');
-  await page.getByLabel('Местоимение').selectOption('3');
+  await page.getByLabel('Подлежащее').selectOption('3');
   await expect(
     page.getByText('Past Perfect · Вопрос', { exact: true }),
   ).toBeVisible();

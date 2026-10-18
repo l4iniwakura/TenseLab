@@ -2,7 +2,7 @@ import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { ProgressStore } from './ProgressStore';
 import { DrillStore } from './DrillStore';
 import { TranslationStore } from './TranslationStore';
-import { localDay, PROGRESS_KEY, readProgress } from '../storage/local';
+import { localDay, PROGRESS_KEY } from '../storage/local';
 
 beforeEach(() => localStorage.clear());
 afterEach(() => vi.useRealTimers());
@@ -42,12 +42,12 @@ describe('progress persistence', () => {
   });
   it('tolerates corrupt or invalid storage and reports write failures', () => {
     localStorage.setItem(PROGRESS_KEY, '{');
-    expect(readProgress().done).toBe(0);
+    expect(new ProgressStore().problem).toBe('invalid');
     localStorage.setItem(
       PROGRESS_KEY,
       JSON.stringify({ done: -2, right: '100', todayCount: null }),
     );
-    expect(readProgress().done).toBe(0);
+    expect(new ProgressStore().problem).toBe('invalid');
     const store = new ProgressStore();
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('blocked');
@@ -194,7 +194,7 @@ describe('translation filters and retries', () => {
   it('only generates requested coordinates and clears incompatible retries', () => {
     const store = new TranslationStore(new ProgressStore());
     store.setGroup('all');
-    expect(store.pool).toHaveLength(7344);
+    expect(store.pool).toHaveLength(7560);
     store.setTense('presentPerfect');
     store.setPerson(3);
     store.setForm('q');

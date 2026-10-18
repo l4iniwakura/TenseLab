@@ -2,15 +2,10 @@ import { makeAutoObservable } from 'mobx';
 import { localDay, PROGRESS_KEY } from '../storage/local';
 import {
   backupRaw,
-  CHANNEL,
   emptyDay,
   HISTORY_KEY,
   isDay,
-  LEGACY_KEY,
   loadProgress,
-  migrateV1,
-  newProgress,
-  parseBackup,
   validateProgress,
   type ProgressData,
   type StorageProblem,
@@ -113,85 +108,5 @@ export class ProgressStore {
     } catch {
       this.problem = 'write';
     }
-  }
-  exportBackup() {
-    return JSON.stringify(
-      {
-        format: 'tenselab-progress',
-        exportedAt: new Date().toISOString(),
-        channel: CHANNEL,
-        data: this.data,
-      },
-      null,
-      2,
-    );
-  }
-  exportOriginal() {
-    return (
-      localStorage.getItem(HISTORY_KEY) ??
-      localStorage.getItem(PROGRESS_KEY) ??
-      ''
-    );
-  }
-  legacyBackup() {
-    if (this.data.legacyRecovered) throw new Error('recovered');
-    const raw = localStorage.getItem(LEGACY_KEY);
-    if (raw === null) throw new Error('missing');
-    return { ...migrateV1(raw), legacyRecovered: true } as ProgressData;
-  }
-  previewImport(text: string) {
-    return parseBackup(text);
-  }
-  localBackups() {
-    const prefixes = [`${HISTORY_KEY}:backup:`, `${PROGRESS_KEY}:backup:`];
-    return Object.keys(localStorage)
-      .filter((key) => prefixes.some((prefix) => key.startsWith(prefix)))
-      .sort()
-      .reverse();
-  }
-  readLocalBackup(key: string) {
-    if (!this.localBackups().includes(key)) throw new Error('missing');
-    const raw = localStorage.getItem(key);
-    if (raw === null) throw new Error('missing');
-    return raw;
-  }
-  previewLocalBackup(key: string) {
-    const raw = this.readLocalBackup(key);
-    if (key.startsWith(`${PROGRESS_KEY}:backup:`)) return migrateV1(raw);
-    return parseBackup(raw);
-  }
-  replace(data: ProgressData) {
-    const next = validateProgress(data);
-    try {
-      const current = localStorage.getItem(HISTORY_KEY);
-      if (current !== this.savedRaw) {
-        this.problem = 'conflict';
-        return false;
-      }
-      if (current !== null) backupRaw(HISTORY_KEY, current);
-      const old = localStorage.getItem(PROGRESS_KEY);
-      if (old !== null) backupRaw(PROGRESS_KEY, old);
-      if (next.legacyRecovered) {
-        const legacy = localStorage.getItem(LEGACY_KEY);
-        if (legacy !== null) backupRaw(LEGACY_KEY, legacy);
-      }
-      // Includes any unsaved practice in this session.
-      backupRaw(HISTORY_KEY, this.exportBackup());
-      const raw = JSON.stringify(next);
-      localStorage.setItem(HISTORY_KEY, raw);
-      this.savedRaw = raw;
-      this.data = next;
-      this.selectedDay = null;
-      this.problem = null;
-      return true;
-    } catch {
-      this.problem = 'write';
-      return false;
-    }
-  }
-  reset() {
-    const next = newProgress();
-    next.legacyRecovered = this.data.legacyRecovered;
-    return this.replace(next);
   }
 }

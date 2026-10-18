@@ -60,3 +60,13 @@ test('validates all builds before replacing an existing publication', (t) => {
   assert.throws(() => packagePages({ ...options, demoBuild: join(root, 'missing') }), /Missing build/);
   assert.ok(existsSync(join(root, 'published/app/index.html')));
 });
+
+
+test('keeps the previous package when the version selector is missing', (t) => {
+  const { root, options } = fixture(t);
+  packagePages(options);
+  rmSync(join(root, 'index.html'));
+  assert.throws(() => packagePages(options), /Missing build/);
+  assert.equal(readFileSync(join(root, 'published/index.html'), 'utf8'), 'selection');
+  assert.equal(readFileSync(join(root, 'published/app/index.html'), 'utf8'), 'app-build');
+});
