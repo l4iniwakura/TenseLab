@@ -25,36 +25,36 @@ export function eng(
   verb: Verb,
 ): string {
   const subject = people[person].en;
-  const thirdPerson = person === 2 || person === 3;
+  const thirdPerson = people[person].thirdPerson;
   const has = thirdPerson ? 'has' : 'have';
   const be = person === 0 ? 'am' : thirdPerson ? 'is' : 'are';
   const was = person === 0 || thirdPerson ? 'was' : 'were';
   const structures: Record<TenseId, [string[], string]> = {
-    presentSimple: [[thirdPerson ? 'does' : 'do'], verb[0]],
-    pastSimple: [['did'], verb[0]],
-    futureSimple: [['will'], verb[0]],
-    presentContinuous: [[be], verb[4]],
-    pastContinuous: [[was], verb[4]],
-    futureContinuous: [['will', 'be'], verb[4]],
-    presentPerfect: [[has], verb[3]],
-    pastPerfect: [['had'], verb[3]],
-    futurePerfect: [['will', 'have'], verb[3]],
-    presentPerfectContinuous: [[has, 'been'], verb[4]],
-    pastPerfectContinuous: [['had', 'been'], verb[4]],
-    futurePerfectContinuous: [['will', 'have', 'been'], verb[4]],
+    presentSimple: [[thirdPerson ? 'does' : 'do'], verb.base],
+    pastSimple: [['did'], verb.base],
+    futureSimple: [['will'], verb.base],
+    presentContinuous: [[be], verb.ing],
+    pastContinuous: [[was], verb.ing],
+    futureContinuous: [['will', 'be'], verb.ing],
+    presentPerfect: [[has], verb.participle],
+    pastPerfect: [['had'], verb.participle],
+    futurePerfect: [['will', 'have'], verb.participle],
+    presentPerfectContinuous: [[has, 'been'], verb.ing],
+    pastPerfectContinuous: [['had', 'been'], verb.ing],
+    futurePerfectContinuous: [['will', 'have', 'been'], verb.ing],
   };
   const [auxiliaries, mainVerb] = structures[tense];
   const [first, ...rest] = auxiliaries;
   let words: string[];
-  if (form === 'q') words = [first, subject, ...rest, mainVerb, verb[9]];
+  if (form === 'q') words = [first, subject, ...rest, mainVerb, verb.object];
   else if (form === 'neg')
-    words = [subject, first, 'not', ...rest, mainVerb, verb[9]];
+    words = [subject, first, 'not', ...rest, mainVerb, verb.object];
   else if (tense === 'presentSimple')
-    words = [subject, thirdPerson ? verb[1] : verb[0], verb[9]];
-  else if (tense === 'pastSimple') words = [subject, verb[2], verb[9]];
+    words = [subject, thirdPerson ? verb.thirdPerson : verb.base, verb.object];
+  else if (tense === 'pastSimple') words = [subject, verb.past, verb.object];
   else if (tense === 'presentPerfect')
-    words = [subject, first, 'already', mainVerb, verb[9]];
-  else words = [subject, ...auxiliaries, mainVerb, verb[9]];
+    words = [subject, first, 'already', mainVerb, verb.object];
+  else words = [subject, ...auxiliaries, mainVerb, verb.object];
   const suffix =
     tense === 'presentPerfect' ? (form === 'pos' ? '' : 'yet') : markers[tense];
   const sentence = [...words, ...(suffix ? [suffix] : [])].join(' ');

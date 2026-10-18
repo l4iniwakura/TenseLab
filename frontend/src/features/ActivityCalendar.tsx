@@ -5,10 +5,17 @@ import { localDay } from '../storage/local';
 import { shiftDay } from '../storage/progress';
 import styles from './Progress.module.css';
 
+// Add new practice types here so they appear in both the total and the filter.
+const practiceMetrics = [
+  { key: 'drills', label: 'progress.drills' },
+  { key: 'done', label: 'progress.translations' },
+] as const;
+type CalendarMetric = 'all' | (typeof practiceMetrics)[number]['key'];
+
 export const ActivityCalendar = observer(function ActivityCalendar() {
   const { progress, i18n } = useStores();
   const { t, date } = i18n;
-  const [metric, setMetric] = useState<'drills' | 'done'>('drills');
+  const [metric, setMetric] = useState<CalendarMetric>('all');
   const [focused, setFocused] = useState(progress.day);
   const [month, setMonth] = useState(progress.day.slice(0, 7));
   const end = new Date(`${progress.day}T12:00:00`);
@@ -39,7 +46,11 @@ export const ActivityCalendar = observer(function ActivityCalendar() {
     return `${date(new Date(`${day}T12:00:00`), { dateStyle: 'long' })}: ${t('progress.cell', { drills: entry.drills, done: entry.done })}`;
   };
   const level = (day: string) => {
-    const value = progress.forDay(day)[metric];
+    const entry = progress.forDay(day);
+    const value =
+      metric === 'all'
+        ? practiceMetrics.reduce((total, { key }) => total + entry[key], 0)
+        : entry[metric];
     return value === 0 ? 0 : value < 3 ? 1 : value < 6 ? 2 : value < 10 ? 3 : 4;
   };
   const navigate = (
@@ -108,8 +119,12 @@ export const ActivityCalendar = observer(function ActivityCalendar() {
             value={metric}
             onChange={(event) => setMetric(event.target.value as typeof metric)}
           >
-            <option value="drills">{t('progress.drills')}</option>
-            <option value="done">{t('progress.translations')}</option>
+            <option value="all">{t('progress.allPractice')}</option>
+            {practiceMetrics.map(({ key, label }) => (
+              <option key={key} value={key}>
+                {t(label)}
+              </option>
+            ))}
           </select>
         </label>
       </div>

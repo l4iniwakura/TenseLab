@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 
 export function packagePages({ appBuild, demoBuild, previewsDir, contentRoot = root, destination = resolve(root, 'dist/pages') }) {
-  for (const build of [appBuild, demoBuild, resolve(contentRoot, 'landing'), resolve(contentRoot, 'old')]) {
+  for (const build of [contentRoot, appBuild, demoBuild, resolve(contentRoot, 'landing'), resolve(contentRoot, 'old')]) {
     if (!existsSync(resolve(build, 'index.html'))) throw new Error(`Missing build: ${build}/index.html`);
   }
   const previews = previewsDir && existsSync(previewsDir)

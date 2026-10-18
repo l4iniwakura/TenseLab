@@ -11,22 +11,37 @@ it('keeps demo progress and theme separate from app and legacy data', async () =
   localStorage.setItem('tenselab-theme', 'dark');
   vi.stubEnv('VITE_APP_CHANNEL', 'app');
   vi.resetModules();
-  const app = await import('./local');
-  expect(app.readProgress().done).toBe(0);
-  app.writeText(app.PROGRESS_KEY, JSON.stringify({ done: 7, right: 6 }));
+  const app = { ...(await import('./local')), ...(await import('./progress')) };
+  expect(app.loadProgress().data.totals.done).toBe(0);
+  app.writeText(
+    app.HISTORY_KEY,
+    JSON.stringify({
+      ...app.newProgress(),
+      totals: { done: 7, right: 6, streak: 0, drills: 0 },
+    }),
+  );
   app.writeText(app.THEME_KEY, 'dark');
 
   vi.stubEnv('VITE_APP_CHANNEL', 'demo');
   vi.resetModules();
-  const demo = await import('./local');
-  expect(demo.readProgress().done).toBe(0);
+  const demo = {
+    ...(await import('./local')),
+    ...(await import('./progress')),
+  };
+  expect(demo.loadProgress().data.totals.done).toBe(0);
   expect(demo.readText(demo.THEME_KEY)).toBeNull();
-  demo.writeText(demo.PROGRESS_KEY, JSON.stringify({ done: 2 }));
+  demo.writeText(
+    demo.HISTORY_KEY,
+    JSON.stringify({
+      ...demo.newProgress(),
+      totals: { done: 2, right: 0, streak: 0, drills: 0 },
+    }),
+  );
   demo.writeText(demo.THEME_KEY, 'light');
 
-  expect(app.readProgress().done).toBe(7);
+  expect(app.loadProgress().data.totals.done).toBe(7);
   expect(app.readText(app.THEME_KEY)).toBe('dark');
-  expect(demo.readProgress().done).toBe(2);
+  expect(demo.loadProgress().data.totals.done).toBe(2);
   expect(demo.readText(demo.THEME_KEY)).toBe('light');
   expect(localStorage.getItem('tenselab-theme')).toBe('dark');
 });
@@ -37,17 +52,23 @@ it('isolates each MR preview from other previews and release channels', async ()
   for (const [index, channel] of channels.entries()) {
     vi.stubEnv('VITE_APP_CHANNEL', channel);
     vi.resetModules();
-    const storage = await import('./local');
-    expect(storage.readProgress().done).toBe(0);
+    const storage = {
+      ...(await import('./local')),
+      ...(await import('./progress')),
+    };
+    expect(storage.loadProgress().data.totals.done).toBe(0);
     storage.writeText(
-      storage.PROGRESS_KEY,
-      JSON.stringify({ done: index + 1 }),
+      storage.HISTORY_KEY,
+      JSON.stringify({
+        ...storage.newProgress(),
+        totals: { done: index + 1, right: 0, streak: 0, drills: 0 },
+      }),
     );
     stores.push(storage);
   }
-  expect(stores.map((storage) => storage.readProgress().done)).toEqual([
-    1, 2, 3, 4,
-  ]);
+  expect(
+    stores.map((storage) => storage.loadProgress().data.totals.done),
+  ).toEqual([1, 2, 3, 4]);
   expect(new Set(stores.map((storage) => storage.THEME_KEY)).size).toBe(4);
 });
 

@@ -9,14 +9,16 @@ describe('sentence formulas', () => {
     for (const tense of times) {
       for (const form of forms) {
         for (const [index, person] of people.entries()) {
-          const verb = verbs[0]; // write / writes / wrote / written / writing
+          const verb = verbs.find((verb) =>
+            verb.subjects ? verb.subjects.includes(person.p) : person.p < 6,
+          )!;
           const substitutions: Record<string, string> = {
             S: person.en,
-            V1: verb[0],
-            'V-s': verb[1],
-            V2: verb[2],
-            V3: verb[3],
-            'V-ing': verb[4],
+            V1: verb.base,
+            'V-s': verb.thirdPerson,
+            V2: verb.past,
+            V3: verb.participle,
+            'V-ing': verb.ing,
           };
           const core = formula(tense.id, form, index as PersonId)
             .map((part) => substitutions[part] ?? part)

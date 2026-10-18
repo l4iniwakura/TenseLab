@@ -1,3 +1,4 @@
+import { people } from './catalog';
 import type { Form, PersonId, TenseId } from './types';
 
 // S = subject; V1, V2, V3 = base, past and past participle forms.
@@ -6,7 +7,7 @@ export function formula(
   form: Form,
   person?: PersonId,
 ): string[] {
-  const third = person === 2 || person === 3;
+  const third = person !== undefined && people[person].thirdPerson;
   const generic = person === undefined;
   const presentBe = generic
     ? 'am / is / are'

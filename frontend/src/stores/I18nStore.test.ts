@@ -7,7 +7,8 @@ import {
   type UiLocale,
 } from './I18nStore';
 import { RootStore } from './RootStore';
-import { LOCALE_KEY, PROGRESS_KEY, THEME_KEY } from '../storage/local';
+import { HISTORY_KEY } from '../storage/progress';
+import { LOCALE_KEY, THEME_KEY } from '../storage/local';
 
 beforeEach(() => localStorage.clear());
 afterEach(() => vi.restoreAllMocks());
@@ -100,14 +101,20 @@ describe('UI locale contract', () => {
       drill: root.drill,
       translation: root.translation,
     });
-    const progress = localStorage.getItem(PROGRESS_KEY);
+    const progress = localStorage.getItem(HISTORY_KEY);
+    expect(progress).not.toBeNull();
+    expect(JSON.parse(progress!).totals.done).toBe(1);
+    const progressInMemory = JSON.stringify(root.progress.data);
+    const progressStats = { ...root.progress.stats };
     const theme = localStorage.getItem(THEME_KEY);
     root.i18n.setLocale('de');
     expect(root.message).toContain('Der Satz');
     expect(
       JSON.stringify({ drill: root.drill, translation: root.translation }),
     ).toBe(snapshot);
-    expect(localStorage.getItem(PROGRESS_KEY)).toBe(progress);
+    expect(localStorage.getItem(HISTORY_KEY)).toBe(progress);
+    expect(JSON.stringify(root.progress.data)).toBe(progressInMemory);
+    expect(root.progress.stats).toEqual(progressStats);
     expect(localStorage.getItem(THEME_KEY)).toBe(theme);
     expect(root.i18n.contentLocale).toBe('ru');
     expect(root.i18n.targetLanguage).toBe('en');

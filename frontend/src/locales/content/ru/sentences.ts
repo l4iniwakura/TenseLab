@@ -22,7 +22,8 @@ export function russian(
   verb: Verb,
 ): string {
   const subject = people[person].ru;
-  const past = verb[7][person === 3 ? 1 : person >= 4 ? 2 : 0];
+  const { pronoun, pastGender } = people[person];
+  const past = verb.ruPast[pastGender];
   const isPresent = [
     'presentSimple',
     'presentContinuous',
@@ -35,13 +36,14 @@ export function russian(
     'pastPerfectContinuous',
   ].includes(tense);
   let conjugated = isPresent
-    ? verb[6][person]
+    ? verb.ruPresent[pronoun]
     : isPast
       ? past
-      : `${['буду', 'будешь', 'будет', 'будет', 'будем', 'будут'][person]} ${verb[5]}`;
-  if (tense === 'presentPerfect' || tense === 'pastPerfect') conjugated = past;
+      : `${['буду', 'будешь', 'будет', 'будет', 'будем', 'будут'][pronoun]} ${verb.ruInfinitive}`;
+  if (tense === 'presentPerfect' || tense === 'pastPerfect')
+    conjugated = verb.ruPerfect?.past[pastGender] ?? past;
   if (tense === 'futurePerfect')
-    conjugated = `${['успею', 'успеешь', 'успеет', 'успеет', 'успеем', 'успеют'][person]} ${verb[5]}`;
+    conjugated = `${['успею', 'успеешь', 'успеет', 'успеет', 'успеем', 'успеют'][pronoun]} ${verb.ruPerfect?.infinitive ?? verb.ruInfinitive}`;
   const perfect = tense === 'presentPerfect' || tense === 'pastPerfect';
   const modifier = perfect
     ? form === 'neg'
@@ -50,6 +52,6 @@ export function russian(
     : form === 'neg'
       ? 'не '
       : '';
-  const statement = `${subject} ${form === 'q' ? (perfect ? 'уже ' : '') : modifier}${conjugated} ${verb[8]}`;
+  const statement = `${subject} ${form === 'q' ? (perfect ? 'уже ' : '') : modifier}${conjugated} ${verb.ruObject}`;
   return `${leads[tense]} ${statement[0].toLowerCase()}${statement.slice(1)}${form === 'q' ? '?' : '.'}`;
 }
