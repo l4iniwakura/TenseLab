@@ -51,7 +51,7 @@ export class DrillStore {
   }
   get source() {
     const verb = verbs[this.verbIndex];
-    return `${people[this.person].en} · ${verb[0]} · ${verb[9]}`;
+    return `${people[this.person].en} · ${verb.base} · ${verb.object}`;
   }
   get percentage() {
     return (this.index / this.sequence.length) * 100;

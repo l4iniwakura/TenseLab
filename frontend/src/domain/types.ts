@@ -4,18 +4,18 @@ export type TenseId =
 export type GroupId = Aspect | 'all' | 'presentPerfect';
 export type Form = 'pos' | 'neg' | 'q';
 export type PersonId = 0 | 1 | 2 | 3 | 4 | 5;
-export type Verb = [
-  string,
-  string,
-  string,
-  string,
-  string,
-  string,
-  [string, string, string, string, string, string],
-  [string, string, string],
-  string,
-  string,
-];
+export interface Verb {
+  base: string;
+  thirdPerson: string;
+  past: string;
+  participle: string;
+  ing: string;
+  ruInfinitive: string;
+  ruPresent: [string, string, string, string, string, string];
+  ruPast: { masculine: string; feminine: string; plural: string };
+  ruObject: string;
+  object: string;
+}
 export interface Tense {
   id: TenseId;
   label: string;
