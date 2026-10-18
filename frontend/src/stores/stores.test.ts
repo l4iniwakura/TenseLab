@@ -194,7 +194,7 @@ describe('translation filters and retries', () => {
   it('only generates requested coordinates and clears incompatible retries', () => {
     const store = new TranslationStore(new ProgressStore());
     store.setGroup('all');
-    expect(store.pool).toHaveLength(7344);
+    expect(store.pool).toHaveLength(7560);
     store.setTense('presentPerfect');
     store.setPerson(3);
     store.setForm('q');

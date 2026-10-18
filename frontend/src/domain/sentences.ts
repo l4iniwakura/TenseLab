@@ -25,7 +25,7 @@ export function eng(
   verb: Verb,
 ): string {
   const subject = people[person].en;
-  const thirdPerson = person === 2 || person === 3;
+  const thirdPerson = people[person].thirdPerson;
   const has = thirdPerson ? 'has' : 'have';
   const be = person === 0 ? 'am' : thirdPerson ? 'is' : 'are';
   const was = person === 0 || thirdPerson ? 'was' : 'were';

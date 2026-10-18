@@ -1,12 +1,92 @@
-import type { Verb, Tense, GroupId, Group } from '../../../domain/types';
+import type {
+  Verb,
+  Tense,
+  GroupId,
+  Group,
+  Person,
+} from '../../../domain/types';
 
-export const people = [
-  { en: 'I', ru: 'Я', p: 0 },
-  { en: 'you', ru: 'Ты', p: 1 },
-  { en: 'he', ru: 'Он', p: 2 },
-  { en: 'she', ru: 'Она', p: 3 },
-  { en: 'we', ru: 'Мы', p: 4 },
-  { en: 'they', ru: 'Они', p: 5 },
+export const people: Person[] = [
+  {
+    en: 'I',
+    ru: 'Я',
+    p: 0,
+    pronoun: 0,
+    thirdPerson: false,
+    pastGender: 'masculine',
+  },
+  {
+    en: 'you',
+    ru: 'Ты',
+    p: 1,
+    pronoun: 1,
+    thirdPerson: false,
+    pastGender: 'masculine',
+  },
+  {
+    en: 'he',
+    ru: 'Он',
+    p: 2,
+    pronoun: 2,
+    thirdPerson: true,
+    pastGender: 'masculine',
+  },
+  {
+    en: 'she',
+    ru: 'Она',
+    p: 3,
+    pronoun: 3,
+    thirdPerson: true,
+    pastGender: 'feminine',
+  },
+  {
+    en: 'we',
+    ru: 'Мы',
+    p: 4,
+    pronoun: 4,
+    thirdPerson: false,
+    pastGender: 'plural',
+  },
+  {
+    en: 'they',
+    ru: 'Они',
+    p: 5,
+    pronoun: 5,
+    thirdPerson: false,
+    pastGender: 'plural',
+  },
+  {
+    en: 'it',
+    ru: 'Оно',
+    p: 6,
+    pronoun: 2,
+    thirdPerson: true,
+    pastGender: 'neuter',
+  },
+  {
+    en: 'the computer',
+    ru: 'Компьютер',
+    p: 7,
+    pronoun: 2,
+    thirdPerson: true,
+    pastGender: 'masculine',
+  },
+  {
+    en: 'the train',
+    ru: 'Поезд',
+    p: 8,
+    pronoun: 2,
+    thirdPerson: true,
+    pastGender: 'masculine',
+  },
+  {
+    en: 'the phone',
+    ru: 'Телефон',
+    p: 9,
+    pronoun: 2,
+    thirdPerson: true,
+    pastGender: 'masculine',
+  },
 ];
 export const verbs: Verb[] = [
   {
@@ -19,6 +99,7 @@ export const verbs: Verb[] = [
     ruPresent: ['пишу', 'пишешь', 'пишет', 'пишет', 'пишем', 'пишут'],
     ruPast: {
       masculine: 'писал',
+      neuter: 'писало',
       feminine: 'писала',
       plural: 'писали',
     },
@@ -35,6 +116,7 @@ export const verbs: Verb[] = [
     ruPresent: ['читаю', 'читаешь', 'читает', 'читает', 'читаем', 'читают'],
     ruPast: {
       masculine: 'читал',
+      neuter: 'читало',
       feminine: 'читала',
       plural: 'читали',
     },
@@ -58,6 +140,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'проверял',
+      neuter: 'проверяло',
       feminine: 'проверяла',
       plural: 'проверяли',
     },
@@ -81,6 +164,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'исправлял',
+      neuter: 'исправляло',
       feminine: 'исправляла',
       plural: 'исправляли',
     },
@@ -104,6 +188,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'готовил',
+      neuter: 'готовило',
       feminine: 'готовила',
       plural: 'готовили',
     },
@@ -127,6 +212,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'смотрел',
+      neuter: 'смотрело',
       feminine: 'смотрела',
       plural: 'смотрели',
     },
@@ -150,6 +236,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'изучал',
+      neuter: 'изучало',
       feminine: 'изучала',
       plural: 'изучали',
     },
@@ -173,6 +260,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'убирал',
+      neuter: 'убирало',
       feminine: 'убирала',
       plural: 'убирали',
     },
@@ -189,6 +277,7 @@ export const verbs: Verb[] = [
     ruPresent: ['строю', 'строишь', 'строит', 'строит', 'строим', 'строят'],
     ruPast: {
       masculine: 'строил',
+      neuter: 'строило',
       feminine: 'строила',
       plural: 'строили',
     },
@@ -205,6 +294,7 @@ export const verbs: Verb[] = [
     ruPresent: ['крашу', 'красишь', 'красит', 'красит', 'красим', 'красят'],
     ruPast: {
       masculine: 'красил',
+      neuter: 'красило',
       feminine: 'красила',
       plural: 'красили',
     },
@@ -221,6 +311,7 @@ export const verbs: Verb[] = [
     ruPresent: ['рисую', 'рисуешь', 'рисует', 'рисует', 'рисуем', 'рисуют'],
     ruPast: {
       masculine: 'рисовал',
+      neuter: 'рисовало',
       feminine: 'рисовала',
       plural: 'рисовали',
     },
@@ -244,6 +335,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'открывал',
+      neuter: 'открывало',
       feminine: 'открывала',
       plural: 'открывали',
     },
@@ -267,6 +359,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'закрывал',
+      neuter: 'закрывало',
       feminine: 'закрывала',
       plural: 'закрывали',
     },
@@ -283,6 +376,7 @@ export const verbs: Verb[] = [
     ruPresent: ['мою', 'моешь', 'моет', 'моет', 'моем', 'моют'],
     ruPast: {
       masculine: 'мыл',
+      neuter: 'мыло',
       feminine: 'мыла',
       plural: 'мыли',
     },
@@ -306,6 +400,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'готовил',
+      neuter: 'готовило',
       feminine: 'готовила',
       plural: 'готовили',
     },
@@ -322,6 +417,7 @@ export const verbs: Verb[] = [
     ruPresent: ['играю', 'играешь', 'играет', 'играет', 'играем', 'играют'],
     ruPast: {
       masculine: 'играл',
+      neuter: 'играло',
       feminine: 'играла',
       plural: 'играли',
     },
@@ -345,6 +441,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'тренировал',
+      neuter: 'тренировало',
       feminine: 'тренировала',
       plural: 'тренировали',
     },
@@ -368,6 +465,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'ремонтировал',
+      neuter: 'ремонтировало',
       feminine: 'ремонтировала',
       plural: 'ремонтировали',
     },
@@ -391,6 +489,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'организовывал',
+      neuter: 'организовывало',
       feminine: 'организовывала',
       plural: 'организовывали',
     },
@@ -414,6 +513,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'проверял',
+      neuter: 'проверяло',
       feminine: 'проверяла',
       plural: 'проверяли',
     },
@@ -437,6 +537,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'переводил',
+      neuter: 'переводило',
       feminine: 'переводила',
       plural: 'переводили',
     },
@@ -460,6 +561,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'записывал',
+      neuter: 'записывало',
       feminine: 'записывала',
       plural: 'записывали',
     },
@@ -483,6 +585,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'монтировал',
+      neuter: 'монтировало',
       feminine: 'монтировала',
       plural: 'монтировали',
     },
@@ -506,6 +609,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'планировал',
+      neuter: 'планировало',
       feminine: 'планировала',
       plural: 'планировали',
     },
@@ -522,6 +626,7 @@ export const verbs: Verb[] = [
     ruPresent: ['решаю', 'решаешь', 'решает', 'решает', 'решаем', 'решают'],
     ruPast: {
       masculine: 'решал',
+      neuter: 'решало',
       feminine: 'решала',
       plural: 'решали',
     },
@@ -545,6 +650,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'тестировал',
+      neuter: 'тестировало',
       feminine: 'тестировала',
       plural: 'тестировали',
     },
@@ -568,6 +674,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'проектировал',
+      neuter: 'проектировало',
       feminine: 'проектировала',
       plural: 'проектировали',
     },
@@ -584,6 +691,7 @@ export const verbs: Verb[] = [
     ruPresent: ['учу', 'учишь', 'учит', 'учит', 'учим', 'учат'],
     ruPast: {
       masculine: 'учил',
+      neuter: 'учило',
       feminine: 'учила',
       plural: 'учили',
     },
@@ -607,6 +715,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'собирал',
+      neuter: 'собирало',
       feminine: 'собирала',
       plural: 'собирали',
     },
@@ -630,6 +739,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'отвечал на',
+      neuter: 'отвечало на',
       feminine: 'отвечала на',
       plural: 'отвечали на',
     },
@@ -653,6 +763,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'обсуждал',
+      neuter: 'обсуждало',
       feminine: 'обсуждала',
       plural: 'обсуждали',
     },
@@ -676,6 +787,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'объяснял',
+      neuter: 'объясняло',
       feminine: 'объясняла',
       plural: 'объясняли',
     },
@@ -699,6 +811,7 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'тренировал',
+      neuter: 'тренировало',
       feminine: 'тренировала',
       plural: 'тренировали',
     },
@@ -722,11 +835,107 @@ export const verbs: Verb[] = [
     ],
     ruPast: {
       masculine: 'поливал',
+      neuter: 'поливало',
       feminine: 'поливала',
       plural: 'поливали',
     },
     ruObject: 'цветы',
     object: 'the flowers',
+  },
+  {
+    base: 'process',
+    thirdPerson: 'processes',
+    past: 'processed',
+    participle: 'processed',
+    ing: 'processing',
+    object: 'data',
+    ruObject: 'данные',
+    ruInfinitive: 'обрабатывать',
+    ruPresent: [
+      'обрабатываю',
+      'обрабатываешь',
+      'обрабатывает',
+      'обрабатывает',
+      'обрабатываем',
+      'обрабатывают',
+    ],
+    ruPast: {
+      masculine: 'обрабатывал',
+      feminine: 'обрабатывала',
+      neuter: 'обрабатывало',
+      plural: 'обрабатывали',
+    },
+    ruPerfect: {
+      infinitive: 'обработать',
+      past: {
+        masculine: 'обработал',
+        feminine: 'обработала',
+        neuter: 'обработало',
+        plural: 'обработали',
+      },
+    },
+    subjects: [6, 7],
+  },
+  {
+    base: 'travel',
+    thirdPerson: 'travels',
+    past: 'travelled',
+    participle: 'travelled',
+    ing: 'travelling',
+    object: 'along this route',
+    ruObject: 'по этому маршруту',
+    ruInfinitive: 'ехать',
+    ruPresent: ['еду', 'едешь', 'едет', 'едет', 'едем', 'едут'],
+    ruPast: {
+      masculine: 'ехал',
+      feminine: 'ехала',
+      neuter: 'ехало',
+      plural: 'ехали',
+    },
+    ruPerfect: {
+      infinitive: 'проехать',
+      past: {
+        masculine: 'проехал',
+        feminine: 'проехала',
+        neuter: 'проехало',
+        plural: 'проехали',
+      },
+    },
+    subjects: [6, 8],
+  },
+  {
+    base: 'charge',
+    thirdPerson: 'charges',
+    past: 'charged',
+    participle: 'charged',
+    ing: 'charging',
+    object: 'on the desk',
+    ruObject: 'на столе',
+    ruInfinitive: 'заряжаться',
+    ruPresent: [
+      'заряжаюсь',
+      'заряжаешься',
+      'заряжается',
+      'заряжается',
+      'заряжаемся',
+      'заряжаются',
+    ],
+    ruPast: {
+      masculine: 'заряжался',
+      feminine: 'заряжалась',
+      neuter: 'заряжалось',
+      plural: 'заряжались',
+    },
+    ruPerfect: {
+      infinitive: 'зарядиться',
+      past: {
+        masculine: 'зарядился',
+        feminine: 'зарядилась',
+        neuter: 'зарядилось',
+        plural: 'зарядились',
+      },
+    },
+    subjects: [6, 9],
   },
 ];
 export const times: Tense[] = [

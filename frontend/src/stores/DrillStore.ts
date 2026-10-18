@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { groups, people, verbs } from '../domain/catalog';
 import { eng } from '../domain/sentences';
+import { phrases } from '../domain/phrases';
 import type { ProgressStore } from './ProgressStore';
 import {
   forms,
@@ -79,12 +80,14 @@ export class DrillStore {
   }
   choosePhrase() {
     // Sample uniformly from all combinations except the immediately previous one.
-    const total = people.length * verbs.length;
-    const previous = this.person * verbs.length + this.verbIndex;
-    let next = Math.floor(Math.random() * (total - 1));
+    const previous = phrases.findIndex(
+      (phrase) =>
+        phrase.person === this.person && phrase.verbIndex === this.verbIndex,
+    );
+    let next = Math.floor(Math.random() * (phrases.length - 1));
     if (next >= previous) next++;
-    this.person = Math.floor(next / verbs.length) as PersonId;
-    this.verbIndex = next % verbs.length;
+    this.person = phrases[next].person;
+    this.verbIndex = phrases[next].verbIndex;
   }
   advance() {
     // Advancing completes the current card. Jumping alone never completes one.
