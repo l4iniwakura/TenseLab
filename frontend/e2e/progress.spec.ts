@@ -81,8 +81,9 @@ test('protects unknown stored versions while practising', async ({ page }) => {
 test('selects historical days with keyboard and shows an accessible calendar in both themes', async ({
   page,
 }, testInfo) => {
+  const today = '2026-10-16';
+  await page.clock.install({ time: new Date(`${today}T12:00:00`) });
   await page.goto('./#progress');
-  const today = localDate();
   const days: Record<
     string,
     { done: number; right: number; unknown: number; drills: number }
