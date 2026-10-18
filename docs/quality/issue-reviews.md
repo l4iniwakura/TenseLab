@@ -56,3 +56,41 @@ Validation: format, lint, TypeScript and production build pass; 24 unit tests pa
 ## #17 — Storage test formatting recheck (2026-10-18)
 
 Rechecked on develop f791a98. Prettier produces no diff for src/storage/local.test.ts; the reported formatting problem is not present in this committed revision. No behavioral or cosmetic change was manufactured. `npm run format:check` passes and all 45 unit tests pass. Formatting remains a required workflow gate.
+
+
+## Develop maintenance review — 2026-10-18
+
+Base: `origin/develop` at `f791a98`; work branch: `codex/develop-cleanup`. Scope: domain generators/formulas, drill and translation lifecycle, progress persistence/migration, UI locale resources, app navigation/PWA lifecycle, and Pages checks/planning/packaging. This was a code and regression review, not an external penetration test or a linguistic rewrite of the legacy pack.
+
+### Delivered independently
+
+| Item | Outcome |
+| --- | --- |
+| Calendar | All practice is the default; drill/translation filters remain. German label is `Alle Übungen`. Browser assertions cover mixed activity and translations without drills. The fixture uses a fixed mid-month date so mobile tests also work when run on the first day of a month. |
+| #17 | Not reproducible on committed develop: formatting the named file produces no tracked diff. Full format check passes. Kept a separate verification commit instead of manufacturing a code change. |
+| #18 | Locale switching checks an existing nonempty v2 HISTORY_KEY plus in-memory data/stats, learning state and theme. |
+| #19 | Removed unused export/import/reset/restore methods, their exclusively supporting tests/resources, the obsolete v1 reader and backup parser. Automatic v1 migration and raw backups remain. Invalid/unknown schemas, denied reads/writes, quota errors and stale-tab conflicts retain test coverage. Channel-isolation tests now exercise v2. |
+| #21 | Verb tuples became named fields, including named Russian past genders. All 7,344 original English/Russian combinations pass exhaustive parity; order remains intact. No wording changes were mixed into that refactor commit. |
+| #20 | Shared composite action runs the full frontend validation for each source revision. Separate tooling checkout uses immutable github.workflow_sha, including closed-PR events; channels, preview metadata, permissions, matrix error isolation and publishing gates remain. actionlint passes; live GitHub event verification is documented in docs/deployment.md. |
+| #16 | Added it/computer/train/phone with reviewed subject/verb pairs, third-person agreement, Russian gender and perfective forms for the new content. Original combinations remain available; full pool is 7,560. Filters, retries, normal drills, every tense/form and formula agreement are covered. |
+| Packaging review fix | Validate the root version-selector index.html before deleting the previous output. A regression test failed before the fix and passes after it. This protects the local package directory; the live site only changes after deployment succeeds. |
+
+### Review assessment and remaining work
+
+A focused cleanup was justified and is now implemented. The existing domain/store/feature/storage boundaries are appropriate for this static practice app; a framework migration, backend, general-purpose recovery framework or blanket rewrite would add work without addressing the findings above.
+
+Two useful follow-ups remain outside the six issues:
+
+1. **P2 — Contraction comparison is incomplete and ambiguous** (`frontend/src/domain/answers.ts`, lines 15–24). `he's` and `she's` always expand to *is*, so a valid answer such as “She's written a report” differs from “She has written a report”. `it's` is not expanded at all. A later change should compare context-aware alternatives and test both *is* and *has*, rather than blindly adding one expansion. This affects comparison feedback, not user-controlled self-assessment or stored totals.
+2. **P3 — Legacy content still needs an editorial pass.** Exhaustive parity deliberately preserves its known linguistic limitations; it proves migration stability, not teaching quality. Review Russian aspect, context and natural combinations as a separate content task with approved examples. New inanimate pairs are constrained and use explicit perfective forms; they do not repair the original pack.
+
+### Validation
+
+- 48 unit tests pass, including all 7,344 legacy English/Russian pairs, locale persistence and storage safety.
+- Frontend lint, format check, TypeScript and production build pass.
+- App browser coverage runs on desktop and emulated iPhone, including navigation, filters, keyboard, progress, all three locales, speech and offline reload. Final run recorded in the delivery response; PR-only tests intentionally skip in app mode.
+- PR channel `pr-3`: production build plus four desktop/mobile tests pass (network-only reload, absence of service worker, new subject filters).
+- Eight Node planner/packaging tests pass; actionlint reports no workflow issues. The Impeccable detector reports no findings for ActivityCalendar/Translation.
+- GitHub Actions itself has not run for these local commits. Event-driven publication/cleanup acceptance scenarios are documented; do not treat local checks as a deployed release.
+
+The generated `.impeccable/` work artifacts are ignored; source files and regression evidence stay in version control. Existing separate migration-worktree files were not changed by this maintenance work.
