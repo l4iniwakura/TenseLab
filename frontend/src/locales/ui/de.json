@@ -146,6 +146,7 @@
   "progress.correct": "Als „Geschafft“ bewertet",
   "progress.activity": "Übungskalender",
   "progress.metric": "Kalenderkennzahl",
+  "progress.allPractice": "Alle Übungen",
   "progress.calendarHelp": "Die letzten 12 Monate. Wähle einen Tag für Details. Mit den Pfeiltasten bewegst du den Fokus; Enter wählt den Tag aus.",
   "progress.month": "Monat",
   "progress.cell": "Drills: {drills}, Übersetzungen: {done}",

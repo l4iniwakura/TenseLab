@@ -146,6 +146,7 @@
   "progress.correct": "Marked “Got it”",
   "progress.activity": "Practice calendar",
   "progress.metric": "Calendar metric",
+  "progress.allPractice": "All practice",
   "progress.calendarHelp": "Last 12 months. Select a day for details. Use the arrow keys to move through the calendar and Enter to select a day.",
   "progress.month": "Month",
   "progress.cell": "drills: {drills}, translations: {done}",

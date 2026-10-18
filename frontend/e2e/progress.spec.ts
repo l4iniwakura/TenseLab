@@ -118,6 +118,29 @@ test('selects historical days with keyboard and shows an accessible calendar in 
     { key, data },
   );
   await page.reload();
+  const metric = page.getByLabel('Показатель календаря');
+  const mixedDay = Object.keys(days)[2];
+  const mixedCell = page.locator(`button[data-day="${mixedDay}"]:visible`);
+  await expect(metric).toHaveValue('all');
+  await expect(mixedCell).toHaveAttribute('data-level', '2');
+  await metric.selectOption('drills');
+  await expect(mixedCell).toHaveAttribute('data-level', '1');
+  await metric.selectOption('done');
+  await expect(mixedCell).toHaveAttribute('data-level', '1');
+  await metric.selectOption('all');
+  await expect(mixedCell).toHaveAttribute('data-level', '2');
+  // Index 4 has four translations and no drills; it must stay visible by default.
+  const translationDay = Object.keys(days)[4];
+  const translationCell = page.locator(
+    `button[data-day="${translationDay}"]:visible`,
+  );
+  await expect(translationCell).toHaveAttribute('data-level', '2');
+  await metric.selectOption('drills');
+  await expect(translationCell).toHaveAttribute('data-level', '0');
+  await metric.selectOption('done');
+  await expect(translationCell).toHaveAttribute('data-level', '2');
+  await metric.selectOption('all');
+  await expect(translationCell).toHaveAttribute('data-level', '2');
   const cell = page.locator(`button[data-day="${today}"]:visible`);
   await cell.focus();
   await page.keyboard.press('ArrowUp');

@@ -152,6 +152,7 @@
   "progress.correct": "Отмечено «получилось»",
   "progress.activity": "Календарь практики",
   "progress.metric": "Показатель календаря",
+  "progress.allPractice": "Вся практика",
   "progress.calendarHelp": "Последние 12 месяцев. Выбери день, чтобы увидеть подробности. Клавиши со стрелками перемещают фокус по календарю, Enter выбирает день.",
   "progress.month": "Месяц",
   "progress.cell": "дриллы: {drills}, переводы: {done}",
