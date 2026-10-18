@@ -2,7 +2,6 @@ import { localDay, PROGRESS_KEY } from './local';
 
 export const CHANNEL = import.meta.env.VITE_APP_CHANNEL ?? 'app';
 export const HISTORY_KEY = `tenselab:${CHANNEL}:progress:v2`;
-export const LEGACY_KEY = 'tenselab-progress-v1';
 export interface DayProgress {
   done: number;
   right: number;
@@ -136,7 +135,7 @@ export function migrateV1(raw: string): ProgressData {
   return data;
 }
 
-/** A backup must succeed before any migration or explicit replacement. Originals stay intact. */
+/** A backup must succeed before migration. Originals stay intact. */
 export function backupRaw(key: string, raw: string) {
   localStorage.setItem(
     `${key}:backup:${new Date().toISOString()}:${crypto.randomUUID()}`,
@@ -173,13 +172,6 @@ export function loadProgress(): {
   } catch {
     return { data: newProgress(), raw, problem: 'invalid' };
   }
-}
-
-export function parseBackup(text: string): ProgressData {
-  const value: unknown = JSON.parse(text);
-  if (object(value) && value.format === 'tenselab-progress')
-    return validateProgress(value.data);
-  return validateProgress(value);
 }
 
 /** Calendar arithmetic uses local noon, including DST changes. */

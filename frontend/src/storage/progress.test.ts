@@ -3,10 +3,8 @@ import { ProgressStore } from '../stores/ProgressStore';
 import { localDay, PROGRESS_KEY } from './local';
 import {
   HISTORY_KEY,
-  LEGACY_KEY,
   isDay,
   newProgress,
-  parseBackup,
   shiftDay,
   validateProgress,
 } from './progress';
@@ -74,8 +72,7 @@ describe('lossless progress migration', () => {
       expect(store.problem).toBe('invalid');
       expect(localStorage.getItem(HISTORY_KEY)).toBe(raw);
       expect(localStorage.getItem(PROGRESS_KEY)).toBe(legacy());
-      expect(store.exportOriginal()).toBe(raw);
-      expect(parseBackup(store.exportBackup()).totals.done).toBe(1);
+      expect(store.stats).toMatchObject({ done: 1, drills: 1 });
     },
   );
   it('does not create v2 if legacy data is invalid', () => {
@@ -128,8 +125,7 @@ describe('lossless progress migration', () => {
     store.record(false);
     expect(store.problem).toBe('write');
     expect(localStorage.getItem(HISTORY_KEY)).toBe(raw);
-    expect(parseBackup(store.exportBackup()).totals.done).toBe(2);
-    expect(store.reset()).toBe(false);
+    expect(store.data.totals.done).toBe(2);
     expect(store.stats.done).toBe(2);
   });
   it('keeps the migration snapshot if writing v2 fails after backing up v1', () => {
@@ -160,12 +156,13 @@ describe('lossless progress migration', () => {
     stale.recordDrill();
     expect(stale.problem).toBe('conflict');
     expect(new ProgressStore().stats).toMatchObject({ done: 1, drills: 0 });
-    expect(stale.replace(newProgress())).toBe(false);
+    stale.record(true);
+    expect(stale.problem).toBe('conflict');
     expect(new ProgressStore().stats.done).toBe(1);
   });
 });
 
-describe('daily history and safe backup replacement', () => {
+describe('daily history and validation', () => {
   it('keeps previous days, failed translations and drills through midnight and reload', () => {
     vi.setSystemTime(new Date(2026, 9, 15, 23, 59));
     const store = new ProgressStore();
@@ -196,63 +193,6 @@ describe('daily history and safe backup replacement', () => {
     store.selectDay('2026-10-99');
     expect(store.viewingDay).toBe('2026-10-14');
   });
-  it('round-trips every field and importing twice never adds totals', () => {
-    const store = new ProgressStore();
-    store.record(true);
-    store.recordDrill();
-    const exported = store.exportBackup();
-    const candidate = store.previewImport(exported);
-    store.record(false);
-    expect(store.replace(candidate)).toBe(true);
-    expect(store.replace(candidate)).toBe(true);
-    expect(new ProgressStore().data).toEqual(candidate);
-    expect(
-      snapshots().some((key) =>
-        localStorage.getItem(key)?.includes('"done":2'),
-      ),
-    ).toBe(true);
-    expect(store.stats.done).toBe(1);
-  });
-  it('explicitly restores old HTML totals without merging or deleting the source', () => {
-    localStorage.setItem(LEGACY_KEY, legacy());
-    const store = new ProgressStore();
-    store.recordDrill();
-    const candidate = store.legacyBackup();
-    expect(store.stats.drills).toBe(1);
-    expect(store.replace(candidate)).toBe(true);
-    expect(store.stats).toMatchObject({ done: 83, drills: 0 });
-    expect(localStorage.getItem(LEGACY_KEY)).toBe(legacy());
-    expect(() => new ProgressStore().legacyBackup()).toThrow('recovered');
-    store.reset();
-    expect(store.data.legacyRecovered).toBe(true);
-  });
-  it('backs up even corrupt originals before explicit replacement', () => {
-    localStorage.setItem(HISTORY_KEY, '{');
-    const store = new ProgressStore();
-    expect(store.replace(newProgress())).toBe(true);
-    expect(snapshots().some((key) => localStorage.getItem(key) === '{')).toBe(
-      true,
-    );
-    expect(new ProgressStore().problem).toBeNull();
-  });
-  it('can inspect and restore both raw v1 snapshots and pre-reset v2 session backups', () => {
-    localStorage.setItem(PROGRESS_KEY, legacy());
-    const store = new ProgressStore();
-    const migratedCopy = store.localBackups()[0];
-    expect(store.previewLocalBackup(migratedCopy).totals.done).toBe(83);
-    store.recordDrill();
-    expect(store.reset()).toBe(true);
-    const restorable = store
-      .localBackups()
-      .find((key) => store.readLocalBackup(key).includes('"drills":1'))!;
-    expect(store.replace(store.previewLocalBackup(restorable))).toBe(true);
-    expect(new ProgressStore().stats).toMatchObject({
-      done: 83,
-      right: 61,
-      drills: 1,
-    });
-    expect(() => store.readLocalBackup(LEGACY_KEY)).toThrow('missing');
-  });
   it('rejects invalid dates, unknown versions and inconsistent counters without mutation', () => {
     const store = new ProgressStore();
     store.record(true);
@@ -266,7 +206,7 @@ describe('daily history and safe backup replacement', () => {
       },
       { ...newProgress(), totals: { done: 1, right: 2, streak: 0, drills: 0 } },
     ]) {
-      expect(() => store.previewImport(JSON.stringify(value))).toThrow();
+      expect(() => validateProgress(value)).toThrow();
     }
     expect(localStorage.getItem(HISTORY_KEY)).toBe(before);
     expect(isDay('2024-02-29')).toBe(true);
